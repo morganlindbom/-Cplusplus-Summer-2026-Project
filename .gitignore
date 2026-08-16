@@ -1,10 +1,10 @@
 # CMake build output (the source tree contains a real src/.../build folder).
 /build/
+/build-*/
 
 # IDE and editor files.
 .vs/
 .idea/
-.vscode/
 *.suo
 *.user
 *.userosscache
@@ -39,4 +39,3 @@ __pycache__/
 Thumbs.db
 *.swp
 *.swo
-

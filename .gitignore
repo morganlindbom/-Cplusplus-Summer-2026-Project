@@ -1,0 +1,42 @@
+# CMake build output (the source tree contains a real src/.../build folder).
+/build/
+
+# IDE and editor files.
+.vs/
+.idea/
+.vscode/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# C/C++ compiler output.
+*.o
+*.obj
+*.a
+*.lib
+*.so
+*.dll
+*.dylib
+*.exe
+*.pdb
+*.ilk
+
+# CMake generated files when a build is configured in the source tree.
+CMakeCache.txt
+cmake_install.cmake
+CMakeFiles/
+CTestTestfile.cmake
+compile_commands.json
+Testing/
+
+# Python tooling caches.
+__pycache__/
+*.py[cod]
+
+# OS/editor noise.
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+

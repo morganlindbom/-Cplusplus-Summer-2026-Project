@@ -16,8 +16,6 @@ namespace
     constexpr int kDefaultWindowWidth = 1200;
     constexpr int kDefaultWindowHeight = 600;
 
-    constexpr int kTargetScreenIndex = 2;
-
     constexpr float kWorkflowColumnPercent = .15f;
     constexpr float kProjectSettingsColumnPercent = .20f;
     constexpr float kProjectManagementColumnPercent = .50f;
@@ -33,11 +31,9 @@ namespace pvd
         /**Creates the permanent four-column shell used by every workflow page.*/
         resize(kDefaultWindowWidth, kDefaultWindowHeight);
         setMinimumSize(600, 400);
-        const auto screens = QApplication::screens();
-        if (!screens.isEmpty())
+        if (const auto *screen = QApplication::primaryScreen())
         {
-            const int screenIndex = std::clamp(kTargetScreenIndex, 0, int(screens.size()) - 1);
-            const QRect area = screens[screenIndex]->availableGeometry();
+            const QRect area = screen->availableGeometry();
             move(area.center() - QPoint(width() / 2, height() / 2));
         }
         auto *root = new QWidget(this);

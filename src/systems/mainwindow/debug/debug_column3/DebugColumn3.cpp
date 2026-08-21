@@ -48,7 +48,10 @@ void DebugColumn3::stopServer()
     QTcpSocket control;
     control.connectToHost(QHostAddress::LocalHost,4444);
     if(control.waitForConnected(500)){
-        control.write("shutdown\n");
+        // A debugger may leave one or both RP2350 cores halted. Resume the
+        // target before shutting down OpenOCD so Stop returns hardware to the
+        // same running state it had before the debug session.
+        control.write("reset run\nshutdown\n");
         control.waitForBytesWritten(500);
         control.waitForDisconnected(1500);
     }

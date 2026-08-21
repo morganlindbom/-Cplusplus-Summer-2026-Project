@@ -40,4 +40,16 @@ if(BUILD_TESTING)
         COMMAND ${CMAKE_COMMAND} -E env
             PVD_PROJECT_ROOT=${CMAKE_CURRENT_SOURCE_DIR}
             ${CMAKE_COMMAND} -P ${CMAKE_CURRENT_SOURCE_DIR}/tests/database_integrity.cmake)
+    add_executable(multicore_generator_tests
+        tests/multicore_generator_tests.cpp
+        src/systems/generation/ProjectGenerator.cpp
+        src/systems/generation/BoardStartupSanitation.cpp
+        src/systems/generation/FunctionExecutionModel.cpp
+        src/systems/components/PicoPinMap.cpp
+        src/systems/project/ProjectStore.cpp)
+    target_include_directories(multicore_generator_tests PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/src")
+    target_compile_definitions(multicore_generator_tests PRIVATE
+        PVD_RUNTIME_ROOT="${CMAKE_BINARY_DIR}/runtime")
+    target_link_libraries(multicore_generator_tests PRIVATE Qt6::Core Qt6::Sql)
+    add_test(NAME multicore_generator COMMAND multicore_generator_tests)
 endif()

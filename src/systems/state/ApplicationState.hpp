@@ -21,8 +21,12 @@ class ApplicationState final
 public:
     QString projectName = "PICO2W";
     QString projectPath;
+    QString product = "Raspberry Pi Pico 2 W";
     QString language = "C++";
     QString state = "Development";
+    bool debugSessionTools = true;
+    bool runtimeDiagnostics = true;
+    bool verboseBuildEvidence = true;
     QHash<QString, FunctionSelection> selections;
     QStringList generatedFiles;
 };

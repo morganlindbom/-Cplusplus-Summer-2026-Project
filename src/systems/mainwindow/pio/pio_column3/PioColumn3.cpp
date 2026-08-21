@@ -43,6 +43,17 @@ bool PioColumn3::validate(QString* error)const
 QString PioColumn3::generatedTemplate(const QString& name)const
 {
     /**Creates a minimal valid PIO program template.*/
-    return QString("; %1.pio\n.program %1\n.wrap_target\n    nop\n.wrap\n").arg(name);
+    return QString(
+        "; %1.pio\n"
+        "; Beginner PIO template. Replace the nop instruction with your own\n"
+        "; deterministic, cycle-by-cycle hardware behaviour.\n"
+        "; .program gives the program its name for the C/C++ generated code.\n"
+        ".program %1\n"
+        "; .wrap_target marks the first instruction in the repeating loop.\n"
+        ".wrap_target\n"
+        "; nop means 'no operation'. It consumes one PIO clock cycle.\n"
+        "    nop\n"
+        "; .wrap sends execution back to .wrap_target.\n"
+        ".wrap\n").arg(name);
 }
 }

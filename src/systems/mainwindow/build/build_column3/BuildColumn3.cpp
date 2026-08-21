@@ -3,6 +3,7 @@
 #include "systems/mainwindow/PanelUtil.hpp"
 #include "systems/database/SqliteUtil.hpp"
 #include <QDir>
+#include <QDateTime>
 #include <QFile>
 #include <QFileInfo>
 #include <QHBoxLayout>
@@ -33,7 +34,7 @@ BuildColumn3::BuildColumn3(const QString& db,QWidget* parent):QWidget(parent)
     process_=new QProcess(this);
     connect(process_,&QProcess::readyReadStandardOutput,this,[this](){log_->appendPlainText(QString::fromLocal8Bit(process_->readAllStandardOutput()));});
     connect(process_,&QProcess::readyReadStandardError,this,[this](){log_->appendPlainText(QString::fromLocal8Bit(process_->readAllStandardError()));});
-    connect(process_,qOverload<int,QProcess::ExitStatus>(&QProcess::finished),this,[this](int code,QProcess::ExitStatus status){emit buildCompleted(status==QProcess::NormalExit&&code==0);});
+    connect(process_,qOverload<int,QProcess::ExitStatus>(&QProcess::finished),this,[this](int code,QProcess::ExitStatus status){if(currentProcessIsBuild_){const bool ok=status==QProcess::NormalExit&&code==0;if(ok){QFile marker(QDir(build_).filePath(".pvd_build_success"));if(marker.open(QIODevice::WriteOnly|QIODevice::Text)){marker.write(QDateTime::currentDateTimeUtc().toString(Qt::ISODate).toUtf8());marker.close();}}emit buildCompleted(ok,log_->toPlainText());}});
     connect(configure,&QPushButton::clicked,this,[this](){
         /**Starts a clean Pico configure so a desktop CMake cache cannot be reused.*/
         if(!build_.isEmpty()){
@@ -44,14 +45,18 @@ BuildColumn3::BuildColumn3(const QString& db,QWidget* parent):QWidget(parent)
         run("cmake",{"-S",source_,"-B",build_,"-G","Ninja","-DPICO_BOARD=pico2_w",
             "-DCMAKE_C_COMPILER="+QDir(toolchain).filePath("arm-none-eabi-gcc.exe"),
             "-DCMAKE_CXX_COMPILER="+QDir(toolchain).filePath("arm-none-eabi-g++.exe"),
-            "-DCMAKE_ASM_COMPILER="+QDir(toolchain).filePath("arm-none-eabi-gcc.exe")});
+            "-DCMAKE_ASM_COMPILER="+QDir(toolchain).filePath("arm-none-eabi-gcc.exe")},false);
     });
-    connect(buildButton,&QPushButton::clicked,this,[this](){run("cmake",{"--build",build_,"--parallel","4"});});
+    connect(buildButton,&QPushButton::clicked,this,[this](){build();});
 }
 void BuildColumn3::setPaths(const QString& source,const QString& build){source_=source;build_=build;}
-void BuildColumn3::run(const QString& program,const QStringList& args)
+void BuildColumn3::build(){run("cmake",{"--build",build_,"--parallel","4"},true);}
+void BuildColumn3::run(const QString& program,const QStringList& args,bool isBuild)
 {
     if(process_->state()!=QProcess::NotRunning)return;
+    currentProcessIsBuild_=isBuild;
+    if(isBuild)QFile::remove(QDir(build_).filePath(".pvd_build_success"));
+    if(isBuild)emit buildStarted();
     QProcessEnvironment env=QProcessEnvironment::systemEnvironment();
     const QString sdk=findExisting({env.value("PICO_SDK_PATH"),QDir::home().filePath(".pico-sdk/sdk/2.3.0")});
     const QString toolchain=findExisting({env.value("PICO_TOOLCHAIN_PATH"),QDir::home().filePath(".pico-sdk/toolchain/15_2_Rel1/bin")});

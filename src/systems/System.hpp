@@ -69,5 +69,7 @@ namespace pvd
         TransferColumn3 *transfer3_ = nullptr;
         DebugColumn2 *debug2_ = nullptr;
         DebugColumn3 *debug3_ = nullptr;
+        bool latestBuildSuccessful_ = false;
+        QString lastBuiltProjectPath_;
     };
 }

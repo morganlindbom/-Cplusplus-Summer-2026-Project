@@ -1,0 +1,30 @@
+{
+    "_file": "task-routes.json",
+    "conflictPolicy": "prefer-user-instruction",
+    "contextPolicies": [
+        "matching-categories",
+        "avoid-duplicates",
+        "prefer-project-specific",
+        "summaries-first",
+        "avoid-inactive",
+        "avoid-unrelated",
+        "reuse-context"
+    ],
+    "strategy": "relevant",
+    "workTypes": [
+        "planning",
+        "architecture",
+        "coding",
+        "refactoring",
+        "testing",
+        "debugging",
+        "documentation",
+        "build-ci",
+        "release",
+        "research",
+        "academic",
+        "resource-analysis",
+        "project-memory",
+        "project-status"
+    ]
+}

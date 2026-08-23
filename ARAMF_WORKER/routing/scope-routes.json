@@ -1,0 +1,18 @@
+{
+    "_file": "scope-routes.json",
+    "scopes": [
+        "entire-project",
+        "source-code",
+        "tests",
+        "build-system",
+        "documentation",
+        "resources",
+        "generated-files",
+        "configuration",
+        "ci-cd",
+        "academic-content",
+        "hardware-firmware",
+        "database-data",
+        "ui-ux"
+    ]
+}

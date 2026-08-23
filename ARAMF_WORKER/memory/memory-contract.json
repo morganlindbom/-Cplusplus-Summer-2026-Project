@@ -1,0 +1,78 @@
+{
+    "_file": "memory-contract.json",
+    "administrativeOverride": {
+        "administrator": "Admin Morgan Lindbom",
+        "antiReplay": true,
+        "audit": "Durable ADMIN_OVERRIDE event with pre/post memory and cold-start validation",
+        "authority": "ADMIN_OVERRIDE",
+        "command": "aramf memory override --project <project-root> --instruction <text> --rule <rule> --reason <reason> --scope <scope> --action <action>",
+        "knowledgeCommand": "aramf memory override knowledge --project <project-root> --instruction <text> --title <title> --lesson <lesson> --scopes <csv> --evidence <text> --scope project",
+        "scope": "Project-local only; global promotion is a separate normal workflow",
+        "verification": "Exact Admin Morgan Lindbom identity + explicit ARAMF override intent required"
+    },
+    "arguments": {
+        "optional": [
+            "--status",
+            "--summary",
+            "--detail",
+            "--category",
+            "--issue",
+            "--build-system",
+            "--configuration",
+            "--suite",
+            "--passed",
+            "--failed",
+            "--total"
+        ],
+        "required": [
+            "--project",
+            "--operation",
+            "--task"
+        ]
+    },
+    "checkpointOperation": {
+        "command": "aramf memory checkpoint --project <project-root> --title <title> --summary <summary> [--task <task>] [--commit <sha>] [--verification-status <status>]",
+        "configuredOption": "record-checkpoints",
+        "deliberate": true,
+        "optional": [
+            "--task",
+            "--commit",
+            "--verification-status"
+        ],
+        "required": [
+            "--project",
+            "--title",
+            "--summary"
+        ]
+    },
+    "command": {
+        "executable": "aramf",
+        "projectArgument": "--project <project-root>",
+        "syntax": "aramf memory record --project <project-root> --operation <operation> ..."
+    },
+    "configuredMaintenanceOptions": [
+    ],
+    "directEditing": "forbidden: use the ARAMF memory recorder; do not edit owned files directly.",
+    "ownedFiles": [
+        "memory/event-log.jsonl",
+        "memory/metrics.json",
+        "memory/current-state.md",
+        "memory/memory-manifest.json",
+        "memory/checkpoints.json",
+        "memory/memory-consistency-validation.json",
+        "PROJECT_STATUS.md"
+    ],
+    "recordingEnabled": false,
+    "separateOperations": {
+        "checkpoints": "deliberate stable recovery points; use the checkpoint operation; not created by routine feedback",
+        "durableDecisions": "deliberate architecture/policy records through the decision workflow"
+    },
+    "supportedOperations": [
+        "task-start",
+        "task-complete",
+        "build-result",
+        "test-result",
+        "validation-result"
+    ],
+    "version": 1
+}

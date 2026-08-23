@@ -1,0 +1,46 @@
+{
+    "_file": "cold-start-validation.json",
+    "checkedAt": "2026-08-23T13:48:48Z",
+    "checks": [
+        {
+            "name": "ARAMF_WORKER/memory/decisions.md",
+            "status": "PASS"
+        },
+        {
+            "name": "ARAMF_WORKER/memory/framework-knowledge.json",
+            "status": "PASS"
+        },
+        {
+            "name": "ARAMF_WORKER/memory/current-state.md",
+            "status": "PASS"
+        },
+        {
+            "name": "ARAMF_WORKER/memory/memory-config.json",
+            "status": "PASS"
+        },
+        {
+            "name": "ARAMF_WORKER/memory/memory-contract.json",
+            "status": "PASS"
+        },
+        {
+            "name": "ARAMF_WORKER/memory/memory-manifest.json",
+            "status": "PASS"
+        },
+        {
+            "name": "ARAMF_WORKER/AGENTS.md",
+            "status": "PASS"
+        },
+        {
+            "name": "ARAMF_WORKER/PROJECT_STATUS.md",
+            "status": "PASS"
+        }
+    ],
+    "contractConfigConsistent": true,
+    "errors": [
+    ],
+    "fingerprint": "f3eabae3c5c7c9db2018b60ad069a6e21f7331028bc5ab4014905902737f37f6",
+    "recordingEnabled": false,
+    "status": "PASS",
+    "warnings": [
+    ]
+}

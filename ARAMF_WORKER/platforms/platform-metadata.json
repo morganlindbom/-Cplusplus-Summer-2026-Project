@@ -1,0 +1,53 @@
+{
+    "_file": "platform-metadata.json",
+    "buildSystems": [
+        "cmake",
+        "ninja"
+    ],
+    "developmentTools": [
+        "debugger",
+        "hardware-debug-probe"
+    ],
+    "environment": {
+        "buildSystem": "cmake",
+        "compiler": "msys2-ucrt64-gcc",
+        "framework": "qt",
+        "ide": "visual-studio-code",
+        "language": "cpp",
+        "operatingSystem": "windows",
+        "packageManager": "none",
+        "targetArchitecture": "x86_64",
+        "targetPlatform": "windows-desktop",
+        "versionControl": "git"
+    },
+    "frameworks": [
+        "qt",
+        "pico-sdk"
+    ],
+    "hardwareTargets": [
+        "raspberry-pi-pico-2-w"
+    ],
+    "languages": [
+        "cpp",
+        "c",
+        "pio-assembly"
+    ],
+    "processorFamilies": [
+        "rp2350"
+    ],
+    "projectType": "embedded-firmware",
+    "targetArchitectures": [
+        "x86_64",
+        "rp2350",
+        "cortex-m"
+    ],
+    "targetPlatforms": [
+        "windows-desktop",
+        "microcontroller"
+    ],
+    "toolchains": [
+        "msys2-ucrt64-gcc",
+        "arm-gnu",
+        "pico-sdk-toolchain"
+    ]
+}

@@ -1,0 +1,214 @@
+{
+    "_file": "update-contract.json",
+    "affectedScopes": [
+        "implementation",
+        "instructions",
+        "regression",
+        "paths",
+        "repository",
+        "generation",
+        "lifecycle",
+        "selective-generation",
+        "optional-components",
+        "verification",
+        "finalization",
+        "safety",
+        "cleanup",
+        "windows",
+        "persistence",
+        "agents",
+        "pico-visual-designer",
+        "gui-end-to-end-testing",
+        "application-certification",
+        "hardware-certification",
+        "build-transfer-debug",
+        "qt-gui-testing",
+        "embedded-development"
+    ],
+    "authorityHierarchy": [
+        "explicit current user instruction",
+        "current Source of Truth",
+        "current durable project decisions",
+        "approved applicable Framework Knowledge",
+        "templates/defaults",
+        "AI inference"
+    ],
+    "completionRequirement": "READY is prepared planning only. Execute performs planned adoption and implementation; validation is required before completion.",
+    "completionStates": [
+        "COMPLETED",
+        "NO_CHANGE_REQUIRED",
+        "FAILED",
+        "STALE"
+    ],
+    "executionState": "READY",
+    "expectedAreas": [
+        "implementation and tests",
+        "instructions",
+        "paths",
+        "repository",
+        "generation and routing",
+        "validation and lifecycle",
+        "optional-components",
+        "finalization",
+        "safety",
+        "cleanup",
+        "windows",
+        "persistence",
+        "agents",
+        "pico-visual-designer",
+        "gui-end-to-end-testing",
+        "application-certification",
+        "hardware-certification",
+        "build-transfer-debug",
+        "qt-gui-testing",
+        "embedded-development"
+    ],
+    "memory": "Record actual work through ProjectMemory; do not edit managed memory files directly.",
+    "planId": "update-8158579b-2d56-4b5c-ae71-522835b2a6f6",
+    "prohibitedOverrides": [
+        "higher-authority project information",
+        "unselected Framework Knowledge",
+        "candidate or superseded knowledge"
+    ],
+    "selectedFrameworkKnowledge": [
+        {
+            "adoption": "not-adopted",
+            "approvalSource": "explicit-user-request",
+            "approvedAt": "2026-08-22T00:00:00Z",
+            "classification": "NOT_APPLICABLE",
+            "evidence": [
+                "Repeated project iterations showed that a previously corrected implementation can regress when later work recreates an older assumption instead of preserving the verified baseline."
+            ],
+            "id": "fk-preserve-verified-corrections",
+            "implementationRequired": false,
+            "lesson": "When a correction has been explicitly accepted and subsequently verified, treat the corrected behavior as the current baseline. Do not reintroduce the superseded behavior unless newer evidence or a higher-priority instruction requires it.",
+            "origin": "project+global",
+            "originProjectId": "ARAMF",
+            "originalKnowledgeId": "fk-preserve-verified-corrections",
+            "portable": true,
+            "reviewStatus": "approved",
+            "scopes": [
+                "implementation",
+                "instructions",
+                "regression"
+            ],
+            "status": "approved",
+            "supersededBy": "",
+            "title": "Preserve verified corrections as the active baseline"
+        },
+        {
+            "adoption": "not-adopted",
+            "approvalSource": "explicit-user-approved-correction",
+            "approvedAt": "2026-08-22T00:00:00Z",
+            "classification": "NOT_APPLICABLE",
+            "evidence": [
+                "The internal ARAMF directory rename was initially described from the wrong path perspective; inspecting the repository root showed that ./ARAMF/ was the actual directory to rename while generated <ProjectPath>/ARAMF/ had to remain unchanged."
+            ],
+            "id": "fk-resolve-paths-from-working-root",
+            "implementationRequired": false,
+            "lesson": "Before changing or documenting repository paths, inspect the actual tree and resolve paths relative to the agent's current repository working root. Keep repository-internal setup paths distinct from generated target-project control-plane paths.",
+            "origin": "project",
+            "originProjectId": "",
+            "originalKnowledgeId": "",
+            "portable": true,
+            "reviewStatus": "approved",
+            "scopes": [
+                "paths",
+                "repository",
+                "generation"
+            ],
+            "status": "approved",
+            "supersededBy": "",
+            "title": "Resolve repository paths from the actual working root"
+        },
+        {
+            "adoption": "will-adopt",
+            "approvalSource": "Morgan Lindbom",
+            "approvedAt": "2026-08-23T01:46:26Z",
+            "classification": "ALREADY_SATISFIED",
+            "evidence": [
+                "ISSUE-001 — Selective generation blocked Finalize",
+                "TEST-198: Generate and Verify passed with Memory excluded; Finalize initially failed on unconditional memory validation.",
+                "TEST-204: Same selective-generation failure pattern; passed after the correction.",
+                "TEST-210: Same selective-generation failure pattern; passed after the correction.",
+                "Correction gated memory-related Finalize requirements on the selected Memory product; all three retests passed with no recurrence."
+            ],
+            "id": "fk-7a246faa4bc6ad74",
+            "implementationRequired": false,
+            "lesson": "Lifecycle preconditions must be derived from the explicitly selected product set. Optional products must not introduce mandatory lifecycle requirements when they were intentionally excluded.",
+            "origin": "project+global",
+            "originProjectId": "ARAMF",
+            "originalKnowledgeId": "fk-7a246faa4bc6ad74",
+            "portable": true,
+            "reviewStatus": "approved",
+            "scopes": [
+                "lifecycle",
+                "selective-generation",
+                "optional-components",
+                "verification",
+                "finalization"
+            ],
+            "status": "approved",
+            "supersededBy": "",
+            "title": "Selected products define lifecycle preconditions"
+        },
+        {
+            "adoption": "not-adopted",
+            "approvalSource": "Admin Morgan Lindbom explicit approval",
+            "approvedAt": "2026-08-23T12:19:38Z",
+            "classification": "NOT_APPLICABLE",
+            "evidence": [
+                "2026-08-23: felciterad Windows cmd.exe rmdir /s /q-operation breddade målomfattningen och raderade orelaterade ARAMF- och PVD-arbetsytor; återställning från GitHub krävdes. Regeln har därefter lagts i AGENTS.md och den kanoniska instruktionstexten."
+            ],
+            "id": "fk-47734af783aaa62e",
+            "implementationRequired": false,
+            "lesson": "TOP PRIORITY: ARAMF-agenter och verktyg får aldrig använda rekursiv shell-radering för städning eller borttagning av fixtures. Detta inkluderar cmd.exe /c rmdir /s /q, rd /s /q, PowerShell Remove-Item -Recurse, Unix rm -rf och motsvarande. Repositories, projektro¨tter, ARAMF_WORKER, build-träd och genererad persistent state får aldrig raderas för cleanup. Vid behov ska exakta mål verifieras och en icke-destruktiv, återställningsbar metod användas.",
+            "origin": "project+global",
+            "originProjectId": "ARAMF",
+            "originalKnowledgeId": "fk-47734af783aaa62e",
+            "portable": true,
+            "reviewStatus": "approved",
+            "scopes": [
+                "safety",
+                "cleanup",
+                "windows",
+                "paths",
+                "persistence",
+                "agents"
+            ],
+            "status": "approved",
+            "supersededBy": "",
+            "title": "TOP PRIORITY: Förbud mot destruktiv rekursiv städning"
+        },
+        {
+            "adoption": "will-adopt",
+            "approvalSource": "explicit-user-approved-policy",
+            "approvedAt": "2026-08-23T13:14:44Z",
+            "classification": "ALREADY_SATISFIED",
+            "evidence": [
+                "Explicit user-approved PVD mandatory GUI end-to-end testing policy; normal Framework Knowledge workflow."
+            ],
+            "id": "fk-2120c0dac197dc46",
+            "implementationRequired": false,
+            "lesson": "For Pico Visual Designer functionality exposed through the GUI, core, unit, service, generator, backend, and build PASS results remain valuable but are not application-level certification. Core PASS != GUI PASS and Build PASS != Application Certification PASS. Application certification must use the real visible PVD user workflow to the furthest supported stage: launch the actual executable where practical, wait for MainWindow, navigate workflow, select component and physical pin, select function, configure visible controls, verify transitions and stale-state absence, Generate, Configure, Build, Transfer, Runtime, and Debug where technically possible. Do not substitute project-model, backend, service, or generator calls for GUI actions; GUI Build, Transfer, and Debug must use normal application controls when available. Verify each transition and report the earliest failure boundary; later stages are NOT RUN after a blocking failure. Use distinct results PASS-CORE, PASS-GUI, PASS-GENERATE, PASS-CONFIGURE, PASS-BUILD, PASS-TRANSFER, PASS-RUNTIME, PASS-DEBUG, PASS-AUTOMATED, PASS-PHYSICAL, NOT-TESTED, NOT-APPLICABLE, REQUIRES-EXTERNAL-HARDWARE, and FAIL. Software or debugger evidence must not claim physical or electrical certification. Current automation must not require new wiring or external hardware; physical certification is later. Include periodic real cold-start coverage and deterministic safe isolation. Cleanup remains subject to the TOP PRIORITY prohibition on broad recursive deletion, including rmdir /s /q, rd /s /q, Remove-Item -Recurse, rm -rf, and equivalents; use narrow recoverable cleanup. Keep unrelated future improvements in the ARAMF Improvement Backlog. This policy is PVD-specific and does not make unrelated projects subject to GUI certification.",
+            "origin": "project+global",
+            "originProjectId": "ARAMF",
+            "originalKnowledgeId": "fk-2120c0dac197dc46",
+            "portable": true,
+            "reviewStatus": "approved",
+            "scopes": [
+                "pico-visual-designer",
+                "gui-end-to-end-testing",
+                "application-certification",
+                "hardware-certification",
+                "build-transfer-debug",
+                "qt-gui-testing",
+                "embedded-development"
+            ],
+            "status": "approved",
+            "supersededBy": "",
+            "title": "PVD mandatory GUI end-to-end certification"
+        }
+    ],
+    "validationLevel": "SUBSYSTEM"
+}

@@ -1,0 +1,14 @@
+{
+    "_file": "memory-config.json",
+    "captureCategories": [
+    ],
+    "historyOptions": [
+    ],
+    "maintenanceOptions": [
+    ],
+    "maximumSizeBytes": 10737418240,
+    "retentionLevel": "standard",
+    "updateStrategy": "meaningful-task",
+    "validationOptions": [
+    ]
+}

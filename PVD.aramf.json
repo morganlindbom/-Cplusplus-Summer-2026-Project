@@ -1,0 +1,471 @@
+{
+    "academic": {
+        "academicDeliverables": [
+        ],
+        "academicLanguage": "",
+        "academicMode": "disabled",
+        "academicRequirements": [
+        ],
+        "citationStyle": "",
+        "examiner": "",
+        "institution": "",
+        "programmeOrCourse": "",
+        "researchMethods": [
+        ],
+        "supervisor": "",
+        "thesisApproaches": [
+        ],
+        "thesisLevel": ""
+    },
+    "ai": {
+        "additionalAgents": [
+            "chatgpt"
+        ],
+        "aramfIntegrations": [
+            "agents-md",
+            "task-lifecycle",
+            "rules",
+            "routing",
+            "project-memory",
+            "project-status",
+            "project-resources",
+            "source-of-truth",
+            "durable-decisions",
+            "framework-knowledge",
+            "template-knowledge",
+            "source-references",
+            "user-approved-knowledge",
+            "decision-recording",
+            "checkpoint-recording",
+            "validation-verification",
+            "memory-consistency-validation",
+            "cold-start-validation",
+            "certification-knowledge",
+            "evidence-recording",
+            "test-result-recording",
+            "build-result-recording",
+            "update-project-status",
+            "record-durable-decisions",
+            "update-current-state-memory",
+            "record-validation-results",
+            "record-checkpoints",
+            "update-evidence",
+            "update-verification-state"
+        ],
+        "autonomyPreset": "custom",
+        "customAgentName": "",
+        "permissions": [
+            "read-project-files",
+            "create-files",
+            "modify-files",
+            "rename-files",
+            "move-files",
+            "copy-files",
+            "delete-files",
+            "modify-generated-files",
+            "modify-protected-files",
+            "run-builds",
+            "run-tests",
+            "run-linters",
+            "run-static-analysis",
+            "run-project-tools",
+            "run-scripts",
+            "run-generated-executables",
+            "run-debugging-tools",
+            "run-package-managers",
+            "run-database-migrations",
+            "start-local-services",
+            "stop-local-services",
+            "modify-build-configuration",
+            "modify-dependency-configuration",
+            "modify-project-configuration",
+            "modify-ci-cd-configuration",
+            "modify-aramf-generated-files",
+            "install-dependencies",
+            "update-dependencies",
+            "remove-dependencies",
+            "modify-environment-configuration",
+            "create-branch",
+            "stage-changes",
+            "create-commit",
+            "amend-commit",
+            "merge-changes",
+            "push-changes",
+            "create-pull-request",
+            "rebase",
+            "resolve-merge-conflicts",
+            "create-tag",
+            "delete-branch",
+            "force-push"
+        ],
+        "primaryAgent": "openai-codex",
+        "responsibilities": [
+            "planning",
+            "requirement-analysis",
+            "architecture",
+            "technical-design",
+            "task-breakdown",
+            "specification-writing",
+            "api-design",
+            "database-design",
+            "ui-ux-design",
+            "data-model-design",
+            "coding",
+            "refactoring",
+            "code-generation",
+            "dependency-management",
+            "configuration",
+            "migration",
+            "data-transformation",
+            "infrastructure-configuration",
+            "database-implementation",
+            "api-implementation",
+            "code-review",
+            "testing",
+            "debugging",
+            "static-analysis",
+            "performance-analysis",
+            "security-review",
+            "accessibility-review",
+            "compatibility-review",
+            "regression-analysis",
+            "dependency-review",
+            "documentation",
+            "research",
+            "build-ci",
+            "release-preparation",
+            "resource-analysis",
+            "project-memory-maintenance",
+            "project-status-maintenance",
+            "dependency-research",
+            "changelog-maintenance",
+            "issue-task-management",
+            "release-notes",
+            "technical-investigation"
+        ]
+    },
+    "aiPlatforms": [
+        "openai-codex",
+        "chatgpt"
+    ],
+    "capabilities": {
+        "automationCapabilities": [
+        ],
+        "buildConfigurations": [
+            "debug",
+            "release"
+        ],
+        "buildSystems": [
+            "cmake",
+            "ninja"
+        ],
+        "deliveryCapabilities": [
+        ],
+        "dependencyManagers": [
+        ],
+        "developmentTools": [
+            "debugger",
+            "hardware-debug-probe"
+        ],
+        "frameworks": [
+            "qt",
+            "pico-sdk"
+        ],
+        "hardwareTargets": [
+            "raspberry-pi-pico-2-w"
+        ],
+        "hostOperatingSystems": [
+            "windows"
+        ],
+        "ides": [
+            "visual-studio-code"
+        ],
+        "languages": [
+            "cpp",
+            "c",
+            "pio-assembly"
+        ],
+        "processorFamilies": [
+            "rp2350"
+        ],
+        "qualityCapabilities": [
+        ],
+        "targetArchitectures": [
+            "x86_64",
+            "rp2350",
+            "cortex-m"
+        ],
+        "targetPlatforms": [
+            "windows-desktop",
+            "microcontroller"
+        ],
+        "testingCapabilities": [
+            "unit-testing"
+        ],
+        "toolchains": [
+            "msys2-ucrt64-gcc",
+            "arm-gnu",
+            "pico-sdk-toolchain"
+        ],
+        "versionControlSystems": [
+            "git"
+        ]
+    },
+    "context": "embedded-firmware",
+    "description": "",
+    "environment": {
+        "buildSystem": "cmake",
+        "compiler": "msys2-ucrt64-gcc",
+        "framework": "qt",
+        "ide": "visual-studio-code",
+        "language": "cpp",
+        "operatingSystem": "windows",
+        "packageManager": "none",
+        "targetArchitecture": "x86_64",
+        "targetPlatform": "windows-desktop",
+        "versionControl": "git"
+    },
+    "generationOptions": {
+        "agentRules": true,
+        "memory": true,
+        "platforms": true,
+        "provenance": true,
+        "resources": true,
+        "routing": true
+    },
+    "memory": {
+        "captureCategories": [
+        ],
+        "historyOptions": [
+        ],
+        "maintenanceOptions": [
+        ],
+        "maximumSizeBytes": 10737418240,
+        "retentionLevel": "standard",
+        "updateStrategy": "meaningful-task",
+        "validationOptions": [
+        ]
+    },
+    "options": {
+    },
+    "profileSelections": [
+    ],
+    "projectFilePath": "D:/ON DESCTOP/HKR KURSER/C++/C++Summer 2026 Project 6/-Cplusplus-Summer-2026-Project/PVD.aramf.json",
+    "projectId": "29089d6e-6a1c-435d-a0bc-b24d90becb6a",
+    "projectName": "PVD",
+    "projectPath": "D:/ON DESCTOP/HKR KURSER/C++/C++Summer 2026 Project 6/-Cplusplus-Summer-2026-Project",
+    "resourcePolicy": {
+        "loadingStrategy": "relevant",
+        "options": [
+            "read-relevant",
+            "prefer-authoritative",
+            "respect-scope",
+            "ignore-disabled",
+            "warn-conflicts"
+        ]
+    },
+    "resources": [
+        {
+            "authorityLevel": "primary-source-of-truth",
+            "description": "",
+            "enabled": true,
+            "fingerprint": "",
+            "id": "7df7eb85-7e09-4bf6-aa55-99b124770b68",
+            "lastModified": "",
+            "loadingStrategyOverride": "",
+            "location": "D:/ON DESCTOP/HKR KURSER/C++/C++Summer 2026 Project 6/-Cplusplus-Summer-2026-Project/assets/PICO2W.glb",
+            "locationMode": "referenced",
+            "name": "PICO2W.glb",
+            "scopes": [
+                "entire-project",
+                "project-requirements",
+                "architecture",
+                "software",
+                "hardware",
+                "firmware",
+                "sdk-api",
+                "build-system",
+                "testing",
+                "security",
+                "ui-ux",
+                "database-data",
+                "academic",
+                "deployment",
+                "current-project-state"
+            ],
+            "status": "available",
+            "type": "file"
+        },
+        {
+            "authorityLevel": "trusted-reference",
+            "description": "",
+            "enabled": true,
+            "fingerprint": "",
+            "id": "e423cd1a-2110-4bcc-8ab5-ef3bb32d6921",
+            "lastModified": "",
+            "loadingStrategyOverride": "",
+            "location": "D:/ON DESCTOP/HKR KURSER/C++/C++Summer 2026 Project 6/-Cplusplus-Summer-2026-Project/assets/pico2w_pinout.jpg",
+            "locationMode": "referenced",
+            "name": "pico2w_pinout.jpg",
+            "scopes": [
+                "entire-project",
+                "project-requirements",
+                "architecture",
+                "software",
+                "hardware",
+                "firmware",
+                "sdk-api",
+                "build-system",
+                "testing",
+                "security",
+                "ui-ux",
+                "database-data",
+                "academic",
+                "deployment",
+                "current-project-state"
+            ],
+            "status": "available",
+            "type": "file"
+        },
+        {
+            "authorityLevel": "trusted-reference",
+            "description": "",
+            "enabled": true,
+            "fingerprint": "",
+            "id": "2d4d3c5b-d22a-4179-92d8-42edd94cc49e",
+            "lastModified": "",
+            "loadingStrategyOverride": "",
+            "location": "D:/ON DESCTOP/HKR KURSER/C++/C++Summer 2026 Project 6/-Cplusplus-Summer-2026-Project/assets/robo_pico_source_of_truth.jsonc",
+            "locationMode": "referenced",
+            "name": "robo_pico_source_of_truth.jsonc",
+            "scopes": [
+                "entire-project",
+                "project-requirements",
+                "architecture",
+                "software",
+                "hardware",
+                "firmware",
+                "sdk-api",
+                "build-system",
+                "testing",
+                "security",
+                "ui-ux",
+                "database-data",
+                "academic",
+                "deployment",
+                "current-project-state"
+            ],
+            "status": "available",
+            "type": "file"
+        }
+    ],
+    "rules": {
+        "activeCategories": [
+            "coding-standards",
+            "naming-conventions",
+            "formatting",
+            "static-analysis",
+            "warning-policy",
+            "refactoring-rules",
+            "complexity-limits",
+            "error-handling",
+            "logging",
+            "documentation-comments",
+            "architecture-boundaries",
+            "module-ownership",
+            "dependency-direction",
+            "separation-of-concerns",
+            "interface-contracts",
+            "data-ownership",
+            "generated-code-boundaries",
+            "shared-component-rules",
+            "file-folder-ownership",
+            "unit-testing",
+            "integration-testing",
+            "regression-testing",
+            "test-naming",
+            "test-coverage",
+            "hardware-in-the-loop",
+            "test-evidence",
+            "failure-reproduction",
+            "verification-before-completion",
+            "build-must-pass",
+            "warnings-reviewed",
+            "cmake-rules",
+            "dependency-rules",
+            "toolchain-rules",
+            "ci-rules",
+            "release-build-rules",
+            "generated-artifact-rules",
+            "secret-handling",
+            "input-validation",
+            "dependency-security",
+            "unsafe-operation-rules",
+            "production-safety",
+            "destructive-command-protection",
+            "authentication-authorization",
+            "data-protection",
+            "follow-agents",
+            "respect-source-of-truth",
+            "respect-project-resources",
+            "respect-durable-decisions",
+            "protected-files",
+            "no-invented-verification",
+            "ask-high-risk",
+            "record-decisions",
+            "update-project-status",
+            "use-project-memory",
+            "readme-maintenance",
+            "architecture-documentation",
+            "project-status-maintenance",
+            "changelog-maintenance",
+            "api-documentation",
+            "academic-documentation",
+            "source-references"
+        ],
+        "conflictPolicy": "prefer-user-instruction",
+        "contextPolicies": [
+            "matching-categories",
+            "avoid-duplicates",
+            "prefer-project-specific",
+            "summaries-first",
+            "avoid-inactive",
+            "avoid-unrelated",
+            "reuse-context"
+        ],
+        "enforcementLevel": "strict",
+        "loadingStrategy": "relevant",
+        "projectScopes": [
+            "entire-project",
+            "source-code",
+            "tests",
+            "build-system",
+            "documentation",
+            "resources",
+            "generated-files",
+            "configuration",
+            "ci-cd",
+            "academic-content",
+            "hardware-firmware",
+            "database-data",
+            "ui-ux"
+        ],
+        "workScopes": [
+            "planning",
+            "architecture",
+            "coding",
+            "refactoring",
+            "testing",
+            "debugging",
+            "documentation",
+            "build-ci",
+            "release",
+            "research",
+            "academic",
+            "resource-analysis",
+            "project-memory",
+            "project-status"
+        ]
+    },
+    "templateId": "pico-2w-visual-designer"
+}

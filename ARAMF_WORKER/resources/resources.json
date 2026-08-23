@@ -1,0 +1,93 @@
+{
+    "_file": "resources.json",
+    "loadingStrategy": "relevant",
+    "resources": [
+        {
+            "authority": "primary-source-of-truth",
+            "description": "",
+            "enabled": true,
+            "id": "7df7eb85-7e09-4bf6-aa55-99b124770b68",
+            "loadingPolicyOverride": "",
+            "location": "D:/ON DESCTOP/HKR KURSER/C++/C++Summer 2026 Project 6/-Cplusplus-Summer-2026-Project/assets/PICO2W.glb",
+            "locationMode": "referenced",
+            "name": "PICO2W.glb",
+            "scopes": [
+                "entire-project",
+                "project-requirements",
+                "architecture",
+                "software",
+                "hardware",
+                "firmware",
+                "sdk-api",
+                "build-system",
+                "testing",
+                "security",
+                "ui-ux",
+                "database-data",
+                "academic",
+                "deployment",
+                "current-project-state"
+            ],
+            "status": "available",
+            "type": "file"
+        },
+        {
+            "authority": "trusted-reference",
+            "description": "",
+            "enabled": true,
+            "id": "e423cd1a-2110-4bcc-8ab5-ef3bb32d6921",
+            "loadingPolicyOverride": "",
+            "location": "D:/ON DESCTOP/HKR KURSER/C++/C++Summer 2026 Project 6/-Cplusplus-Summer-2026-Project/assets/pico2w_pinout.jpg",
+            "locationMode": "referenced",
+            "name": "pico2w_pinout.jpg",
+            "scopes": [
+                "entire-project",
+                "project-requirements",
+                "architecture",
+                "software",
+                "hardware",
+                "firmware",
+                "sdk-api",
+                "build-system",
+                "testing",
+                "security",
+                "ui-ux",
+                "database-data",
+                "academic",
+                "deployment",
+                "current-project-state"
+            ],
+            "status": "available",
+            "type": "file"
+        },
+        {
+            "authority": "trusted-reference",
+            "description": "",
+            "enabled": true,
+            "id": "2d4d3c5b-d22a-4179-92d8-42edd94cc49e",
+            "loadingPolicyOverride": "",
+            "location": "D:/ON DESCTOP/HKR KURSER/C++/C++Summer 2026 Project 6/-Cplusplus-Summer-2026-Project/assets/robo_pico_source_of_truth.jsonc",
+            "locationMode": "referenced",
+            "name": "robo_pico_source_of_truth.jsonc",
+            "scopes": [
+                "entire-project",
+                "project-requirements",
+                "architecture",
+                "software",
+                "hardware",
+                "firmware",
+                "sdk-api",
+                "build-system",
+                "testing",
+                "security",
+                "ui-ux",
+                "database-data",
+                "academic",
+                "deployment",
+                "current-project-state"
+            ],
+            "status": "available",
+            "type": "file"
+        }
+    ]
+}

@@ -1,0 +1,55 @@
+﻿{
+    "caseId":  "gui-proof-pin1-gpio.output",
+    "physicalPin":  1,
+    "gpio":  0,
+    "function":  "gpio.output",
+    "profile":  "existing PVD settings",
+    "stages":  {
+                   "Launch":  {
+                                  "status":  "PASS",
+                                  "reason":  "Real PVD executable started and MainWindow was found"
+                              },
+                   "Navigation":  {
+                                      "status":  "PASS",
+                                      "reason":  "Function Selection opened through workflow_navigation"
+                                  },
+                   "Selection":  {
+                                     "status":  "PASS",
+                                     "reason":  "Pin 1 selected and function selector appeared"
+                                 },
+                   "Settings":  {
+                                    "status":  "PASS",
+                                    "reason":  "GPIO Output selected and visible settings control appeared"
+                                },
+                   "Generate":  {
+                                    "status":  "PASS",
+                                    "reason":  "Generate invoked through visible Generate Project control"
+                                },
+                   "Configure":  {
+                                     "status":  "PASS",
+                                     "reason":  "Configure invoked through visible Configure control"
+                                 },
+                   "Build":  {
+                                 "status":  "PASS",
+                                 "reason":  "Build invoked through visible Build control; result requires project build evidence"
+                             },
+                   "Transfer":  {
+                                    "status":  "NOT-TESTED",
+                                    "reason":  "Hardware actions disabled for proof runner"
+                                },
+                   "Runtime":  {
+                                   "status":  "NOT-TESTED",
+                                   "reason":  "Hardware actions disabled for proof runner"
+                               },
+                   "Debug":  {
+                                 "status":  "NOT-TESTED",
+                                 "reason":  "Hardware actions disabled for proof runner"
+                             }
+               },
+    "overall":  "PASS-AUTOMATED",
+    "startedUtc":  "2026-08-23T23:42:31.5663312Z",
+    "completedUtc":  "2026-08-23T23:42:38.9150246Z",
+    "processModel":  "separate PVD executable via Windows UI Automation",
+    "aramfRecorder":  "NOT-AVAILABLE: external aramf CLI not installed",
+    "physicalCertification":  "PENDING"
+}

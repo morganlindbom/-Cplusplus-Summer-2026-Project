@@ -1,0 +1,206 @@
+// manifest.jsonc
+{
+  "protocol_id": "pvd-pins-1-5-canonical",
+  "campaign_started": false,
+  "test_count": 49,
+  "pin_count": 5,
+  "stage_count": 12,
+  "tests": [
+    {
+      "test_id": "P01-I2C0_SDA",
+      "pin_file": "pin_01_gpio0.jsonc"
+    },
+    {
+      "test_id": "P01-PIO0",
+      "pin_file": "pin_01_gpio0.jsonc"
+    },
+    {
+      "test_id": "P01-PIO1",
+      "pin_file": "pin_01_gpio0.jsonc"
+    },
+    {
+      "test_id": "P01-PIO2",
+      "pin_file": "pin_01_gpio0.jsonc"
+    },
+    {
+      "test_id": "P01-PWM0A",
+      "pin_file": "pin_01_gpio0.jsonc"
+    },
+    {
+      "test_id": "P01-QMI_CS1N",
+      "pin_file": "pin_01_gpio0.jsonc"
+    },
+    {
+      "test_id": "P01-SIO",
+      "pin_file": "pin_01_gpio0.jsonc"
+    },
+    {
+      "test_id": "P01-SPI0_RX",
+      "pin_file": "pin_01_gpio0.jsonc"
+    },
+    {
+      "test_id": "P01-UART0_TX",
+      "pin_file": "pin_01_gpio0.jsonc"
+    },
+    {
+      "test_id": "P01-USB_OVCUR_DET",
+      "pin_file": "pin_01_gpio0.jsonc"
+    },
+    {
+      "test_id": "P01-NEG-INVALID-FUNCTION",
+      "pin_file": "pin_01_gpio0.jsonc"
+    },
+    {
+      "test_id": "P02-I2C0_SCL",
+      "pin_file": "pin_02_gpio1.jsonc"
+    },
+    {
+      "test_id": "P02-PIO0",
+      "pin_file": "pin_02_gpio1.jsonc"
+    },
+    {
+      "test_id": "P02-PIO1",
+      "pin_file": "pin_02_gpio1.jsonc"
+    },
+    {
+      "test_id": "P02-PIO2",
+      "pin_file": "pin_02_gpio1.jsonc"
+    },
+    {
+      "test_id": "P02-PWM0B",
+      "pin_file": "pin_02_gpio1.jsonc"
+    },
+    {
+      "test_id": "P02-SIO",
+      "pin_file": "pin_02_gpio1.jsonc"
+    },
+    {
+      "test_id": "P02-SPI0_CSN",
+      "pin_file": "pin_02_gpio1.jsonc"
+    },
+    {
+      "test_id": "P02-TRACECLK",
+      "pin_file": "pin_02_gpio1.jsonc"
+    },
+    {
+      "test_id": "P02-UART0_RX",
+      "pin_file": "pin_02_gpio1.jsonc"
+    },
+    {
+      "test_id": "P02-USB_VBUS_DET",
+      "pin_file": "pin_02_gpio1.jsonc"
+    },
+    {
+      "test_id": "P02-NEG-INVALID-FUNCTION",
+      "pin_file": "pin_02_gpio1.jsonc"
+    },
+    {
+      "test_id": "P03-GND-CLASSIFICATION",
+      "pin_file": "pin_03_gnd.jsonc"
+    },
+    {
+      "test_id": "P03-GND-REJECT-FUNCTION",
+      "pin_file": "pin_03_gnd.jsonc"
+    },
+    {
+      "test_id": "P03-GND-PERSISTENCE",
+      "pin_file": "pin_03_gnd.jsonc"
+    },
+    {
+      "test_id": "P04-I2C1_SDA",
+      "pin_file": "pin_04_gpio2.jsonc"
+    },
+    {
+      "test_id": "P04-PIO0",
+      "pin_file": "pin_04_gpio2.jsonc"
+    },
+    {
+      "test_id": "P04-PIO1",
+      "pin_file": "pin_04_gpio2.jsonc"
+    },
+    {
+      "test_id": "P04-PIO2",
+      "pin_file": "pin_04_gpio2.jsonc"
+    },
+    {
+      "test_id": "P04-PWM1A",
+      "pin_file": "pin_04_gpio2.jsonc"
+    },
+    {
+      "test_id": "P04-SIO",
+      "pin_file": "pin_04_gpio2.jsonc"
+    },
+    {
+      "test_id": "P04-SPI0_SCK",
+      "pin_file": "pin_04_gpio2.jsonc"
+    },
+    {
+      "test_id": "P04-TRACEDATA0",
+      "pin_file": "pin_04_gpio2.jsonc"
+    },
+    {
+      "test_id": "P04-UART0_CTS",
+      "pin_file": "pin_04_gpio2.jsonc"
+    },
+    {
+      "test_id": "P04-UART0_TX_AUX",
+      "pin_file": "pin_04_gpio2.jsonc"
+    },
+    {
+      "test_id": "P04-USB_VBUS_EN",
+      "pin_file": "pin_04_gpio2.jsonc"
+    },
+    {
+      "test_id": "P04-NEG-INVALID-FUNCTION",
+      "pin_file": "pin_04_gpio2.jsonc"
+    },
+    {
+      "test_id": "P05-I2C1_SCL",
+      "pin_file": "pin_05_gpio3.jsonc"
+    },
+    {
+      "test_id": "P05-PIO0",
+      "pin_file": "pin_05_gpio3.jsonc"
+    },
+    {
+      "test_id": "P05-PIO1",
+      "pin_file": "pin_05_gpio3.jsonc"
+    },
+    {
+      "test_id": "P05-PIO2",
+      "pin_file": "pin_05_gpio3.jsonc"
+    },
+    {
+      "test_id": "P05-PWM1B",
+      "pin_file": "pin_05_gpio3.jsonc"
+    },
+    {
+      "test_id": "P05-SIO",
+      "pin_file": "pin_05_gpio3.jsonc"
+    },
+    {
+      "test_id": "P05-SPI0_TX",
+      "pin_file": "pin_05_gpio3.jsonc"
+    },
+    {
+      "test_id": "P05-TRACEDATA1",
+      "pin_file": "pin_05_gpio3.jsonc"
+    },
+    {
+      "test_id": "P05-UART0_RTS",
+      "pin_file": "pin_05_gpio3.jsonc"
+    },
+    {
+      "test_id": "P05-UART0_RX_AUX",
+      "pin_file": "pin_05_gpio3.jsonc"
+    },
+    {
+      "test_id": "P05-USB_OVCUR_DET",
+      "pin_file": "pin_05_gpio3.jsonc"
+    },
+    {
+      "test_id": "P05-NEG-INVALID-FUNCTION",
+      "pin_file": "pin_05_gpio3.jsonc"
+    }
+  ]
+}

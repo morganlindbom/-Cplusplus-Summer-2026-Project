@@ -1,0 +1,449 @@
+// hardware_reference.jsonc
+{
+  "authority": "RP2350 GPIO Bank 0 function table and Pico SDK gpio_function_rp2350",
+  "sources": [
+    "https://datasheets.raspberrypi.com/rp2350/rp2350-datasheet.pdf",
+    "https://www.raspberrypi.com/documentation/pico-sdk/hardware.html",
+    "https://github.com/raspberrypi/pico-sdk/blob/master/src/rp2_common/hardware_gpio/include/hardware/gpio.h"
+  ],
+  "gpio": {
+    "0": [
+      {
+        "pvd_function_id": "i2c0_sda",
+        "hardware_function": "I2C0 SDA",
+        "sdk_selector_family": "GPIO_FUNC_I2C",
+        "hardware_supported": true,
+        "pvd_supported": true,
+        "protocol_present": true,
+        "current_should_test": true,
+        "discrepancy_class": "MATCH"
+      },
+      {
+        "pvd_function_id": "pio0",
+        "hardware_function": "PIO0",
+        "sdk_selector_family": "GPIO_FUNC_PIO0",
+        "hardware_supported": true,
+        "pvd_supported": true,
+        "protocol_present": true,
+        "current_should_test": true,
+        "discrepancy_class": "MATCH"
+      },
+      {
+        "pvd_function_id": "pio1",
+        "hardware_function": "PIO1",
+        "sdk_selector_family": "GPIO_FUNC_PIO1",
+        "hardware_supported": true,
+        "pvd_supported": true,
+        "protocol_present": true,
+        "current_should_test": true,
+        "discrepancy_class": "MATCH"
+      },
+      {
+        "pvd_function_id": "pio2",
+        "hardware_function": "PIO2",
+        "sdk_selector_family": "GPIO_FUNC_PIO2",
+        "hardware_supported": true,
+        "pvd_supported": true,
+        "protocol_present": true,
+        "current_should_test": true,
+        "discrepancy_class": "MATCH"
+      },
+      {
+        "pvd_function_id": "pwm0a",
+        "hardware_function": "PWM0 A",
+        "sdk_selector_family": "GPIO_FUNC_PWM",
+        "hardware_supported": true,
+        "pvd_supported": true,
+        "protocol_present": true,
+        "current_should_test": true,
+        "discrepancy_class": "MATCH"
+      },
+      {
+        "pvd_function_id": "qmi_cs1n",
+        "hardware_function": "XIP_CS1n / QMI CS1n",
+        "sdk_selector_family": "GPIO_FUNC_XIP_CS1",
+        "hardware_supported": true,
+        "pvd_supported": true,
+        "protocol_present": true,
+        "current_should_test": true,
+        "discrepancy_class": "MATCH"
+      },
+      {
+        "pvd_function_id": "sio",
+        "hardware_function": "SIO",
+        "sdk_selector_family": "GPIO_FUNC_SIO",
+        "hardware_supported": true,
+        "pvd_supported": true,
+        "protocol_present": true,
+        "current_should_test": true,
+        "discrepancy_class": "MATCH"
+      },
+      {
+        "pvd_function_id": "spi0_rx",
+        "hardware_function": "SPI0 RX",
+        "sdk_selector_family": "GPIO_FUNC_SPI",
+        "hardware_supported": true,
+        "pvd_supported": true,
+        "protocol_present": true,
+        "current_should_test": true,
+        "discrepancy_class": "MATCH"
+      },
+      {
+        "pvd_function_id": "uart0_tx",
+        "hardware_function": "UART0 TX",
+        "sdk_selector_family": "GPIO_FUNC_UART",
+        "hardware_supported": true,
+        "pvd_supported": true,
+        "protocol_present": true,
+        "current_should_test": true,
+        "discrepancy_class": "MATCH"
+      },
+      {
+        "pvd_function_id": "usb_ovcur_det",
+        "hardware_function": "USB OVCUR DET",
+        "sdk_selector_family": "GPIO_FUNC_USB",
+        "hardware_supported": true,
+        "pvd_supported": true,
+        "protocol_present": true,
+        "current_should_test": true,
+        "discrepancy_class": "MATCH"
+      }
+    ],
+    "1": [
+      {
+        "pvd_function_id": "i2c0_scl",
+        "hardware_function": "I2C0 SCL",
+        "sdk_selector_family": "GPIO_FUNC_I2C",
+        "hardware_supported": true,
+        "pvd_supported": true,
+        "protocol_present": true,
+        "current_should_test": true,
+        "discrepancy_class": "MATCH"
+      },
+      {
+        "pvd_function_id": "pio0",
+        "hardware_function": "PIO0",
+        "sdk_selector_family": "GPIO_FUNC_PIO0",
+        "hardware_supported": true,
+        "pvd_supported": true,
+        "protocol_present": true,
+        "current_should_test": true,
+        "discrepancy_class": "MATCH"
+      },
+      {
+        "pvd_function_id": "pio1",
+        "hardware_function": "PIO1",
+        "sdk_selector_family": "GPIO_FUNC_PIO1",
+        "hardware_supported": true,
+        "pvd_supported": true,
+        "protocol_present": true,
+        "current_should_test": true,
+        "discrepancy_class": "MATCH"
+      },
+      {
+        "pvd_function_id": "pio2",
+        "hardware_function": "PIO2",
+        "sdk_selector_family": "GPIO_FUNC_PIO2",
+        "hardware_supported": true,
+        "pvd_supported": true,
+        "protocol_present": true,
+        "current_should_test": true,
+        "discrepancy_class": "MATCH"
+      },
+      {
+        "pvd_function_id": "pwm0b",
+        "hardware_function": "PWM0 B",
+        "sdk_selector_family": "GPIO_FUNC_PWM",
+        "hardware_supported": true,
+        "pvd_supported": true,
+        "protocol_present": true,
+        "current_should_test": true,
+        "discrepancy_class": "MATCH"
+      },
+      {
+        "pvd_function_id": "sio",
+        "hardware_function": "SIO",
+        "sdk_selector_family": "GPIO_FUNC_SIO",
+        "hardware_supported": true,
+        "pvd_supported": true,
+        "protocol_present": true,
+        "current_should_test": true,
+        "discrepancy_class": "MATCH"
+      },
+      {
+        "pvd_function_id": "spi0_csn",
+        "hardware_function": "SPI0 CSn",
+        "sdk_selector_family": "GPIO_FUNC_SPI",
+        "hardware_supported": true,
+        "pvd_supported": true,
+        "protocol_present": true,
+        "current_should_test": true,
+        "discrepancy_class": "MATCH"
+      },
+      {
+        "pvd_function_id": "traceclk",
+        "hardware_function": "TRACECLK",
+        "sdk_selector_family": "GPIO_FUNC_CORESIGHT_TRACE",
+        "hardware_supported": true,
+        "pvd_supported": true,
+        "protocol_present": true,
+        "current_should_test": true,
+        "discrepancy_class": "MATCH"
+      },
+      {
+        "pvd_function_id": "uart0_rx",
+        "hardware_function": "UART0 RX",
+        "sdk_selector_family": "GPIO_FUNC_UART",
+        "hardware_supported": true,
+        "pvd_supported": true,
+        "protocol_present": true,
+        "current_should_test": true,
+        "discrepancy_class": "MATCH"
+      },
+      {
+        "pvd_function_id": "usb_vbus_det",
+        "hardware_function": "USB VBUS DET",
+        "sdk_selector_family": "GPIO_FUNC_USB",
+        "hardware_supported": true,
+        "pvd_supported": true,
+        "protocol_present": true,
+        "current_should_test": true,
+        "discrepancy_class": "MATCH"
+      }
+    ],
+    "2": [
+      {
+        "pvd_function_id": "i2c1_sda",
+        "hardware_function": "I2C1 SDA",
+        "sdk_selector_family": "GPIO_FUNC_I2C",
+        "hardware_supported": true,
+        "pvd_supported": true,
+        "protocol_present": true,
+        "current_should_test": true,
+        "discrepancy_class": "MATCH"
+      },
+      {
+        "pvd_function_id": "pio0",
+        "hardware_function": "PIO0",
+        "sdk_selector_family": "GPIO_FUNC_PIO0",
+        "hardware_supported": true,
+        "pvd_supported": true,
+        "protocol_present": true,
+        "current_should_test": true,
+        "discrepancy_class": "MATCH"
+      },
+      {
+        "pvd_function_id": "pio1",
+        "hardware_function": "PIO1",
+        "sdk_selector_family": "GPIO_FUNC_PIO1",
+        "hardware_supported": true,
+        "pvd_supported": true,
+        "protocol_present": true,
+        "current_should_test": true,
+        "discrepancy_class": "MATCH"
+      },
+      {
+        "pvd_function_id": "pio2",
+        "hardware_function": "PIO2",
+        "sdk_selector_family": "GPIO_FUNC_PIO2",
+        "hardware_supported": true,
+        "pvd_supported": true,
+        "protocol_present": true,
+        "current_should_test": true,
+        "discrepancy_class": "MATCH"
+      },
+      {
+        "pvd_function_id": "pwm1a",
+        "hardware_function": "PWM1 A",
+        "sdk_selector_family": "GPIO_FUNC_PWM",
+        "hardware_supported": true,
+        "pvd_supported": true,
+        "protocol_present": true,
+        "current_should_test": true,
+        "discrepancy_class": "MATCH"
+      },
+      {
+        "pvd_function_id": "sio",
+        "hardware_function": "SIO",
+        "sdk_selector_family": "GPIO_FUNC_SIO",
+        "hardware_supported": true,
+        "pvd_supported": true,
+        "protocol_present": true,
+        "current_should_test": true,
+        "discrepancy_class": "MATCH"
+      },
+      {
+        "pvd_function_id": "spi0_sck",
+        "hardware_function": "SPI0 SCK",
+        "sdk_selector_family": "GPIO_FUNC_SPI",
+        "hardware_supported": true,
+        "pvd_supported": true,
+        "protocol_present": true,
+        "current_should_test": true,
+        "discrepancy_class": "MATCH"
+      },
+      {
+        "pvd_function_id": "tracedata0",
+        "hardware_function": "TRACEDATA0",
+        "sdk_selector_family": "GPIO_FUNC_CORESIGHT_TRACE",
+        "hardware_supported": true,
+        "pvd_supported": true,
+        "protocol_present": true,
+        "current_should_test": true,
+        "discrepancy_class": "MATCH"
+      },
+      {
+        "pvd_function_id": "uart0_cts",
+        "hardware_function": "UART0 CTS",
+        "sdk_selector_family": "GPIO_FUNC_UART",
+        "hardware_supported": true,
+        "pvd_supported": true,
+        "protocol_present": true,
+        "current_should_test": true,
+        "discrepancy_class": "MATCH"
+      },
+      {
+        "pvd_function_id": "uart0_tx_aux",
+        "hardware_function": "UART0 TX",
+        "sdk_selector_family": "GPIO_FUNC_UART_AUX",
+        "hardware_supported": true,
+        "pvd_supported": true,
+        "protocol_present": true,
+        "current_should_test": true,
+        "discrepancy_class": "MATCH"
+      },
+      {
+        "pvd_function_id": "usb_vbus_en",
+        "hardware_function": "USB VBUS EN",
+        "sdk_selector_family": "GPIO_FUNC_USB",
+        "hardware_supported": true,
+        "pvd_supported": true,
+        "protocol_present": true,
+        "current_should_test": true,
+        "discrepancy_class": "MATCH"
+      }
+    ],
+    "3": [
+      {
+        "pvd_function_id": "i2c1_scl",
+        "hardware_function": "I2C1 SCL",
+        "sdk_selector_family": "GPIO_FUNC_I2C",
+        "hardware_supported": true,
+        "pvd_supported": true,
+        "protocol_present": true,
+        "current_should_test": true,
+        "discrepancy_class": "MATCH"
+      },
+      {
+        "pvd_function_id": "pio0",
+        "hardware_function": "PIO0",
+        "sdk_selector_family": "GPIO_FUNC_PIO0",
+        "hardware_supported": true,
+        "pvd_supported": true,
+        "protocol_present": true,
+        "current_should_test": true,
+        "discrepancy_class": "MATCH"
+      },
+      {
+        "pvd_function_id": "pio1",
+        "hardware_function": "PIO1",
+        "sdk_selector_family": "GPIO_FUNC_PIO1",
+        "hardware_supported": true,
+        "pvd_supported": true,
+        "protocol_present": true,
+        "current_should_test": true,
+        "discrepancy_class": "MATCH"
+      },
+      {
+        "pvd_function_id": "pio2",
+        "hardware_function": "PIO2",
+        "sdk_selector_family": "GPIO_FUNC_PIO2",
+        "hardware_supported": true,
+        "pvd_supported": true,
+        "protocol_present": true,
+        "current_should_test": true,
+        "discrepancy_class": "MATCH"
+      },
+      {
+        "pvd_function_id": "pwm1b",
+        "hardware_function": "PWM1 B",
+        "sdk_selector_family": "GPIO_FUNC_PWM",
+        "hardware_supported": true,
+        "pvd_supported": true,
+        "protocol_present": true,
+        "current_should_test": true,
+        "discrepancy_class": "MATCH"
+      },
+      {
+        "pvd_function_id": "sio",
+        "hardware_function": "SIO",
+        "sdk_selector_family": "GPIO_FUNC_SIO",
+        "hardware_supported": true,
+        "pvd_supported": true,
+        "protocol_present": true,
+        "current_should_test": true,
+        "discrepancy_class": "MATCH"
+      },
+      {
+        "pvd_function_id": "spi0_tx",
+        "hardware_function": "SPI0 TX",
+        "sdk_selector_family": "GPIO_FUNC_SPI",
+        "hardware_supported": true,
+        "pvd_supported": true,
+        "protocol_present": true,
+        "current_should_test": true,
+        "discrepancy_class": "MATCH"
+      },
+      {
+        "pvd_function_id": "tracedata1",
+        "hardware_function": "TRACEDATA1",
+        "sdk_selector_family": "GPIO_FUNC_CORESIGHT_TRACE",
+        "hardware_supported": true,
+        "pvd_supported": true,
+        "protocol_present": true,
+        "current_should_test": true,
+        "discrepancy_class": "MATCH"
+      },
+      {
+        "pvd_function_id": "uart0_rts",
+        "hardware_function": "UART0 RTS",
+        "sdk_selector_family": "GPIO_FUNC_UART",
+        "hardware_supported": true,
+        "pvd_supported": true,
+        "protocol_present": true,
+        "current_should_test": true,
+        "discrepancy_class": "MATCH"
+      },
+      {
+        "pvd_function_id": "uart0_rx_aux",
+        "hardware_function": "UART0 RX",
+        "sdk_selector_family": "GPIO_FUNC_UART_AUX",
+        "hardware_supported": true,
+        "pvd_supported": true,
+        "protocol_present": true,
+        "current_should_test": true,
+        "discrepancy_class": "MATCH"
+      },
+      {
+        "pvd_function_id": "usb_ovcur_det",
+        "hardware_function": "USB OVCUR DET",
+        "sdk_selector_family": "GPIO_FUNC_USB",
+        "hardware_supported": true,
+        "pvd_supported": true,
+        "protocol_present": true,
+        "current_should_test": true,
+        "discrepancy_class": "MATCH"
+      }
+    ]
+  },
+  "hardware_only": [],
+  "pvd_only_conflicts": [],
+  "protocol_missing_before_correction": [],
+  "protocol_extras": [],
+  "generator_gaps": [],
+  "uncertain": [],
+  "alias_notes": [
+    "PVD qmi_cs1n is the project name for the RP2350 XIP_CS1n/QMI CS1n mux entry.",
+    "PVD uart0_tx_aux and uart0_rx_aux represent the RP2350 F11 UART_AUX selector family; the hardware table names the signals UART0 TX and UART0 RX."
+  ]
+}

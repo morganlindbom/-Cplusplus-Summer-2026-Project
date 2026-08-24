@@ -1,0 +1,262 @@
+// pin_03_gnd.jsonc
+{
+  "physical_pin": 3,
+  "gpio": null,
+  "label": "Physical pin 3 / GND",
+  "source_of_truth": "src/systems/components/PicoPinMap.cpp and src/systems/components/pin_functions/*/function.sqlite",
+  "campaign_started": false,
+  "tests": [
+    {
+      "test_id": "P03-GND-CLASSIFICATION",
+      "name": "Physical pin 3 is GND",
+      "category": "GND",
+      "physical_pin": 3,
+      "gpio": null,
+      "hardware_function": "ground",
+      "hardware_function_name": "ground",
+      "sdk_selector_family": "NOT_APPLICABLE",
+      "should_test": true,
+      "disabled_reason": "",
+      "expected_pvd_support": "NOT_APPLICABLE",
+      "requires_external_hardware": false,
+      "source_of_truth_verified": false,
+      "generator_support_verified": false,
+      "discrepancy_class": "MATCH",
+      "requirements": [
+        "ground_classification",
+        "reject_programmable_function",
+        "persistence"
+      ],
+      "stages": {
+        "launch": {
+          "should_test": true,
+          "result": "NOT-RUN",
+          "disabled_reason": ""
+        },
+        "navigation": {
+          "should_test": true,
+          "result": "NOT-RUN",
+          "disabled_reason": ""
+        },
+        "selection": {
+          "should_test": true,
+          "result": "NOT-RUN",
+          "disabled_reason": ""
+        },
+        "settings": {
+          "should_test": true,
+          "result": "NOT-RUN",
+          "disabled_reason": ""
+        },
+        "save_persistence": {
+          "should_test": true,
+          "result": "NOT-RUN",
+          "disabled_reason": ""
+        },
+        "generate": {
+          "should_test": false,
+          "result": "NOT-RUN",
+          "disabled_reason": "Not applicable to a ground pin."
+        },
+        "configure": {
+          "should_test": false,
+          "result": "NOT-RUN",
+          "disabled_reason": "Not applicable to a ground pin."
+        },
+        "build": {
+          "should_test": false,
+          "result": "NOT-RUN",
+          "disabled_reason": "Not applicable to a ground pin."
+        },
+        "transfer": {
+          "should_test": false,
+          "result": "NOT-RUN",
+          "disabled_reason": "Deferred by current hardware certification policy; no physical rewiring or external hardware is permitted."
+        },
+        "runtime": {
+          "should_test": false,
+          "result": "NOT-RUN",
+          "disabled_reason": "Deferred by current hardware certification policy; no physical rewiring or external hardware is permitted."
+        },
+        "debug": {
+          "should_test": false,
+          "result": "NOT-RUN",
+          "disabled_reason": "Deferred by current hardware certification policy; no physical rewiring or external hardware is permitted."
+        },
+        "cleanup": {
+          "should_test": true,
+          "result": "NOT-RUN",
+          "disabled_reason": ""
+        }
+      }
+    },
+    {
+      "test_id": "P03-GND-REJECT-FUNCTION",
+      "name": "GND rejects programmable functions",
+      "category": "GND",
+      "physical_pin": 3,
+      "gpio": null,
+      "hardware_function": "ground.reject",
+      "hardware_function_name": "ground.reject",
+      "sdk_selector_family": "NOT_APPLICABLE",
+      "should_test": true,
+      "disabled_reason": "",
+      "expected_pvd_support": "NOT_APPLICABLE",
+      "requires_external_hardware": false,
+      "source_of_truth_verified": false,
+      "generator_support_verified": false,
+      "discrepancy_class": "MATCH",
+      "requirements": [
+        "ground_classification",
+        "reject_programmable_function",
+        "persistence"
+      ],
+      "stages": {
+        "launch": {
+          "should_test": true,
+          "result": "NOT-RUN",
+          "disabled_reason": ""
+        },
+        "navigation": {
+          "should_test": true,
+          "result": "NOT-RUN",
+          "disabled_reason": ""
+        },
+        "selection": {
+          "should_test": true,
+          "result": "NOT-RUN",
+          "disabled_reason": ""
+        },
+        "settings": {
+          "should_test": true,
+          "result": "NOT-RUN",
+          "disabled_reason": ""
+        },
+        "save_persistence": {
+          "should_test": true,
+          "result": "NOT-RUN",
+          "disabled_reason": ""
+        },
+        "generate": {
+          "should_test": false,
+          "result": "NOT-RUN",
+          "disabled_reason": "Not applicable to a ground pin."
+        },
+        "configure": {
+          "should_test": false,
+          "result": "NOT-RUN",
+          "disabled_reason": "Not applicable to a ground pin."
+        },
+        "build": {
+          "should_test": false,
+          "result": "NOT-RUN",
+          "disabled_reason": "Not applicable to a ground pin."
+        },
+        "transfer": {
+          "should_test": false,
+          "result": "NOT-RUN",
+          "disabled_reason": "Deferred by current hardware certification policy; no physical rewiring or external hardware is permitted."
+        },
+        "runtime": {
+          "should_test": false,
+          "result": "NOT-RUN",
+          "disabled_reason": "Deferred by current hardware certification policy; no physical rewiring or external hardware is permitted."
+        },
+        "debug": {
+          "should_test": false,
+          "result": "NOT-RUN",
+          "disabled_reason": "Deferred by current hardware certification policy; no physical rewiring or external hardware is permitted."
+        },
+        "cleanup": {
+          "should_test": true,
+          "result": "NOT-RUN",
+          "disabled_reason": ""
+        }
+      }
+    },
+    {
+      "test_id": "P03-GND-PERSISTENCE",
+      "name": "GND remains non-programmable after save/reload",
+      "category": "GND",
+      "physical_pin": 3,
+      "gpio": null,
+      "hardware_function": "ground.persistence",
+      "hardware_function_name": "ground.persistence",
+      "sdk_selector_family": "NOT_APPLICABLE",
+      "should_test": true,
+      "disabled_reason": "",
+      "expected_pvd_support": "NOT_APPLICABLE",
+      "requires_external_hardware": false,
+      "source_of_truth_verified": false,
+      "generator_support_verified": false,
+      "discrepancy_class": "MATCH",
+      "requirements": [
+        "ground_classification",
+        "reject_programmable_function",
+        "persistence"
+      ],
+      "stages": {
+        "launch": {
+          "should_test": true,
+          "result": "NOT-RUN",
+          "disabled_reason": ""
+        },
+        "navigation": {
+          "should_test": true,
+          "result": "NOT-RUN",
+          "disabled_reason": ""
+        },
+        "selection": {
+          "should_test": true,
+          "result": "NOT-RUN",
+          "disabled_reason": ""
+        },
+        "settings": {
+          "should_test": true,
+          "result": "NOT-RUN",
+          "disabled_reason": ""
+        },
+        "save_persistence": {
+          "should_test": true,
+          "result": "NOT-RUN",
+          "disabled_reason": ""
+        },
+        "generate": {
+          "should_test": false,
+          "result": "NOT-RUN",
+          "disabled_reason": "Not applicable to a ground pin."
+        },
+        "configure": {
+          "should_test": false,
+          "result": "NOT-RUN",
+          "disabled_reason": "Not applicable to a ground pin."
+        },
+        "build": {
+          "should_test": false,
+          "result": "NOT-RUN",
+          "disabled_reason": "Not applicable to a ground pin."
+        },
+        "transfer": {
+          "should_test": false,
+          "result": "NOT-RUN",
+          "disabled_reason": "Deferred by current hardware certification policy; no physical rewiring or external hardware is permitted."
+        },
+        "runtime": {
+          "should_test": false,
+          "result": "NOT-RUN",
+          "disabled_reason": "Deferred by current hardware certification policy; no physical rewiring or external hardware is permitted."
+        },
+        "debug": {
+          "should_test": false,
+          "result": "NOT-RUN",
+          "disabled_reason": "Deferred by current hardware certification policy; no physical rewiring or external hardware is permitted."
+        },
+        "cleanup": {
+          "should_test": true,
+          "result": "NOT-RUN",
+          "disabled_reason": ""
+        }
+      }
+    }
+  ]
+}

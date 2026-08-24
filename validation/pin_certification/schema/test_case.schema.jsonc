@@ -1,0 +1,21 @@
+// Structural contract for executable-later certification cases.
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "pvd-pico2w-pin-certification-test-case",
+  "type": "object",
+  "required": ["test_id", "category", "should_test", "stages"],
+  "properties": {
+    "test_id": {"type": "string", "minLength": 1},
+    "category": {"type": "string", "minLength": 1},
+    "physical_pin": {"type": ["integer", "null"]},
+    "gpio": {"type": ["integer", "null"]},
+    "should_test": {"type": "boolean"},
+    "disabled_reason": {"type": "string"},
+    "hardware_supported": {"type": "boolean"},
+    "pvd_supported": {"type": "boolean"},
+    "generator_supported": {"type": "boolean"},
+    "protocol_present": {"type": "boolean"},
+    "stages": {"type": "object", "minProperties": 13}
+  },
+  "additionalProperties": true
+}

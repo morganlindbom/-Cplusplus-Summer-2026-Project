@@ -1,0 +1,50 @@
+// protocol.jsonc
+{
+  "protocol_id": "pvd-pins-1-5-canonical",
+  "version": 1,
+  "campaign_started": false,
+  "physical_certification_claimed": false,
+  "pin_documents": [
+    "pins/pin_01_gpio0.jsonc",
+    "pins/pin_02_gpio1.jsonc",
+    "pins/pin_03_gnd.jsonc",
+    "pins/pin_04_gpio2.jsonc",
+    "pins/pin_05_gpio3.jsonc"
+  ],
+  "hardware_reference": "hardware_reference.jsonc",
+  "canonical_stages": ["launch", "navigation", "selection", "settings", "save_persistence", "generate", "configure", "build", "transfer", "runtime", "debug", "cleanup"],
+  "default_result": "NOT-RUN",
+  "allowed_stage_results": ["NOT-RUN", "PASS", "FAIL", "BLOCKED", "NOT-APPLICABLE", "REQUIRES-EXTERNAL-HARDWARE"],
+  "default_disabled_stages": {
+    "transfer": "Deferred by current hardware certification policy; no physical rewiring or external hardware is permitted.",
+    "runtime": "Deferred by current hardware certification policy; no physical rewiring or external hardware is permitted.",
+    "debug": "Deferred by current hardware certification policy; no physical rewiring or external hardware is permitted."
+  },
+  "source_of_truth": {
+    "pin_mapping": "src/systems/components/PicoPinMap.cpp",
+    "function_catalog": "src/systems/components/FunctionCatalog.cpp",
+    "function_databases": "src/systems/components/pin_functions/*/function.sqlite",
+    "settings_databases": "src/systems/components/pin_functions/*/function.sqlite",
+    "generation": "src/systems/generation/ProjectGenerator.cpp",
+    "gui_policy": "ARAMF approved PVD GUI end-to-end policy"
+  },
+  "hardware_reference_status": "VALIDATED_AGAINST_RP2350_DATASHEET_AND_PICO_SDK",
+  "authoritative_hardware_sources": [
+    "https://datasheets.raspberrypi.com/rp2350/rp2350-datasheet.pdf",
+    "https://www.raspberrypi.com/documentation/pico-sdk/hardware.html",
+    "https://github.com/raspberrypi/pico-sdk/blob/master/src/rp2_common/hardware_gpio/include/hardware/gpio.h"
+  ],
+  "discrepancy_policy": [
+    "hardware-supported-and-PVD-supported",
+    "hardware-supported-but-PVD-not-supported",
+    "PVD-exposed-but-hardware-uncertain",
+    "not-applicable"
+  ],
+  "execution_policy": {
+    "real_gui_required": true,
+    "backend_only_is_not_gui_pass": true,
+    "stop_after_blocking_failure": true,
+    "no_new_external_hardware": true,
+    "no_pin_campaign_started": true
+  }
+}

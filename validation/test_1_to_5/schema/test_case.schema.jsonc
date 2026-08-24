@@ -1,0 +1,26 @@
+// test_case.schema.jsonc
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "pvd-pins-1-5-test-case",
+  "type": "object",
+  "required": ["test_id", "name", "category", "physical_pin", "gpio", "hardware_function", "hardware_function_name", "sdk_selector_family", "should_test", "disabled_reason", "expected_pvd_support", "requires_external_hardware", "source_of_truth_verified", "generator_support_verified", "discrepancy_class", "requirements", "stages"],
+  "properties": {
+    "test_id": {"type": "string", "minLength": 1},
+    "name": {"type": "string", "minLength": 1},
+    "category": {"type": "string", "minLength": 1},
+    "physical_pin": {"type": "integer", "enum": [1, 2, 3, 4, 5]},
+    "gpio": {"type": ["integer", "null"]},
+    "hardware_function": {"type": "string", "minLength": 1},
+    "hardware_function_name": {"type": "string", "minLength": 1},
+    "sdk_selector_family": {"type": "string", "minLength": 1},
+    "should_test": {"type": "boolean"},
+    "disabled_reason": {"type": "string"},
+    "expected_pvd_support": {"type": "string", "minLength": 1},
+    "requires_external_hardware": {"type": "boolean"},
+    "source_of_truth_verified": {"type": "boolean"},
+    "generator_support_verified": {"type": "boolean"},
+    "discrepancy_class": {"type": "string", "minLength": 1},
+    "requirements": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+    "stages": {"type": "object", "minProperties": 12}
+  }
+}

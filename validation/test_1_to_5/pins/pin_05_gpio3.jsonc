@@ -1,0 +1,1099 @@
+// pin_05_gpio3.jsonc
+{
+  "physical_pin": 5,
+  "gpio": 3,
+  "label": "Physical pin 5 / GPIO3",
+  "source_of_truth": "src/systems/components/PicoPinMap.cpp and src/systems/components/pin_functions/*/function.sqlite",
+  "campaign_started": false,
+  "tests": [
+    {
+      "test_id": "P05-I2C1_SCL",
+      "name": "Physical pin 5 / GPIO3: I2C1 SCL",
+      "category": "I2C",
+      "physical_pin": 5,
+      "gpio": 3,
+      "hardware_function": "i2c1_scl",
+      "hardware_function_name": "I2C1 SCL",
+      "sdk_selector_family": "GPIO_FUNC_I2C",
+      "should_test": true,
+      "disabled_reason": "",
+      "expected_pvd_support": "CONFIRMED_PVD_SOURCE_OF_TRUTH",
+      "requires_external_hardware": false,
+      "source_of_truth_verified": true,
+      "generator_support_verified": true,
+      "discrepancy_class": "MATCH",
+      "requirements": [
+        "visible_selection",
+        "save_persistence",
+        "generated_configuration",
+        "build",
+        "instance",
+        "role",
+        "clock",
+        "addressing",
+        "pin_mapping",
+        "ownership"
+      ],
+      "stages": {
+        "launch": {
+          "should_test": true,
+          "result": "NOT-RUN",
+          "disabled_reason": ""
+        },
+        "navigation": {
+          "should_test": true,
+          "result": "NOT-RUN",
+          "disabled_reason": ""
+        },
+        "selection": {
+          "should_test": true,
+          "result": "NOT-RUN",
+          "disabled_reason": ""
+        },
+        "settings": {
+          "should_test": true,
+          "result": "NOT-RUN",
+          "disabled_reason": ""
+        },
+        "save_persistence": {
+          "should_test": true,
+          "result": "NOT-RUN",
+          "disabled_reason": ""
+        },
+        "generate": {
+          "should_test": true,
+          "result": "NOT-RUN",
+          "disabled_reason": ""
+        },
+        "configure": {
+          "should_test": true,
+          "result": "NOT-RUN",
+          "disabled_reason": ""
+        },
+        "build": {
+          "should_test": true,
+          "result": "NOT-RUN",
+          "disabled_reason": ""
+        },
+        "transfer": {
+          "should_test": false,
+          "result": "NOT-RUN",
+          "disabled_reason": "Deferred by current hardware certification policy; no physical rewiring or external hardware is permitted."
+        },
+        "runtime": {
+          "should_test": false,
+          "result": "NOT-RUN",
+          "disabled_reason": "Deferred by current hardware certification policy; no physical rewiring or external hardware is permitted."
+        },
+        "debug": {
+          "should_test": false,
+          "result": "NOT-RUN",
+          "disabled_reason": "Deferred by current hardware certification policy; no physical rewiring or external hardware is permitted."
+        },
+        "cleanup": {
+          "should_test": true,
+          "result": "NOT-RUN",
+          "disabled_reason": ""
+        }
+      }
+    },
+    {
+      "test_id": "P05-PIO0",
+      "name": "Physical pin 5 / GPIO3: PIO0",
+      "category": "PIO",
+      "physical_pin": 5,
+      "gpio": 3,
+      "hardware_function": "pio0",
+      "hardware_function_name": "PIO0",
+      "sdk_selector_family": "GPIO_FUNC_PIO0",
+      "should_test": true,
+      "disabled_reason": "",
+      "expected_pvd_support": "CONFIRMED_PVD_SOURCE_OF_TRUTH",
+      "requires_external_hardware": false,
+      "source_of_truth_verified": true,
+      "generator_support_verified": true,
+      "discrepancy_class": "MATCH",
+      "requirements": [
+        "visible_selection",
+        "save_persistence",
+        "generated_configuration",
+        "build",
+        "pio_block",
+        "state_machine",
+        "program",
+        "offset",
+        "pin_mapping",
+        "clock_divider",
+        "wrap",
+        "fifo",
+        "ownership"
+      ],
+      "stages": {
+        "launch": {
+          "should_test": true,
+          "result": "NOT-RUN",
+          "disabled_reason": ""
+        },
+        "navigation": {
+          "should_test": true,
+          "result": "NOT-RUN",
+          "disabled_reason": ""
+        },
+        "selection": {
+          "should_test": true,
+          "result": "NOT-RUN",
+          "disabled_reason": ""
+        },
+        "settings": {
+          "should_test": true,
+          "result": "NOT-RUN",
+          "disabled_reason": ""
+        },
+        "save_persistence": {
+          "should_test": true,
+          "result": "NOT-RUN",
+          "disabled_reason": ""
+        },
+        "generate": {
+          "should_test": true,
+          "result": "NOT-RUN",
+          "disabled_reason": ""
+        },
+        "configure": {
+          "should_test": true,
+          "result": "NOT-RUN",
+          "disabled_reason": ""
+        },
+        "build": {
+          "should_test": true,
+          "result": "NOT-RUN",
+          "disabled_reason": ""
+        },
+        "transfer": {
+          "should_test": false,
+          "result": "NOT-RUN",
+          "disabled_reason": "Deferred by current hardware certification policy; no physical rewiring or external hardware is permitted."
+        },
+        "runtime": {
+          "should_test": false,
+          "result": "NOT-RUN",
+          "disabled_reason": "Deferred by current hardware certification policy; no physical rewiring or external hardware is permitted."
+        },
+        "debug": {
+          "should_test": false,
+          "result": "NOT-RUN",
+          "disabled_reason": "Deferred by current hardware certification policy; no physical rewiring or external hardware is permitted."
+        },
+        "cleanup": {
+          "should_test": true,
+          "result": "NOT-RUN",
+          "disabled_reason": ""
+        }
+      }
+    },
+    {
+      "test_id": "P05-PIO1",
+      "name": "Physical pin 5 / GPIO3: PIO1",
+      "category": "PIO",
+      "physical_pin": 5,
+      "gpio": 3,
+      "hardware_function": "pio1",
+      "hardware_function_name": "PIO1",
+      "sdk_selector_family": "GPIO_FUNC_PIO1",
+      "should_test": true,
+      "disabled_reason": "",
+      "expected_pvd_support": "CONFIRMED_PVD_SOURCE_OF_TRUTH",
+      "requires_external_hardware": false,
+      "source_of_truth_verified": true,
+      "generator_support_verified": true,
+      "discrepancy_class": "MATCH",
+      "requirements": [
+        "visible_selection",
+        "save_persistence",
+        "generated_configuration",
+        "build",
+        "pio_block",
+        "state_machine",
+        "program",
+        "offset",
+        "pin_mapping",
+        "clock_divider",
+        "wrap",
+        "fifo",
+        "ownership"
+      ],
+      "stages": {
+        "launch": {
+          "should_test": true,
+          "result": "NOT-RUN",
+          "disabled_reason": ""
+        },
+        "navigation": {
+          "should_test": true,
+          "result": "NOT-RUN",
+          "disabled_reason": ""
+        },
+        "selection": {
+          "should_test": true,
+          "result": "NOT-RUN",
+          "disabled_reason": ""
+        },
+        "settings": {
+          "should_test": true,
+          "result": "NOT-RUN",
+          "disabled_reason": ""
+        },
+        "save_persistence": {
+          "should_test": true,
+          "result": "NOT-RUN",
+          "disabled_reason": ""
+        },
+        "generate": {
+          "should_test": true,
+          "result": "NOT-RUN",
+          "disabled_reason": ""
+        },
+        "configure": {
+          "should_test": true,
+          "result": "NOT-RUN",
+          "disabled_reason": ""
+        },
+        "build": {
+          "should_test": true,
+          "result": "NOT-RUN",
+          "disabled_reason": ""
+        },
+        "transfer": {
+          "should_test": false,
+          "result": "NOT-RUN",
+          "disabled_reason": "Deferred by current hardware certification policy; no physical rewiring or external hardware is permitted."
+        },
+        "runtime": {
+          "should_test": false,
+          "result": "NOT-RUN",
+          "disabled_reason": "Deferred by current hardware certification policy; no physical rewiring or external hardware is permitted."
+        },
+        "debug": {
+          "should_test": false,
+          "result": "NOT-RUN",
+          "disabled_reason": "Deferred by current hardware certification policy; no physical rewiring or external hardware is permitted."
+        },
+        "cleanup": {
+          "should_test": true,
+          "result": "NOT-RUN",
+          "disabled_reason": ""
+        }
+      }
+    },
+    {
+      "test_id": "P05-PIO2",
+      "name": "Physical pin 5 / GPIO3: PIO2",
+      "category": "PIO",
+      "physical_pin": 5,
+      "gpio": 3,
+      "hardware_function": "pio2",
+      "hardware_function_name": "PIO2",
+      "sdk_selector_family": "GPIO_FUNC_PIO2",
+      "should_test": true,
+      "disabled_reason": "",
+      "expected_pvd_support": "CONFIRMED_PVD_SOURCE_OF_TRUTH",
+      "requires_external_hardware": false,
+      "source_of_truth_verified": true,
+      "generator_support_verified": true,
+      "discrepancy_class": "MATCH",
+      "requirements": [
+        "visible_selection",
+        "save_persistence",
+        "generated_configuration",
+        "build",
+        "pio_block",
+        "state_machine",
+        "program",
+        "offset",
+        "pin_mapping",
+        "clock_divider",
+        "wrap",
+        "fifo",
+        "ownership"
+      ],
+      "stages": {
+        "launch": {
+          "should_test": true,
+          "result": "NOT-RUN",
+          "disabled_reason": ""
+        },
+        "navigation": {
+          "should_test": true,
+          "result": "NOT-RUN",
+          "disabled_reason": ""
+        },
+        "selection": {
+          "should_test": true,
+          "result": "NOT-RUN",
+          "disabled_reason": ""
+        },
+        "settings": {
+          "should_test": true,
+          "result": "NOT-RUN",
+          "disabled_reason": ""
+        },
+        "save_persistence": {
+          "should_test": true,
+          "result": "NOT-RUN",
+          "disabled_reason": ""
+        },
+        "generate": {
+          "should_test": true,
+          "result": "NOT-RUN",
+          "disabled_reason": ""
+        },
+        "configure": {
+          "should_test": true,
+          "result": "NOT-RUN",
+          "disabled_reason": ""
+        },
+        "build": {
+          "should_test": true,
+          "result": "NOT-RUN",
+          "disabled_reason": ""
+        },
+        "transfer": {
+          "should_test": false,
+          "result": "NOT-RUN",
+          "disabled_reason": "Deferred by current hardware certification policy; no physical rewiring or external hardware is permitted."
+        },
+        "runtime": {
+          "should_test": false,
+          "result": "NOT-RUN",
+          "disabled_reason": "Deferred by current hardware certification policy; no physical rewiring or external hardware is permitted."
+        },
+        "debug": {
+          "should_test": false,
+          "result": "NOT-RUN",
+          "disabled_reason": "Deferred by current hardware certification policy; no physical rewiring or external hardware is permitted."
+        },
+        "cleanup": {
+          "should_test": true,
+          "result": "NOT-RUN",
+          "disabled_reason": ""
+        }
+      }
+    },
+    {
+      "test_id": "P05-PWM1B",
+      "name": "Physical pin 5 / GPIO3: PWM1 B",
+      "category": "PWM",
+      "physical_pin": 5,
+      "gpio": 3,
+      "hardware_function": "pwm1b",
+      "hardware_function_name": "PWM1 B",
+      "sdk_selector_family": "GPIO_FUNC_PWM",
+      "should_test": true,
+      "disabled_reason": "",
+      "expected_pvd_support": "CONFIRMED_PVD_SOURCE_OF_TRUTH",
+      "requires_external_hardware": false,
+      "source_of_truth_verified": true,
+      "generator_support_verified": true,
+      "discrepancy_class": "MATCH",
+      "requirements": [
+        "visible_selection",
+        "save_persistence",
+        "generated_configuration",
+        "build",
+        "slice_channel",
+        "frequency",
+        "duty_cycle",
+        "divider",
+        "top",
+        "polarity",
+        "ownership"
+      ],
+      "stages": {
+        "launch": {
+          "should_test": true,
+          "result": "NOT-RUN",
+          "disabled_reason": ""
+        },
+        "navigation": {
+          "should_test": true,
+          "result": "NOT-RUN",
+          "disabled_reason": ""
+        },
+        "selection": {
+          "should_test": true,
+          "result": "NOT-RUN",
+          "disabled_reason": ""
+        },
+        "settings": {
+          "should_test": true,
+          "result": "NOT-RUN",
+          "disabled_reason": ""
+        },
+        "save_persistence": {
+          "should_test": true,
+          "result": "NOT-RUN",
+          "disabled_reason": ""
+        },
+        "generate": {
+          "should_test": true,
+          "result": "NOT-RUN",
+          "disabled_reason": ""
+        },
+        "configure": {
+          "should_test": true,
+          "result": "NOT-RUN",
+          "disabled_reason": ""
+        },
+        "build": {
+          "should_test": true,
+          "result": "NOT-RUN",
+          "disabled_reason": ""
+        },
+        "transfer": {
+          "should_test": false,
+          "result": "NOT-RUN",
+          "disabled_reason": "Deferred by current hardware certification policy; no physical rewiring or external hardware is permitted."
+        },
+        "runtime": {
+          "should_test": false,
+          "result": "NOT-RUN",
+          "disabled_reason": "Deferred by current hardware certification policy; no physical rewiring or external hardware is permitted."
+        },
+        "debug": {
+          "should_test": false,
+          "result": "NOT-RUN",
+          "disabled_reason": "Deferred by current hardware certification policy; no physical rewiring or external hardware is permitted."
+        },
+        "cleanup": {
+          "should_test": true,
+          "result": "NOT-RUN",
+          "disabled_reason": ""
+        }
+      }
+    },
+    {
+      "test_id": "P05-SIO",
+      "name": "Physical pin 5 / GPIO3: SIO",
+      "category": "SIO",
+      "physical_pin": 5,
+      "gpio": 3,
+      "hardware_function": "sio",
+      "hardware_function_name": "SIO",
+      "sdk_selector_family": "GPIO_FUNC_SIO",
+      "should_test": true,
+      "disabled_reason": "",
+      "expected_pvd_support": "CONFIRMED_PVD_SOURCE_OF_TRUTH",
+      "requires_external_hardware": false,
+      "source_of_truth_verified": true,
+      "generator_support_verified": true,
+      "discrepancy_class": "MATCH",
+      "requirements": [
+        "visible_selection",
+        "save_persistence",
+        "generated_configuration",
+        "build",
+        "direction",
+        "pull",
+        "initial_state",
+        "debounce",
+        "drive_strength"
+      ],
+      "stages": {
+        "launch": {
+          "should_test": true,
+          "result": "NOT-RUN",
+          "disabled_reason": ""
+        },
+        "navigation": {
+          "should_test": true,
+          "result": "NOT-RUN",
+          "disabled_reason": ""
+        },
+        "selection": {
+          "should_test": true,
+          "result": "NOT-RUN",
+          "disabled_reason": ""
+        },
+        "settings": {
+          "should_test": true,
+          "result": "NOT-RUN",
+          "disabled_reason": ""
+        },
+        "save_persistence": {
+          "should_test": true,
+          "result": "NOT-RUN",
+          "disabled_reason": ""
+        },
+        "generate": {
+          "should_test": true,
+          "result": "NOT-RUN",
+          "disabled_reason": ""
+        },
+        "configure": {
+          "should_test": true,
+          "result": "NOT-RUN",
+          "disabled_reason": ""
+        },
+        "build": {
+          "should_test": true,
+          "result": "NOT-RUN",
+          "disabled_reason": ""
+        },
+        "transfer": {
+          "should_test": false,
+          "result": "NOT-RUN",
+          "disabled_reason": "Deferred by current hardware certification policy; no physical rewiring or external hardware is permitted."
+        },
+        "runtime": {
+          "should_test": false,
+          "result": "NOT-RUN",
+          "disabled_reason": "Deferred by current hardware certification policy; no physical rewiring or external hardware is permitted."
+        },
+        "debug": {
+          "should_test": false,
+          "result": "NOT-RUN",
+          "disabled_reason": "Deferred by current hardware certification policy; no physical rewiring or external hardware is permitted."
+        },
+        "cleanup": {
+          "should_test": true,
+          "result": "NOT-RUN",
+          "disabled_reason": ""
+        }
+      }
+    },
+    {
+      "test_id": "P05-SPI0_TX",
+      "name": "Physical pin 5 / GPIO3: SPI0 TX",
+      "category": "SPI",
+      "physical_pin": 5,
+      "gpio": 3,
+      "hardware_function": "spi0_tx",
+      "hardware_function_name": "SPI0 TX",
+      "sdk_selector_family": "GPIO_FUNC_SPI",
+      "should_test": true,
+      "disabled_reason": "",
+      "expected_pvd_support": "CONFIRMED_PVD_SOURCE_OF_TRUTH",
+      "requires_external_hardware": false,
+      "source_of_truth_verified": true,
+      "generator_support_verified": true,
+      "discrepancy_class": "MATCH",
+      "requirements": [
+        "visible_selection",
+        "save_persistence",
+        "generated_configuration",
+        "build",
+        "instance",
+        "role",
+        "clock",
+        "data_format",
+        "pin_mapping",
+        "ownership"
+      ],
+      "stages": {
+        "launch": {
+          "should_test": true,
+          "result": "NOT-RUN",
+          "disabled_reason": ""
+        },
+        "navigation": {
+          "should_test": true,
+          "result": "NOT-RUN",
+          "disabled_reason": ""
+        },
+        "selection": {
+          "should_test": true,
+          "result": "NOT-RUN",
+          "disabled_reason": ""
+        },
+        "settings": {
+          "should_test": true,
+          "result": "NOT-RUN",
+          "disabled_reason": ""
+        },
+        "save_persistence": {
+          "should_test": true,
+          "result": "NOT-RUN",
+          "disabled_reason": ""
+        },
+        "generate": {
+          "should_test": true,
+          "result": "NOT-RUN",
+          "disabled_reason": ""
+        },
+        "configure": {
+          "should_test": true,
+          "result": "NOT-RUN",
+          "disabled_reason": ""
+        },
+        "build": {
+          "should_test": true,
+          "result": "NOT-RUN",
+          "disabled_reason": ""
+        },
+        "transfer": {
+          "should_test": false,
+          "result": "NOT-RUN",
+          "disabled_reason": "Deferred by current hardware certification policy; no physical rewiring or external hardware is permitted."
+        },
+        "runtime": {
+          "should_test": false,
+          "result": "NOT-RUN",
+          "disabled_reason": "Deferred by current hardware certification policy; no physical rewiring or external hardware is permitted."
+        },
+        "debug": {
+          "should_test": false,
+          "result": "NOT-RUN",
+          "disabled_reason": "Deferred by current hardware certification policy; no physical rewiring or external hardware is permitted."
+        },
+        "cleanup": {
+          "should_test": true,
+          "result": "NOT-RUN",
+          "disabled_reason": ""
+        }
+      }
+    },
+    {
+      "test_id": "P05-TRACEDATA1",
+      "name": "Physical pin 5 / GPIO3: TRACEDATA1",
+      "category": "Trace",
+      "physical_pin": 5,
+      "gpio": 3,
+      "hardware_function": "tracedata1",
+      "hardware_function_name": "TRACEDATA1",
+      "sdk_selector_family": "GPIO_FUNC_CORESIGHT_TRACE",
+      "should_test": true,
+      "disabled_reason": "",
+      "expected_pvd_support": "CONFIRMED_PVD_SOURCE_OF_TRUTH",
+      "requires_external_hardware": false,
+      "source_of_truth_verified": true,
+      "generator_support_verified": true,
+      "discrepancy_class": "MATCH",
+      "requirements": [
+        "visible_selection",
+        "save_persistence",
+        "generated_configuration",
+        "build",
+        "trace_role",
+        "pin_mapping",
+        "ownership"
+      ],
+      "stages": {
+        "launch": {
+          "should_test": true,
+          "result": "NOT-RUN",
+          "disabled_reason": ""
+        },
+        "navigation": {
+          "should_test": true,
+          "result": "NOT-RUN",
+          "disabled_reason": ""
+        },
+        "selection": {
+          "should_test": true,
+          "result": "NOT-RUN",
+          "disabled_reason": ""
+        },
+        "settings": {
+          "should_test": true,
+          "result": "NOT-RUN",
+          "disabled_reason": ""
+        },
+        "save_persistence": {
+          "should_test": true,
+          "result": "NOT-RUN",
+          "disabled_reason": ""
+        },
+        "generate": {
+          "should_test": true,
+          "result": "NOT-RUN",
+          "disabled_reason": ""
+        },
+        "configure": {
+          "should_test": true,
+          "result": "NOT-RUN",
+          "disabled_reason": ""
+        },
+        "build": {
+          "should_test": true,
+          "result": "NOT-RUN",
+          "disabled_reason": ""
+        },
+        "transfer": {
+          "should_test": false,
+          "result": "NOT-RUN",
+          "disabled_reason": "Deferred by current hardware certification policy; no physical rewiring or external hardware is permitted."
+        },
+        "runtime": {
+          "should_test": false,
+          "result": "NOT-RUN",
+          "disabled_reason": "Deferred by current hardware certification policy; no physical rewiring or external hardware is permitted."
+        },
+        "debug": {
+          "should_test": false,
+          "result": "NOT-RUN",
+          "disabled_reason": "Deferred by current hardware certification policy; no physical rewiring or external hardware is permitted."
+        },
+        "cleanup": {
+          "should_test": true,
+          "result": "NOT-RUN",
+          "disabled_reason": ""
+        }
+      }
+    },
+    {
+      "test_id": "P05-UART0_RTS",
+      "name": "Physical pin 5 / GPIO3: UART0 RTS",
+      "category": "UART",
+      "physical_pin": 5,
+      "gpio": 3,
+      "hardware_function": "uart0_rts",
+      "hardware_function_name": "UART0 RTS",
+      "sdk_selector_family": "GPIO_FUNC_UART",
+      "should_test": true,
+      "disabled_reason": "",
+      "expected_pvd_support": "CONFIRMED_PVD_SOURCE_OF_TRUTH",
+      "requires_external_hardware": false,
+      "source_of_truth_verified": true,
+      "generator_support_verified": true,
+      "discrepancy_class": "MATCH",
+      "requirements": [
+        "visible_selection",
+        "save_persistence",
+        "generated_configuration",
+        "build",
+        "instance",
+        "role",
+        "baud_rate",
+        "data_format",
+        "pin_mapping",
+        "ownership"
+      ],
+      "stages": {
+        "launch": {
+          "should_test": true,
+          "result": "NOT-RUN",
+          "disabled_reason": ""
+        },
+        "navigation": {
+          "should_test": true,
+          "result": "NOT-RUN",
+          "disabled_reason": ""
+        },
+        "selection": {
+          "should_test": true,
+          "result": "NOT-RUN",
+          "disabled_reason": ""
+        },
+        "settings": {
+          "should_test": true,
+          "result": "NOT-RUN",
+          "disabled_reason": ""
+        },
+        "save_persistence": {
+          "should_test": true,
+          "result": "NOT-RUN",
+          "disabled_reason": ""
+        },
+        "generate": {
+          "should_test": true,
+          "result": "NOT-RUN",
+          "disabled_reason": ""
+        },
+        "configure": {
+          "should_test": true,
+          "result": "NOT-RUN",
+          "disabled_reason": ""
+        },
+        "build": {
+          "should_test": true,
+          "result": "NOT-RUN",
+          "disabled_reason": ""
+        },
+        "transfer": {
+          "should_test": false,
+          "result": "NOT-RUN",
+          "disabled_reason": "Deferred by current hardware certification policy; no physical rewiring or external hardware is permitted."
+        },
+        "runtime": {
+          "should_test": false,
+          "result": "NOT-RUN",
+          "disabled_reason": "Deferred by current hardware certification policy; no physical rewiring or external hardware is permitted."
+        },
+        "debug": {
+          "should_test": false,
+          "result": "NOT-RUN",
+          "disabled_reason": "Deferred by current hardware certification policy; no physical rewiring or external hardware is permitted."
+        },
+        "cleanup": {
+          "should_test": true,
+          "result": "NOT-RUN",
+          "disabled_reason": ""
+        }
+      }
+    },
+    {
+      "test_id": "P05-UART0_RX_AUX",
+      "name": "Physical pin 5 / GPIO3: UART0 RX AUX",
+      "category": "UART",
+      "physical_pin": 5,
+      "gpio": 3,
+      "hardware_function": "uart0_rx_aux",
+      "hardware_function_name": "UART0 RX",
+      "sdk_selector_family": "GPIO_FUNC_UART_AUX",
+      "should_test": true,
+      "disabled_reason": "",
+      "expected_pvd_support": "CONFIRMED_PVD_SOURCE_OF_TRUTH",
+      "requires_external_hardware": false,
+      "source_of_truth_verified": true,
+      "generator_support_verified": true,
+      "discrepancy_class": "MATCH",
+      "requirements": [
+        "visible_selection",
+        "save_persistence",
+        "generated_configuration",
+        "build",
+        "instance",
+        "role",
+        "baud_rate",
+        "data_format",
+        "pin_mapping",
+        "ownership"
+      ],
+      "stages": {
+        "launch": {
+          "should_test": true,
+          "result": "NOT-RUN",
+          "disabled_reason": ""
+        },
+        "navigation": {
+          "should_test": true,
+          "result": "NOT-RUN",
+          "disabled_reason": ""
+        },
+        "selection": {
+          "should_test": true,
+          "result": "NOT-RUN",
+          "disabled_reason": ""
+        },
+        "settings": {
+          "should_test": true,
+          "result": "NOT-RUN",
+          "disabled_reason": ""
+        },
+        "save_persistence": {
+          "should_test": true,
+          "result": "NOT-RUN",
+          "disabled_reason": ""
+        },
+        "generate": {
+          "should_test": true,
+          "result": "NOT-RUN",
+          "disabled_reason": ""
+        },
+        "configure": {
+          "should_test": true,
+          "result": "NOT-RUN",
+          "disabled_reason": ""
+        },
+        "build": {
+          "should_test": true,
+          "result": "NOT-RUN",
+          "disabled_reason": ""
+        },
+        "transfer": {
+          "should_test": false,
+          "result": "NOT-RUN",
+          "disabled_reason": "Deferred by current hardware certification policy; no physical rewiring or external hardware is permitted."
+        },
+        "runtime": {
+          "should_test": false,
+          "result": "NOT-RUN",
+          "disabled_reason": "Deferred by current hardware certification policy; no physical rewiring or external hardware is permitted."
+        },
+        "debug": {
+          "should_test": false,
+          "result": "NOT-RUN",
+          "disabled_reason": "Deferred by current hardware certification policy; no physical rewiring or external hardware is permitted."
+        },
+        "cleanup": {
+          "should_test": true,
+          "result": "NOT-RUN",
+          "disabled_reason": ""
+        }
+      }
+    },
+    {
+      "test_id": "P05-USB_OVCUR_DET",
+      "name": "Physical pin 5 / GPIO3: USB OVCUR DET",
+      "category": "USB",
+      "physical_pin": 5,
+      "gpio": 3,
+      "hardware_function": "usb_ovcur_det",
+      "hardware_function_name": "USB OVCUR DET",
+      "sdk_selector_family": "GPIO_FUNC_USB",
+      "should_test": true,
+      "disabled_reason": "",
+      "expected_pvd_support": "CONFIRMED_PVD_SOURCE_OF_TRUTH",
+      "requires_external_hardware": false,
+      "source_of_truth_verified": true,
+      "generator_support_verified": true,
+      "discrepancy_class": "MATCH",
+      "requirements": [
+        "visible_selection",
+        "save_persistence",
+        "generated_configuration",
+        "build",
+        "usb_role",
+        "pin_mapping",
+        "ownership"
+      ],
+      "stages": {
+        "launch": {
+          "should_test": true,
+          "result": "NOT-RUN",
+          "disabled_reason": ""
+        },
+        "navigation": {
+          "should_test": true,
+          "result": "NOT-RUN",
+          "disabled_reason": ""
+        },
+        "selection": {
+          "should_test": true,
+          "result": "NOT-RUN",
+          "disabled_reason": ""
+        },
+        "settings": {
+          "should_test": true,
+          "result": "NOT-RUN",
+          "disabled_reason": ""
+        },
+        "save_persistence": {
+          "should_test": true,
+          "result": "NOT-RUN",
+          "disabled_reason": ""
+        },
+        "generate": {
+          "should_test": true,
+          "result": "NOT-RUN",
+          "disabled_reason": ""
+        },
+        "configure": {
+          "should_test": true,
+          "result": "NOT-RUN",
+          "disabled_reason": ""
+        },
+        "build": {
+          "should_test": true,
+          "result": "NOT-RUN",
+          "disabled_reason": ""
+        },
+        "transfer": {
+          "should_test": false,
+          "result": "NOT-RUN",
+          "disabled_reason": "Deferred by current hardware certification policy; no physical rewiring or external hardware is permitted."
+        },
+        "runtime": {
+          "should_test": false,
+          "result": "NOT-RUN",
+          "disabled_reason": "Deferred by current hardware certification policy; no physical rewiring or external hardware is permitted."
+        },
+        "debug": {
+          "should_test": false,
+          "result": "NOT-RUN",
+          "disabled_reason": "Deferred by current hardware certification policy; no physical rewiring or external hardware is permitted."
+        },
+        "cleanup": {
+          "should_test": true,
+          "result": "NOT-RUN",
+          "disabled_reason": ""
+        }
+      }
+    },
+    {
+      "test_id": "P05-NEG-INVALID-FUNCTION",
+      "name": "Physical pin 5 / GPIO3: invalid function is rejected",
+      "category": "Negative",
+      "physical_pin": 5,
+      "gpio": 3,
+      "hardware_function": "invalid.function",
+      "hardware_function_name": "invalid.function",
+      "sdk_selector_family": "NOT_APPLICABLE",
+      "should_test": false,
+      "disabled_reason": "Test definition retained in the protocol; campaign execution has not started.",
+      "expected_pvd_support": "NOT_PVD_FUNCTION",
+      "requires_external_hardware": false,
+      "source_of_truth_verified": false,
+      "generator_support_verified": false,
+      "discrepancy_class": "NOT_A_MUX_FUNCTION",
+      "requirements": [
+        "visible_selection",
+        "save_persistence",
+        "generated_configuration",
+        "build"
+      ],
+      "stages": {
+        "launch": {
+          "should_test": false,
+          "result": "NOT-RUN",
+          "disabled_reason": "Test definition retained in the protocol; campaign execution has not started."
+        },
+        "navigation": {
+          "should_test": false,
+          "result": "NOT-RUN",
+          "disabled_reason": "Test definition retained in the protocol; campaign execution has not started."
+        },
+        "selection": {
+          "should_test": false,
+          "result": "NOT-RUN",
+          "disabled_reason": "Test definition retained in the protocol; campaign execution has not started."
+        },
+        "settings": {
+          "should_test": false,
+          "result": "NOT-RUN",
+          "disabled_reason": "Test definition retained in the protocol; campaign execution has not started."
+        },
+        "save_persistence": {
+          "should_test": false,
+          "result": "NOT-RUN",
+          "disabled_reason": "Test definition retained in the protocol; campaign execution has not started."
+        },
+        "generate": {
+          "should_test": false,
+          "result": "NOT-RUN",
+          "disabled_reason": "Test definition retained in the protocol; campaign execution has not started."
+        },
+        "configure": {
+          "should_test": false,
+          "result": "NOT-RUN",
+          "disabled_reason": "Test definition retained in the protocol; campaign execution has not started."
+        },
+        "build": {
+          "should_test": false,
+          "result": "NOT-RUN",
+          "disabled_reason": "Test definition retained in the protocol; campaign execution has not started."
+        },
+        "transfer": {
+          "should_test": false,
+          "result": "NOT-RUN",
+          "disabled_reason": "Test definition retained in the protocol; campaign execution has not started."
+        },
+        "runtime": {
+          "should_test": false,
+          "result": "NOT-RUN",
+          "disabled_reason": "Test definition retained in the protocol; campaign execution has not started."
+        },
+        "debug": {
+          "should_test": false,
+          "result": "NOT-RUN",
+          "disabled_reason": "Test definition retained in the protocol; campaign execution has not started."
+        },
+        "cleanup": {
+          "should_test": false,
+          "result": "NOT-RUN",
+          "disabled_reason": "Test definition retained in the protocol; campaign execution has not started."
+        }
+      }
+    }
+  ]
+}

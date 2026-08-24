@@ -30,11 +30,12 @@ class TransferColumn2;
 class TransferColumn3;
 class DebugColumn2;
 class DebugColumn3;
+class IFileDialogService;
 class System final : public QObject
 {
     Q_OBJECT
   public:
-    explicit System(QObject* parent = nullptr);
+    explicit System(bool certificationDialogs = false, QObject* parent = nullptr);
     ~System() override;
     void run();
 
@@ -73,6 +74,7 @@ class System final : public QObject
     TransferColumn3* transfer3_ = nullptr;
     DebugColumn2* debug2_ = nullptr;
     DebugColumn3* debug3_ = nullptr;
+    std::unique_ptr<IFileDialogService> fileDialogService_;
     bool latestBuildSuccessful_ = false;
     QString lastBuiltProjectPath_;
     ProjectDirtyState projectDirty_;

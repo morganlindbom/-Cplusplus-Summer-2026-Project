@@ -12,6 +12,8 @@ $groups = @{
         "src/systems/mainwindow/workflow/Workflow.cpp",
         "src/systems/mainwindow/function_selection/function_selection_column3/FunctionSelectionColumn3.cpp",
         "src/systems/mainwindow/project/project_column3/ProjectColumn3.cpp",
+        "src/systems/mainwindow/dialog/AutomationFileDialogService.cpp",
+        "src/systems/mainwindow/dialog/NativeFileDialogService.cpp",
         "src/systems/mainwindow/pio/pio_column3/PioColumn3.cpp",
         "src/systems/mainwindow/code/code_column3/CodeColumn3.cpp",
         "src/systems/mainwindow/function_selection/function_selection_column2/FunctionSelectionColumn2.cpp",

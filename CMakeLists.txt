@@ -72,4 +72,17 @@ if(BUILD_TESTING)
     target_include_directories(persistence_contract_tests PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/src")
     target_link_libraries(persistence_contract_tests PRIVATE Qt6::Core Qt6::Sql)
     add_test(NAME persistence_contract COMMAND persistence_contract_tests)
+    qt_wrap_cpp(DIALOG_SERVICE_MOCS
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/systems/mainwindow/project/project_column3/ProjectColumn3.hpp")
+    add_executable(dialog_service_tests
+        tests/dialog_service_tests.cpp
+        src/systems/mainwindow/project/project_column3/ProjectColumn3.cpp
+        src/systems/mainwindow/dialog/AutomationFileDialogService.cpp
+        src/systems/mainwindow/dialog/NativeFileDialogService.cpp
+        src/systems/database/SqliteUtil.cpp
+        ${DIALOG_SERVICE_MOCS})
+    target_include_directories(dialog_service_tests PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/src")
+    target_link_libraries(dialog_service_tests PRIVATE Qt6::Widgets Qt6::Sql)
+    add_test(NAME dialog_service COMMAND dialog_service_tests)
+    set_tests_properties(dialog_service PROPERTIES ENVIRONMENT "QT_QPA_PLATFORM=offscreen")
 endif()

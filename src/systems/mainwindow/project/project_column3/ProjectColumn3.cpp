@@ -1,8 +1,8 @@
 // ProjectColumn3.cpp
 #include "systems/mainwindow/project/project_column3/ProjectColumn3.hpp"
 #include "systems/mainwindow/PanelUtil.hpp"
+#include "systems/mainwindow/dialog/IFileDialogService.hpp"
 #include "systems/database/SqliteUtil.hpp"
-#include <QFileDialog>
 #include <QDir>
 #include <QFormLayout>
 #include <QHBoxLayout>
@@ -12,7 +12,8 @@
 #include <QStandardPaths>
 namespace pvd
 {
-ProjectColumn3::ProjectColumn3(const QString& db, QWidget* parent) : QWidget(parent)
+ProjectColumn3::ProjectColumn3(const QString& db, IFileDialogService* fileDialogService, QWidget* parent)
+    : QWidget(parent), fileDialogService_(fileDialogService)
 {
     /**Builds Project Management and Project Information areas.*/
     auto* l = makePanelLayout(this, SqliteUtil::metadata(db, "title", "Project Management"));
@@ -63,7 +64,7 @@ ProjectColumn3::ProjectColumn3(const QString& db, QWidget* parent) : QWidget(par
     connect(browse, &QPushButton::clicked, this,
             [this]()
             {
-                const auto p = QFileDialog::getExistingDirectory(this, "Project directory", path_->text());
+                const auto p = fileDialogService_->getExistingDirectory(this, "Project directory", path_->text());
                 if (!p.isEmpty())
                     path_->setText(p);
             });
@@ -87,8 +88,8 @@ ProjectColumn3::ProjectColumn3(const QString& db, QWidget* parent) : QWidget(par
     connect(open, &QPushButton::clicked, this,
             [this]()
             {
-                const auto p = QFileDialog::getOpenFileName(this, "Open Pico Visual Designer project", path_->text(),
-                                                            "Project databases (*.sqlite)");
+                const auto p = fileDialogService_->getOpenFileName(this, "Open Pico Visual Designer project",
+                                                                   path_->text(), "Project databases (*.sqlite)");
                 if (!p.isEmpty())
                     emit openRequested(p);
             });
@@ -104,7 +105,7 @@ ProjectColumn3::ProjectColumn3(const QString& db, QWidget* parent) : QWidget(par
                 QString projectPath = path_->text().trimmed();
                 if (projectPath.isEmpty())
                 {
-                    projectPath = QFileDialog::getExistingDirectory(this, "Choose project directory");
+                    projectPath = fileDialogService_->getExistingDirectory(this, "Choose project directory");
                     if (projectPath.isEmpty())
                         return;
                     path_->setText(projectPath);

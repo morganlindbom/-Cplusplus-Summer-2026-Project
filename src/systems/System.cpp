@@ -10,6 +10,7 @@
 #include "systems/mainwindow/viewer/Viewer.hpp"
 #include "systems/mainwindow/project/project_column2/ProjectColumn2.hpp"
 #include "systems/mainwindow/project/project_column3/ProjectColumn3.hpp"
+#include "systems/mainwindow/dialog/IFileDialogService.hpp"
 #include "systems/mainwindow/function_selection/function_selection_column2/FunctionSelectionColumn2.hpp"
 #include "systems/mainwindow/function_selection/function_selection_column3/FunctionSelectionColumn3.hpp"
 #include "systems/mainwindow/settings/settings_column2/SettingsColumn2.hpp"
@@ -32,12 +33,13 @@
 
 namespace pvd
 {
-System::System(QObject* parent) : QObject(parent)
+System::System(bool certificationDialogs, QObject* parent) : QObject(parent)
 {
     /**Creates the application orchestrator and resolves the governing database.*/
     const QString systems = runtimeSystemsRoot();
     systemDb_ = std::make_unique<SystemDatabase>(QDir(systems).filePath("system.sqlite"));
     functionCatalog_ = std::make_unique<FunctionCatalog>(QDir(systems).filePath("components/pin_functions"));
+    fileDialogService_ = makeFileDialogService(certificationDialogs);
     createComponents();
     connectComponents();
 }
@@ -66,7 +68,7 @@ void System::createComponents()
     window_ = new MainWindow(workflow_, viewer_);
     window_->setCloseGuard([this]() { return confirmDiscardUnsavedChanges("Close Project"); });
     project2_ = new ProjectColumn2(db("project_column2"));
-    project3_ = new ProjectColumn3(db("project_column3"));
+    project3_ = new ProjectColumn3(db("project_column3"), fileDialogService_.get());
     function2_ = new FunctionSelectionColumn2(db("function_selection_column2"));
     function3_ = new FunctionSelectionColumn3(db("function_selection_column3"), functionCatalog_.get());
     settings2_ = new SettingsColumn2(db("settings_column2"));

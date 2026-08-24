@@ -18,7 +18,9 @@ ProjectColumn3::ProjectColumn3(const QString& db, QWidget* parent) : QWidget(par
     auto* l = makePanelLayout(this, SqliteUtil::metadata(db, "title", "Project Management"));
     auto* form = new QFormLayout();
     name_ = new QLineEdit("PICO2W", this);
+    name_->setObjectName("project_name");
     path_ = new QLineEdit(this);
+    path_->setObjectName("project_path");
     auto* browse = new QPushButton("Browse...", this);
     auto* row = new QWidget(this);
     auto* rh = new QHBoxLayout(row);
@@ -31,8 +33,11 @@ ProjectColumn3::ProjectColumn3(const QString& db, QWidget* parent) : QWidget(par
 
     auto* buttons = new QHBoxLayout();
     auto* create = new QPushButton("Create New Project", this);
+    create->setObjectName("project_create");
     auto* open = new QPushButton("Open Existing Project", this);
+    open->setObjectName("project_open");
     auto* save = new QPushButton("Save Project", this);
+    save->setObjectName("project_save");
     buttons->addWidget(create);
     buttons->addWidget(open);
     buttons->addWidget(save);
@@ -42,6 +47,7 @@ ProjectColumn3::ProjectColumn3(const QString& db, QWidget* parent) : QWidget(par
     auto* snapshot = new QPushButton("Create / Update State Snapshot", this);
     l->addWidget(snapshot);
     status_ = new QLabel("No project opened.", this);
+    status_->setObjectName("project_dirty_status");
     status_->setWordWrap(true);
     l->addWidget(status_);
     l->addWidget(makePanelTitle("Project Information", this));
@@ -51,6 +57,8 @@ ProjectColumn3::ProjectColumn3(const QString& db, QWidget* parent) : QWidget(par
     info->setWordWrap(true);
     l->addWidget(info);
     l->addStretch();
+
+    connect(name_, &QLineEdit::textChanged, this, &ProjectColumn3::projectNameChanged);
 
     connect(browse, &QPushButton::clicked, this,
             [this]()
@@ -118,5 +126,10 @@ void ProjectColumn3::setStatus(const QString& text, bool ok)
 {
     status_->setText(text);
     status_->setStyleSheet(ok ? "color:#126b2f;" : "color:#a32626;");
+}
+void ProjectColumn3::setDirty(bool dirty)
+{
+    status_->setText(dirty ? "Unsaved project changes." : "Project saved.");
+    status_->setStyleSheet(dirty ? "color:#8a5a00;" : "color:#126b2f;");
 }
 } // namespace pvd

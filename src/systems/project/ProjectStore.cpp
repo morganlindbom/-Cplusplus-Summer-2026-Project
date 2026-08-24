@@ -2,53 +2,276 @@
 #include "systems/project/ProjectStore.hpp"
 #include <QDir>
 #include <QFileInfo>
+#include <QSet>
 #include <QSqlDatabase>
 #include <QSqlError>
 #include <QSqlQuery>
 #include <QRegularExpression>
 #include <QUuid>
 
-namespace pvd {
-static QString databaseFileName(const QString& projectName)
+namespace pvd
+{
+namespace
+{
+QString databaseFileName(const QString& projectName)
 {
     QString name = projectName.trimmed();
     name.replace(QRegularExpression("[^A-Za-z0-9_ -]"), "_");
     name = name.trimmed();
-    if (name.isEmpty()) name = "project";
-    return name + ".sqlite";
+    return (name.isEmpty() ? QStringLiteral("project") : name) + QStringLiteral(".sqlite");
 }
+
+bool fail(QString* error, const QString& message)
+{
+    if (error)
+        *error = message;
+    return false;
+}
+
+bool checkQuery(const QSqlQuery& query, QString* error, const QString& operation)
+{
+    if (query.lastError().isValid())
+        return fail(error, operation + QStringLiteral(": ") + query.lastError().text());
+    return true;
+}
+
+bool validateState(const ApplicationState& state, QString* error)
+{
+    if (state.projectName.trimmed().isEmpty())
+        return fail(error, QStringLiteral("Project name is empty."));
+    if (state.product.trimmed().isEmpty() || state.language.trimmed().isEmpty() || state.state.trimmed().isEmpty())
+        return fail(error, QStringLiteral("Project metadata is incomplete."));
+    for (auto it = state.selections.cbegin(); it != state.selections.cend(); ++it)
+    {
+        const FunctionSelection& selection = it.value();
+        if (selection.componentId.isEmpty() || selection.componentId != it.key() || selection.functionId.isEmpty())
+            return fail(error, QStringLiteral("Project contains an invalid function selection."));
+        if (selection.gpio < -1 || selection.gpio > 47 || selection.physicalPin < 0)
+            return fail(error, QStringLiteral("Project contains an invalid pin mapping."));
+    }
+    return true;
+}
+
+QStringList derivedGeneratedFiles(const QString& projectPath)
+{
+    const QDir generated(QDir(projectPath).filePath(QStringLiteral("generated")));
+    if (!generated.exists())
+        return {};
+    QStringList files;
+    for (const QString& file : generated.entryList(QDir::Files, QDir::Name))
+        files << generated.absoluteFilePath(file);
+    return files;
+}
+} // namespace
 
 bool ProjectStore::save(const ApplicationState& state, QString* error)
 {
-    /**Persists project metadata, function selections and settings to a project-named SQLite database.*/
-    if(state.projectPath.isEmpty()){ if(error)*error="Project path is empty."; return false; }
-    QDir().mkpath(state.projectPath); const QString path=QDir(state.projectPath).filePath(databaseFileName(state.projectName)); const QString conn="project_save_"+QUuid::createUuid().toString(QUuid::WithoutBraces);
-    bool ok=true;
+    /**Persists authoritative project data in one SQLite transaction.*/
+    if (state.projectPath.isEmpty())
+        return fail(error, QStringLiteral("Project path is empty."));
+    if (!validateState(state, error))
+        return false;
+    if (!QDir().mkpath(state.projectPath))
+        return fail(error, QStringLiteral("Cannot create project directory."));
+
+    const QString path = QDir(state.projectPath).filePath(databaseFileName(state.projectName));
+    const QString connection = QStringLiteral("project_save_") + QUuid::createUuid().toString(QUuid::WithoutBraces);
+    QSqlDatabase db = QSqlDatabase::addDatabase(QStringLiteral("QSQLITE"), connection);
+    db.setDatabaseName(path);
+    bool ok = db.open();
+    if (!ok)
+        fail(error, db.lastError().text());
+    if (ok && !db.transaction())
+        ok = fail(error, db.lastError().text());
+
+    auto exec = [&](const QString& sql, const QString& operation)
     {
-        QSqlDatabase db=QSqlDatabase::addDatabase("QSQLITE",conn); db.setDatabaseName(path); if(!db.open()){if(error)*error=db.lastError().text();ok=false;} else {
-            auto fail=[&](const QSqlQuery& query){if(error)*error=query.lastError().text();ok=false;};
-            QSqlQuery q(db); db.transaction();
-            for(const auto& sql:{QStringLiteral("CREATE TABLE IF NOT EXISTS project(key TEXT PRIMARY KEY,value TEXT)"),QStringLiteral("CREATE TABLE IF NOT EXISTS selections(component_id TEXT PRIMARY KEY,display_name TEXT,physical_pin INTEGER,gpio INTEGER,function_id TEXT,function_name TEXT)"),QStringLiteral("CREATE TABLE IF NOT EXISTS settings(component_id TEXT,setting_key TEXT,value TEXT,PRIMARY KEY(component_id,setting_key))")})if(!q.exec(sql)){fail(q);break;}
-            auto put=[&](const QString& k,const QString& v){QSqlQuery x(db);x.prepare("INSERT OR REPLACE INTO project VALUES(?,?)");x.addBindValue(k);x.addBindValue(v);if(!x.exec()){fail(x);return false;}return true;};
-            if(ok&&(!put("project_name",state.projectName)||!put("product",state.product)||!put("language",state.language)||!put("state",state.state)||!put("debug_session_tools",state.debugSessionTools?"true":"false")||!put("runtime_diagnostics",state.runtimeDiagnostics?"true":"false")||!put("verbose_build_evidence",state.verboseBuildEvidence?"true":"false")))ok=false;
-            if(ok&&!q.exec("DELETE FROM selections")){fail(q);} if(ok&&!q.exec("DELETE FROM settings")){fail(q);}
-            for(const auto& s:state.selections){if(!ok)break;QSqlQuery x(db);x.prepare("INSERT INTO selections VALUES(?,?,?,?,?,?)");x.addBindValue(s.componentId);x.addBindValue(s.displayName);x.addBindValue(s.physicalPin);x.addBindValue(s.gpio);x.addBindValue(s.functionId);x.addBindValue(s.functionName);if(!x.exec()){fail(x);break;}for(auto it=s.settings.cbegin();it!=s.settings.cend();++it){QSqlQuery y(db);y.prepare("INSERT INTO settings VALUES(?,?,?)");y.addBindValue(s.componentId);y.addBindValue(it.key());y.addBindValue(it.value());if(!y.exec()){fail(y);break;}}}
-            if(ok){if(!db.commit()){if(error)*error=db.lastError().text();ok=false;}}else db.rollback();db.close();
+        if (!ok)
+            return;
+        QSqlQuery query(db);
+        if (!query.exec(sql))
+            ok = fail(error, operation + QStringLiteral(": ") + query.lastError().text());
+    };
+    exec(QStringLiteral("CREATE TABLE IF NOT EXISTS project(key TEXT PRIMARY KEY,value TEXT)"),
+         QStringLiteral("Create project table"));
+    exec(QStringLiteral("CREATE TABLE IF NOT EXISTS selections(component_id TEXT PRIMARY KEY,display_name "
+                        "TEXT,physical_pin INTEGER,gpio INTEGER,function_id TEXT,function_name TEXT)"),
+         QStringLiteral("Create selections table"));
+    exec(QStringLiteral("CREATE TABLE IF NOT EXISTS settings(component_id TEXT,setting_key TEXT,value TEXT,PRIMARY "
+                        "KEY(component_id,setting_key))"),
+         QStringLiteral("Create settings table"));
+
+    auto putMetadata = [&](const QString& key, const QString& value)
+    {
+        if (!ok)
+            return;
+        QSqlQuery query(db);
+        if (!query.prepare(QStringLiteral("INSERT OR REPLACE INTO project VALUES(?,?)")))
+            ok = fail(error, QStringLiteral("Prepare project metadata: ") + query.lastError().text());
+        else
+        {
+            query.addBindValue(key);
+            query.addBindValue(value);
+            if (!query.exec())
+                ok = fail(error, QStringLiteral("Save project metadata: ") + query.lastError().text());
+        }
+    };
+    putMetadata(QStringLiteral("project_name"), state.projectName);
+    putMetadata(QStringLiteral("product"), state.product);
+    putMetadata(QStringLiteral("language"), state.language);
+    putMetadata(QStringLiteral("state"), state.state);
+    putMetadata(QStringLiteral("debug_session_tools"),
+                state.debugSessionTools ? QStringLiteral("true") : QStringLiteral("false"));
+    putMetadata(QStringLiteral("runtime_diagnostics"),
+                state.runtimeDiagnostics ? QStringLiteral("true") : QStringLiteral("false"));
+    putMetadata(QStringLiteral("verbose_build_evidence"),
+                state.verboseBuildEvidence ? QStringLiteral("true") : QStringLiteral("false"));
+    exec(QStringLiteral("DELETE FROM selections"), QStringLiteral("Clear selections"));
+    exec(QStringLiteral("DELETE FROM settings"), QStringLiteral("Clear settings"));
+
+    for (auto it = state.selections.cbegin(); ok && it != state.selections.cend(); ++it)
+    {
+        const FunctionSelection& selection = it.value();
+        QSqlQuery query(db);
+        if (!query.prepare(QStringLiteral("INSERT INTO selections VALUES(?,?,?,?,?,?)")))
+            ok = fail(error, QStringLiteral("Prepare selection: ") + query.lastError().text());
+        else
+        {
+            query.addBindValue(selection.componentId);
+            query.addBindValue(selection.displayName);
+            query.addBindValue(selection.physicalPin);
+            query.addBindValue(selection.gpio);
+            query.addBindValue(selection.functionId);
+            query.addBindValue(selection.functionName);
+            if (!query.exec())
+                ok = fail(error, QStringLiteral("Save selection: ") + query.lastError().text());
+        }
+        for (auto setting = selection.settings.cbegin(); ok && setting != selection.settings.cend(); ++setting)
+        {
+            QSqlQuery settingQuery(db);
+            if (!settingQuery.prepare(QStringLiteral("INSERT INTO settings VALUES(?,?,?)")))
+                ok = fail(error, QStringLiteral("Prepare setting: ") + settingQuery.lastError().text());
+            else
+            {
+                settingQuery.addBindValue(selection.componentId);
+                settingQuery.addBindValue(setting.key());
+                settingQuery.addBindValue(setting.value());
+                if (!settingQuery.exec())
+                    ok = fail(error, QStringLiteral("Save setting: ") + settingQuery.lastError().text());
+            }
         }
     }
-    QSqlDatabase::removeDatabase(conn); return ok;
+    if (ok && !db.commit())
+        ok = fail(error, QStringLiteral("Commit project: ") + db.lastError().text());
+    if (!ok && db.isOpen())
+        db.rollback();
+    db.close();
+    QSqlDatabase::removeDatabase(connection);
+    return ok;
 }
 
 bool ProjectStore::load(const QString& directory, ApplicationState* state, QString* error)
 {
-    /**Loads a selected project database and reconstructs current selections.*/
-    if(!state) return false; QString path=directory; if(QFileInfo(path).isDir()){const auto files=QDir(path).entryList({"*.sqlite"},QDir::Files,QDir::Name);if(files.isEmpty()){if(error)*error="No project database found in the selected folder.";return false;}path=QDir(path).filePath(files.first());} const QString conn="project_load_"+QUuid::createUuid().toString(QUuid::WithoutBraces); bool ok=true;
+    /**Loads into a validated candidate and replaces live state only after success.*/
+    if (!state)
+        return fail(error, QStringLiteral("Destination project state is null."));
+    QString path = directory;
+    if (QFileInfo(path).isDir())
     {
-        QSqlDatabase db=QSqlDatabase::addDatabase("QSQLITE",conn); db.setDatabaseName(path); if(!db.open()){if(error)*error=db.lastError().text();ok=false;} else {
-            state->projectPath=QFileInfo(path).absolutePath(); QSqlQuery q(db); if(!q.exec("SELECT key,value FROM project")){if(error)*error=q.lastError().text();ok=false;} while(ok&&q.next()){const auto k=q.value(0).toString(),v=q.value(1).toString(); if(k=="project_name")state->projectName=v; else if(k=="product")state->product=v; else if(k=="language")state->language=v; else if(k=="state")state->state=v; else if(k=="debug_session_tools")state->debugSessionTools=(v=="true"); else if(k=="runtime_diagnostics")state->runtimeDiagnostics=(v=="true"); else if(k=="verbose_build_evidence")state->verboseBuildEvidence=(v=="true");}
-            state->selections.clear(); q.exec("SELECT component_id,display_name,physical_pin,gpio,function_id,function_name FROM selections"); while(q.next()){FunctionSelection s; s.componentId=q.value(0).toString();s.displayName=q.value(1).toString();s.physicalPin=q.value(2).toInt();s.gpio=q.value(3).toInt();s.functionId=q.value(4).toString();s.functionName=q.value(5).toString();state->selections.insert(s.componentId,s);} q.exec("SELECT component_id,setting_key,value FROM settings"); while(q.next()) if(state->selections.contains(q.value(0).toString())) state->selections[q.value(0).toString()].settings[q.value(1).toString()]=q.value(2).toString(); db.close();
-        }
+        const QStringList files = QDir(path).entryList({QStringLiteral("*.sqlite")}, QDir::Files, QDir::Name);
+        if (files.isEmpty())
+            return fail(error, QStringLiteral("No project database found in the selected folder."));
+        path = QDir(path).filePath(files.first());
     }
-    QSqlDatabase::removeDatabase(conn); return ok;
+    if (!QFileInfo::exists(path))
+        return fail(error, QStringLiteral("Project database does not exist."));
+
+    const QString connection = QStringLiteral("project_load_") + QUuid::createUuid().toString(QUuid::WithoutBraces);
+    QSqlDatabase db = QSqlDatabase::addDatabase(QStringLiteral("QSQLITE"), connection);
+    db.setDatabaseName(path);
+    if (!db.open())
+    {
+        const QString message = db.lastError().text();
+        db.close();
+        QSqlDatabase::removeDatabase(connection);
+        return fail(error, message);
+    }
+    ApplicationState candidate;
+    candidate.projectPath = QFileInfo(path).absolutePath();
+    bool ok = true;
+    QSqlQuery metadata(db);
+    if (!metadata.exec(QStringLiteral("SELECT key,value FROM project")))
+        ok = fail(error, QStringLiteral("Load project metadata: ") + metadata.lastError().text());
+    QSet<QString> metadataKeys;
+    while (ok && metadata.next())
+    {
+        const QString key = metadata.value(0).toString();
+        const QString value = metadata.value(1).toString();
+        metadataKeys.insert(key);
+        if (key == QStringLiteral("project_name"))
+            candidate.projectName = value;
+        else if (key == QStringLiteral("product"))
+            candidate.product = value;
+        else if (key == QStringLiteral("language"))
+            candidate.language = value;
+        else if (key == QStringLiteral("state"))
+            candidate.state = value;
+        else if (key == QStringLiteral("debug_session_tools"))
+            candidate.debugSessionTools = value == QStringLiteral("true");
+        else if (key == QStringLiteral("runtime_diagnostics"))
+            candidate.runtimeDiagnostics = value == QStringLiteral("true");
+        else if (key == QStringLiteral("verbose_build_evidence"))
+            candidate.verboseBuildEvidence = value == QStringLiteral("true");
+    }
+    if (ok && !checkQuery(metadata, error, QStringLiteral("Read project metadata")))
+        ok = false;
+    for (const QString& required : {QStringLiteral("project_name"), QStringLiteral("product"),
+                                    QStringLiteral("language"), QStringLiteral("state")})
+        if (ok && !metadataKeys.contains(required))
+            ok = fail(error, QStringLiteral("Project metadata is missing: ") + required);
+
+    QSqlQuery selections(db);
+    if (ok && !selections.exec(QStringLiteral(
+                  "SELECT component_id,display_name,physical_pin,gpio,function_id,function_name FROM selections")))
+        ok = fail(error, QStringLiteral("Load selections: ") + selections.lastError().text());
+    while (ok && selections.next())
+    {
+        FunctionSelection selection;
+        selection.componentId = selections.value(0).toString();
+        selection.displayName = selections.value(1).toString();
+        selection.physicalPin = selections.value(2).toInt();
+        selection.gpio = selections.value(3).toInt();
+        selection.functionId = selections.value(4).toString();
+        selection.functionName = selections.value(5).toString();
+        candidate.selections.insert(selection.componentId, selection);
+    }
+    if (ok && !checkQuery(selections, error, QStringLiteral("Read selections")))
+        ok = false;
+
+    QSqlQuery settings(db);
+    if (ok && !settings.exec(QStringLiteral("SELECT component_id,setting_key,value FROM settings")))
+        ok = fail(error, QStringLiteral("Load settings: ") + settings.lastError().text());
+    while (ok && settings.next())
+    {
+        const QString componentId = settings.value(0).toString();
+        const QString settingKey = settings.value(1).toString();
+        if (componentId.isEmpty() || settingKey.isEmpty())
+            ok = fail(error, QStringLiteral("Project contains an invalid setting record."));
+        else if (!candidate.selections.contains(componentId))
+            ok = fail(error, QStringLiteral("Setting belongs to an unknown selection: ") + componentId);
+        else
+            candidate.selections[componentId].settings.insert(settingKey, settings.value(2).toString());
+    }
+    if (ok && !checkQuery(settings, error, QStringLiteral("Read settings")))
+        ok = false;
+    candidate.generatedFiles = derivedGeneratedFiles(candidate.projectPath);
+    if (ok)
+        ok = validateState(candidate, error);
+    db.close();
+    QSqlDatabase::removeDatabase(connection);
+    if (!ok)
+        return false;
+    *state = std::move(candidate);
+    return true;
 }
-}
+} // namespace pvd

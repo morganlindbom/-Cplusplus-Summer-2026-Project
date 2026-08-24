@@ -1,0 +1,37 @@
+﻿{
+    "caseId":  "gui-persistence-proof",
+    "database":  "C:\\Users\\morga\\AppData\\Local\\Temp\\pvd-checkpoint-rerun\\pvd-persistence-proof\\GUI_PERSISTENCE_PROOF.sqlite",
+    "stages":  {
+                   "Launch":  {
+                                  "status":  "PASS",
+                                  "reason":  "Real PVD executable started"
+                              },
+                   "Create":  {
+                                  "status":  "PASS",
+                                  "reason":  "Project created through the visible PVD Create Project control"
+                              },
+                   "ChangeSetting":  {
+                                         "status":  "PASS",
+                                         "reason":  "Runtime diagnostics changed through the visible project settings control"
+                                     },
+                   "Dirty":  {
+                                 "status":  "PASS",
+                                 "reason":  "Central dirty state was visible in the project status control"
+                             },
+                   "Save":  {
+                                "status":  "PASS",
+                                "reason":  "Project saved through the visible PVD Save Project control"
+                            },
+                   "Reload":  {
+                                  "status":  "PASS",
+                                  "reason":  "Project reopened through the visible PVD Open Project workflow"
+                              },
+                   "Restore":  {
+                                   "status":  "PASS",
+                                   "reason":  "Runtime diagnostics disabled state was restored after reload"
+                               }
+               },
+    "overall":  "PASS-GUI",
+    "processModel":  "separate PVD executable via Windows UI Automation",
+    "fullPinsCampaign":  "NOT-STARTED"
+}

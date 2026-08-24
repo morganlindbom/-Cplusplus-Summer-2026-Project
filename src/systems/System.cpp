@@ -64,6 +64,7 @@ void System::createComponents()
     workflow_ = new Workflow(db("workflow"));
     viewer_ = new Viewer(db("viewer"));
     window_ = new MainWindow(workflow_, viewer_);
+    window_->setCloseGuard([this]() { return confirmDiscardUnsavedChanges("Close Project"); });
     project2_ = new ProjectColumn2(db("project_column2"));
     project3_ = new ProjectColumn3(db("project_column3"));
     function2_ = new FunctionSelectionColumn2(db("function_selection_column2"));
@@ -122,6 +123,7 @@ void System::connectComponents()
                 if (state_.selections.contains(id))
                 {
                     state_.selections[id].settings[key] = value;
+                    markProjectDirty();
                     latestBuildSuccessful_ = false;
                     if (id == "rp2350a" && (key == "core1_enabled" || key == "enabled"))
                     {
@@ -130,7 +132,6 @@ void System::connectComponents()
                                                     rp.settings.value("core1_enabled", "false") == "true");
                         settings3_->showSelection(rp);
                     }
-                    ProjectStore::save(state_);
                     if (id == "debug_probe")
                         debug2_->applySetting(key, value);
                 }
@@ -145,38 +146,77 @@ void System::connectComponents()
             [this](const QString& value)
             {
                 state_.language = value;
+                markProjectDirty();
                 latestBuildSuccessful_ = false;
             });
-    connect(project2_, &ProjectColumn2::stateChanged, this, [this](const QString& value) { state_.state = value; });
-    connect(project2_, &ProjectColumn2::productChanged, this, [this](const QString& value) { state_.product = value; });
+    connect(project2_, &ProjectColumn2::stateChanged, this,
+            [this](const QString& value)
+            {
+                state_.state = value;
+                markProjectDirty();
+            });
+    connect(project2_, &ProjectColumn2::productChanged, this,
+            [this](const QString& value)
+            {
+                state_.product = value;
+                markProjectDirty();
+            });
     connect(project2_, &ProjectColumn2::debugSessionToolsChanged, this,
-            [this](bool value) { state_.debugSessionTools = value; });
+            [this](bool value)
+            {
+                state_.debugSessionTools = value;
+                markProjectDirty();
+            });
     connect(project2_, &ProjectColumn2::runtimeDiagnosticsChanged, this,
-            [this](bool value) { state_.runtimeDiagnostics = value; });
+            [this](bool value)
+            {
+                state_.runtimeDiagnostics = value;
+                markProjectDirty();
+            });
     connect(project2_, &ProjectColumn2::verboseBuildEvidenceChanged, this,
-            [this](bool value) { state_.verboseBuildEvidence = value; });
+            [this](bool value)
+            {
+                state_.verboseBuildEvidence = value;
+                markProjectDirty();
+            });
     connect(project3_, &ProjectColumn3::createRequested, this,
             [this](const QString& name, const QString& path)
             {
+                if (!confirmDiscardUnsavedChanges("Create Project"))
+                    return;
                 state_.projectName = name.trimmed().isEmpty() ? "PICO2W" : name;
                 state_.projectPath = path;
                 latestBuildSuccessful_ = false;
                 lastBuiltProjectPath_.clear();
-                QString error;
-                const bool ok = ProjectStore::save(state_, &error);
-                if (!ok)
-                    QMessageBox::warning(window_, "Create Project", error);
-                project3_->setStatus(ok ? "Project saved in: " + path : error, ok);
-                refreshProjectViews();
+                markProjectDirty();
+                if (saveProjectState("Project saved in: " + path))
+                    refreshProjectViews();
+            });
+    connect(project3_, &ProjectColumn3::projectNameChanged, this,
+            [this](const QString& name)
+            {
+                if (!state_.projectPath.isEmpty() && name != state_.projectName)
+                {
+                    state_.projectName = name;
+                    markProjectDirty();
+                }
             });
     connect(project3_, &ProjectColumn3::openRequested, this,
             [this](const QString& path)
             {
+                if (!confirmDiscardUnsavedChanges("Open Project"))
+                    return;
                 latestBuildSuccessful_ = false;
                 lastBuiltProjectPath_.clear();
                 QString error;
                 if (!ProjectStore::load(path, &state_, &error))
+                {
                     QMessageBox::warning(window_, "Open Project", error);
+                    project3_->setStatus("Open failed: " + error, false);
+                    return;
+                }
+                projectDirty_.markLoaded();
+                project3_->setDirty(false);
                 refreshProjectViews();
             });
     connect(project3_, &ProjectColumn3::saveRequested, this,
@@ -189,12 +229,9 @@ void System::connectComponents()
                 }
                 state_.projectName = name;
                 state_.projectPath = path;
-                QString error;
-                const bool ok = ProjectStore::save(state_, &error);
-                if (!ok)
-                    QMessageBox::warning(window_, "Save Project", error);
-                project3_->setStatus(ok ? "Project saved in: " + path : error, ok);
-                refreshProjectViews();
+                markProjectDirty();
+                if (saveProjectState("Project saved in: " + path))
+                    refreshProjectViews();
             });
     connect(generate3_, &GenerateColumn3::validateRequested, this,
             [this]()
@@ -211,7 +248,6 @@ void System::connectComponents()
                 if (ProjectGenerator::generate(&state_, pio3_->programs(), &error))
                 {
                     pio3_->reloadGeneratedFiles(state_.generatedFiles);
-                    ProjectStore::save(state_);
                     generate3_->setStatus(
                         QString("Ready for Build — Generation completed: %1 files").arg(state_.generatedFiles.size()),
                         true);
@@ -290,7 +326,7 @@ void System::handleFunctionChange(const QString& componentId, const FunctionOpti
         s.functionName = option.name;
         state_.selections[componentId] = s;
     }
-    ProjectStore::save(state_);
+    markProjectDirty();
     settings2_->refresh(state_);
     viewer_->setSimulationText(option.id == "disabled" ? "Disabled: " + componentDisplayName(componentId)
                                                        : componentDisplayName(componentId) + " — " + option.name);
@@ -320,12 +356,47 @@ void System::refreshProjectViews()
     pio2_->setPrograms(pio3_->programs().keys());
     build2_->setProjectPath(state_.projectPath);
     applyDebugProbeSettings();
+    project3_->setDirty(projectDirty_.isDirty());
 }
 void System::applyDebugProbeSettings()
 {
     const auto selection = state_.selections.value("debug_probe");
     for (auto it = selection.settings.cbegin(); it != selection.settings.cend(); ++it)
         debug2_->applySetting(it.key(), it.value());
+}
+void System::markProjectDirty()
+{
+    projectDirty_.markDirty();
+    if (project3_)
+        project3_->setDirty(true);
+}
+bool System::saveProjectState(const QString& successMessage)
+{
+    QString error;
+    if (!ProjectStore::save(state_, &error))
+    {
+        projectDirty_.markDirty();
+        if (project3_)
+            project3_->setStatus("Save failed: " + error, false);
+        if (window_)
+            QMessageBox::warning(window_, "Save Project", error);
+        return false;
+    }
+    projectDirty_.markSaved();
+    if (project3_)
+        project3_->setStatus(successMessage.isEmpty() ? "Project saved." : successMessage, true);
+    return true;
+}
+bool System::confirmDiscardUnsavedChanges(const QString& operation)
+{
+    if (!projectDirty_.isDirty())
+        return true;
+    const auto answer =
+        QMessageBox::warning(window_, operation, "The project has unsaved changes.",
+                             QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel, QMessageBox::Save);
+    if (answer == QMessageBox::Save)
+        return saveProjectState();
+    return answer == QMessageBox::Discard;
 }
 void System::run()
 {

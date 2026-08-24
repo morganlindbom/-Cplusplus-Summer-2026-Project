@@ -7,8 +7,10 @@
 #include <QStackedWidget>
 #include <QTimer>
 #include <QApplication>
+#include <QCloseEvent>
 #include <QScreen>
 #include <algorithm>
+#include <utility>
 
 namespace
 {
@@ -97,5 +99,16 @@ void MainWindow::activateWorkflow(const QString& id)
         return;
     column2Stack_->setCurrentIndex(indices_[id]);
     column3Stack_->setCurrentIndex(indices_[id]);
+}
+void MainWindow::setCloseGuard(std::function<bool()> guard)
+{
+    closeGuard_ = std::move(guard);
+}
+void MainWindow::closeEvent(QCloseEvent* event)
+{
+    if (!closeGuard_ || closeGuard_())
+        event->accept();
+    else
+        event->ignore();
 }
 } // namespace pvd

@@ -66,4 +66,10 @@ if(BUILD_TESTING)
         PVD_RUNTIME_ROOT="${CMAKE_BINARY_DIR}/runtime")
     target_link_libraries(multicore_generator_tests PRIVATE Qt6::Core Qt6::Sql)
     add_test(NAME multicore_generator COMMAND multicore_generator_tests)
+    add_executable(persistence_contract_tests
+        tests/persistence_contract_tests.cpp
+        src/systems/project/ProjectStore.cpp)
+    target_include_directories(persistence_contract_tests PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/src")
+    target_link_libraries(persistence_contract_tests PRIVATE Qt6::Core Qt6::Sql)
+    add_test(NAME persistence_contract COMMAND persistence_contract_tests)
 endif()

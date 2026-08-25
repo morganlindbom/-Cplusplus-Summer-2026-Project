@@ -141,10 +141,6 @@ void FunctionSelectionColumn3::populate()
         const int gpio = gpioForPhysicalPin(componentId_.mid(4).toInt());
         if (gpio >= 0)
         {
-            options_.push_back(
-                {"gpio.input", "GPIO Input", "SIO", "Software-controlled GPIO input using the SIO function.", {}});
-            options_.push_back(
-                {"gpio.output", "GPIO Output", "SIO", "Software-controlled GPIO output using the SIO function.", {}});
             if (gpio == roboPicoGpio("neopixel_rgb"))
                 options_.push_back({"robo.neopixel",
                                     "NeoPixel template",
@@ -167,7 +163,12 @@ void FunctionSelectionColumn3::populate()
             options_.push_back(o);
     }
     for (const auto& o : options_)
+    {
         selector_->addItem(o.name, o.id);
+        const int index = selector_->count() - 1;
+        selector_->setItemData(index, o.name, Qt::AccessibleTextRole);
+        selector_->setItemData(index, o.id, Qt::AccessibleDescriptionRole);
+    }
     selector_->setCurrentIndex(0);
     info_->setText(componentDetails(componentId_));
 }
@@ -176,6 +177,9 @@ void FunctionSelectionColumn3::setSelectedFunction(const QString& functionId)
     /**Restores a persisted function selection without changing available options.*/
     const int idx = selector_->findData(functionId);
     if (idx >= 0)
+    {
+        const QSignalBlocker blocker(selector_);
         selector_->setCurrentIndex(idx);
+    }
 }
 } // namespace pvd

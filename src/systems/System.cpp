@@ -45,8 +45,11 @@ System::System(bool certificationDialogs, QObject* parent) : QObject(parent)
 }
 System::~System()
 {
-    // DebugColumn3 is intentionally a raw UI pointer, so stop its external
-    // OpenOCD child explicitly before Qt tears down the application.
+    /**Stops external debugger processes before Qt destroys the raw UI pointers.
+
+    DebugColumn3 owns OpenOCD and GDB child processes, so the orchestrator closes
+    them explicitly while the debug widget is still fully alive.
+    */
     if (debug3_)
         debug3_->stopServer();
 }
@@ -127,6 +130,22 @@ void System::connectComponents()
                     state_.selections[id].settings[key] = value;
                     markProjectDirty();
                     latestBuildSuccessful_ = false;
+                    if (key == "direction" || key == "operation_mode")
+                    {
+                        // Rebuild SettingsColumn3 only after the authoritative project state
+                        // has been updated. The widget may have queued a transient rebuild
+                        // from its pre-model snapshot; this queued refresh is model-owned.
+                        const QString componentId = id;
+                        QMetaObject::invokeMethod(
+                            settings3_,
+                            [this, componentId]()
+                            {
+                                if (state_.selections.contains(componentId) &&
+                                    settings3_->currentComponentId() == componentId)
+                                    settings3_->showSelection(state_.selections.value(componentId));
+                            },
+                            Qt::QueuedConnection);
+                    }
                     if (id == "rp2350a" && (key == "core1_enabled" || key == "enabled"))
                     {
                         const auto& rp = state_.selections[id];
@@ -155,6 +174,7 @@ void System::connectComponents()
             [this](const QString& value)
             {
                 state_.state = value;
+                latestBuildSuccessful_ = false;
                 markProjectDirty();
             });
     connect(project2_, &ProjectColumn2::productChanged, this,
@@ -167,6 +187,7 @@ void System::connectComponents()
             [this](bool value)
             {
                 state_.debugSessionTools = value;
+                latestBuildSuccessful_ = false;
                 markProjectDirty();
             });
     connect(project2_, &ProjectColumn2::runtimeDiagnosticsChanged, this,
@@ -266,6 +287,9 @@ void System::connectComponents()
                               build = QDir(state_.projectPath).filePath("build");
                 build2_->setProjectPath(state_.projectPath);
                 build3_->setPaths(source, build);
+                const bool debugBuild = state_.state != "Release";
+                build3_->setBuildOptions(debugBuild, debugBuild && state_.debugSessionTools,
+                                         state_.verboseBuildEvidence);
                 build3_->build();
             });
     connect(build3_, &BuildColumn3::buildStarted, this, [this]() { latestBuildSuccessful_ = false; });
@@ -286,6 +310,9 @@ void System::connectComponents()
                                   build = QDir(state_.projectPath).filePath("build");
                     build2_->setProjectPath(state_.projectPath);
                     build3_->setPaths(source, build);
+                    const bool debugBuild = state_.state != "Release";
+                    build3_->setBuildOptions(debugBuild, debugBuild && state_.debugSessionTools,
+                                             state_.verboseBuildEvidence);
                 }
                 else if (id == "transfer")
                 {
@@ -304,8 +331,17 @@ void System::connectComponents()
                 else if (id == "debug")
                 {
                     applyDebugProbeSettings();
-                    debug3_->configure(debug2_->openocd(), debug2_->interfaceCfg(), debug2_->targetCfg(),
-                                       debug2_->speed(), debug2_->resetMethod());
+                    const auto rp = state_.selections.value("rp2350a");
+                    debug3_->setAvailableCores(rp.functionId == "rp2350a.configure" &&
+                                               rp.settings.value("enabled", "true") == "true" &&
+                                               rp.settings.value("core1_enabled", "false") == "true");
+                    QString target = state_.projectName;
+                    target.replace(QRegularExpression("[^A-Za-z0-9_]"), "_");
+                    if (target.isEmpty())
+                        target = "PICO2W";
+                    const QString elf = QDir(QDir(state_.projectPath).filePath("build")).filePath(target + ".elf");
+                    debug3_->configure(debug2_->openocd(), debug2_->gdb(), debug2_->interfaceCfg(),
+                                       debug2_->targetCfg(), elf, debug2_->speed(), debug2_->resetMethod(), false);
                 }
             });
 }
@@ -326,6 +362,11 @@ void System::handleFunctionChange(const QString& componentId, const FunctionOpti
         s.gpio = gpio;
         s.functionId = option.id;
         s.functionName = option.name;
+        if (option.id == "sio")
+        {
+            s.settings.insert("direction", s.settings.value("direction", "Input"));
+            s.settings.insert("pull", s.settings.value("pull", "None"));
+        }
         state_.selections[componentId] = s;
     }
     markProjectDirty();
@@ -341,6 +382,8 @@ void System::refreshProjectViews()
     settings3_->setCore1Enabled(rp.functionId == "rp2350a.configure" &&
                                 rp.settings.value("enabled", "true") == "true" &&
                                 rp.settings.value("core1_enabled", "false") == "true");
+    debug3_->setAvailableCores(rp.functionId == "rp2350a.configure" && rp.settings.value("enabled", "true") == "true" &&
+                               rp.settings.value("core1_enabled", "false") == "true");
     project2_->setProjectState(state_.product, state_.language, state_.state, state_.debugSessionTools,
                                state_.runtimeDiagnostics, state_.verboseBuildEvidence);
     settings2_->refresh(state_);
@@ -357,11 +400,18 @@ void System::refreshProjectViews()
     code2_->setFiles(codeFiles);
     pio2_->setPrograms(pio3_->programs().keys());
     build2_->setProjectPath(state_.projectPath);
+    const bool debugBuild = state_.state != "Release";
+    build3_->setBuildOptions(debugBuild, debugBuild && state_.debugSessionTools, state_.verboseBuildEvidence);
     applyDebugProbeSettings();
     project3_->setDirty(projectDirty_.isDirty());
 }
 void System::applyDebugProbeSettings()
 {
+    /**Applies the persisted debug-probe selection to the live debug configuration.
+
+    The project state remains authoritative while DebugColumn2 owns tool discovery
+    and presentation-level defaults.
+    */
     const auto selection = state_.selections.value("debug_probe");
     for (auto it = selection.settings.cbegin(); it != selection.settings.cend(); ++it)
         debug2_->applySetting(it.key(), it.value());

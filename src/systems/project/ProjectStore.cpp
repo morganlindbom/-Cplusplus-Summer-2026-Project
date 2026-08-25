@@ -52,6 +52,32 @@ bool validateState(const ApplicationState& state, QString* error)
     return true;
 }
 
+void canonicalizeSelection(FunctionSelection& selection)
+{
+    /**Migrates legacy GPIO convenience IDs to the canonical SIO representation.*/
+    if (selection.functionId == QStringLiteral("gpio.input"))
+    {
+        selection.functionId = QStringLiteral("sio");
+        selection.functionName = QStringLiteral("SIO");
+        selection.settings.insert(QStringLiteral("direction"), QStringLiteral("Input"));
+    }
+    else if (selection.functionId == QStringLiteral("gpio.output"))
+    {
+        selection.functionId = QStringLiteral("sio");
+        selection.functionName = QStringLiteral("SIO");
+        selection.settings.insert(QStringLiteral("direction"), QStringLiteral("Output"));
+    }
+    else if (selection.functionId == QStringLiteral("sio"))
+    {
+        // SIO Input is the canonical default. Persist it per selected
+        // component so an untouched second pin is not lost during Save.
+        selection.settings.insert(QStringLiteral("direction"),
+                                  selection.settings.value(QStringLiteral("direction"), QStringLiteral("Input")));
+        selection.settings.insert(QStringLiteral("pull"),
+                                  selection.settings.value(QStringLiteral("pull"), QStringLiteral("None")));
+    }
+}
+
 QStringList derivedGeneratedFiles(const QString& projectPath)
 {
     const QDir generated(QDir(projectPath).filePath(QStringLiteral("generated")));
@@ -69,7 +95,10 @@ bool ProjectStore::save(const ApplicationState& state, QString* error)
     /**Persists authoritative project data in one SQLite transaction.*/
     if (state.projectPath.isEmpty())
         return fail(error, QStringLiteral("Project path is empty."));
-    if (!validateState(state, error))
+    ApplicationState canonicalState = state;
+    for (auto it = canonicalState.selections.begin(); it != canonicalState.selections.end(); ++it)
+        canonicalizeSelection(it.value());
+    if (!validateState(canonicalState, error))
         return false;
     if (!QDir().mkpath(state.projectPath))
         return fail(error, QStringLiteral("Cannot create project directory."));
@@ -129,7 +158,7 @@ bool ProjectStore::save(const ApplicationState& state, QString* error)
     exec(QStringLiteral("DELETE FROM selections"), QStringLiteral("Clear selections"));
     exec(QStringLiteral("DELETE FROM settings"), QStringLiteral("Clear settings"));
 
-    for (auto it = state.selections.cbegin(); ok && it != state.selections.cend(); ++it)
+    for (auto it = canonicalState.selections.cbegin(); ok && it != canonicalState.selections.cend(); ++it)
     {
         const FunctionSelection& selection = it.value();
         QSqlQuery query(db);
@@ -264,6 +293,8 @@ bool ProjectStore::load(const QString& directory, ApplicationState* state, QStri
     }
     if (ok && !checkQuery(settings, error, QStringLiteral("Read settings")))
         ok = false;
+    for (auto it = candidate.selections.begin(); ok && it != candidate.selections.end(); ++it)
+        canonicalizeSelection(it.value());
     candidate.generatedFiles = derivedGeneratedFiles(candidate.projectPath);
     if (ok)
         ok = validateState(candidate, error);

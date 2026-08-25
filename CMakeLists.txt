@@ -72,6 +72,25 @@ if(BUILD_TESTING)
     target_include_directories(persistence_contract_tests PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/src")
     target_link_libraries(persistence_contract_tests PRIVATE Qt6::Core Qt6::Sql)
     add_test(NAME persistence_contract COMMAND persistence_contract_tests)
+    qt_wrap_cpp(SIO_MODEL_MOCS
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/systems/mainwindow/settings/settings_column3/SettingsColumn3.hpp")
+    add_executable(sio_model_tests
+        tests/sio_model_tests.cpp
+        src/systems/generation/ProjectGenerator.cpp
+        src/systems/generation/BoardStartupSanitation.cpp
+        src/systems/generation/FunctionExecutionModel.cpp
+        src/systems/components/PicoPinMap.cpp
+        src/systems/components/FunctionCatalog.cpp
+        src/systems/database/SqliteUtil.cpp
+        src/systems/project/ProjectStore.cpp
+        src/systems/mainwindow/settings/settings_column3/SettingsColumn3.cpp
+        ${SIO_MODEL_MOCS})
+    target_include_directories(sio_model_tests PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/src")
+    target_compile_definitions(sio_model_tests PRIVATE
+        PVD_RUNTIME_ROOT="${CMAKE_BINARY_DIR}/runtime")
+    target_link_libraries(sio_model_tests PRIVATE Qt6::Widgets Qt6::Sql)
+    add_test(NAME sio_model COMMAND sio_model_tests)
+    set_tests_properties(sio_model PROPERTIES ENVIRONMENT "QT_QPA_PLATFORM=offscreen")
     qt_wrap_cpp(DIALOG_SERVICE_MOCS
         "${CMAKE_CURRENT_SOURCE_DIR}/src/systems/mainwindow/project/project_column3/ProjectColumn3.hpp")
     add_executable(dialog_service_tests
@@ -85,4 +104,36 @@ if(BUILD_TESTING)
     target_link_libraries(dialog_service_tests PRIVATE Qt6::Widgets Qt6::Sql)
     add_test(NAME dialog_service COMMAND dialog_service_tests)
     set_tests_properties(dialog_service PROPERTIES ENVIRONMENT "QT_QPA_PLATFORM=offscreen")
+    qt_wrap_cpp(BUILD_TRANSFER_CONTRACT_MOCS
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/systems/mainwindow/build/build_column3/BuildColumn3.hpp"
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/systems/mainwindow/transfer/transfer_column2/TransferColumn2.hpp"
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/systems/mainwindow/transfer/transfer_column3/TransferColumn3.hpp")
+    add_executable(build_transfer_contract_tests
+        tests/build_transfer_contract_tests.cpp
+        src/systems/database/SqliteUtil.cpp
+        src/systems/mainwindow/build/build_column3/BuildColumn3.cpp
+        src/systems/mainwindow/transfer/transfer_column2/TransferColumn2.cpp
+        src/systems/mainwindow/transfer/transfer_column3/TransferColumn3.cpp
+        ${BUILD_TRANSFER_CONTRACT_MOCS})
+    target_include_directories(build_transfer_contract_tests PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/src")
+    target_compile_definitions(build_transfer_contract_tests PRIVATE
+        PVD_RUNTIME_ROOT="${CMAKE_BINARY_DIR}/runtime")
+    target_link_libraries(build_transfer_contract_tests PRIVATE Qt6::Widgets Qt6::Sql)
+    add_test(NAME build_transfer_contract COMMAND build_transfer_contract_tests)
+    set_tests_properties(build_transfer_contract PROPERTIES ENVIRONMENT "QT_QPA_PLATFORM=offscreen")
+    qt_wrap_cpp(DEBUG_CONTRACT_MOCS
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/systems/mainwindow/debug/debug_column2/DebugColumn2.hpp"
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/systems/mainwindow/debug/debug_column3/DebugColumn3.hpp")
+    add_executable(debug_contract_tests
+        tests/debug_contract_tests.cpp
+        src/systems/database/SqliteUtil.cpp
+        src/systems/mainwindow/debug/debug_column2/DebugColumn2.cpp
+        src/systems/mainwindow/debug/debug_column3/DebugColumn3.cpp
+        ${DEBUG_CONTRACT_MOCS})
+    target_include_directories(debug_contract_tests PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/src")
+    target_compile_definitions(debug_contract_tests PRIVATE
+        PVD_RUNTIME_ROOT="${CMAKE_BINARY_DIR}/runtime")
+    target_link_libraries(debug_contract_tests PRIVATE Qt6::Widgets Qt6::Sql Qt6::Network)
+    add_test(NAME debug_contract COMMAND debug_contract_tests)
+    set_tests_properties(debug_contract PROPERTIES ENVIRONMENT "QT_QPA_PLATFORM=offscreen")
 endif()

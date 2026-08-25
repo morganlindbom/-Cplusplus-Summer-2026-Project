@@ -104,6 +104,41 @@ int main(int argc, char** argv)
         check(equalPersistent(expected, actual), "PERSIST-001 persistent fields differ");
     }
     {
+        QTemporaryDir directory;
+        ApplicationState expected;
+        expected.projectName = "SIO_INSTANCE_ISOLATION";
+        expected.projectPath = directory.path();
+        expected.product = "Raspberry Pi Pico 2";
+        expected.language = "C++";
+        expected.state = "Testing";
+        auto pin1 = selection("pin_1", "sio", 0);
+        auto pin2 = selection("pin_2", "sio", 1);
+        auto pin3 = selection("pin_3", "sio", 2);
+        pin1.settings.insert("direction", "Output");
+        pin3.settings.insert("direction", "Output");
+        expected.selections.insert(pin1.componentId, pin1);
+        expected.selections.insert(pin2.componentId, pin2);
+        expected.selections.insert(pin3.componentId, pin3);
+        QString error;
+        check(ProjectStore::save(expected, &error), "PERSIST-SIO-001 same-function save failed");
+        ApplicationState actual;
+        check(ProjectStore::load(directory.path(), &actual, &error), "PERSIST-SIO-003 same-function reload failed");
+        check(actual.selections.value("pin_1").settings.value("direction") == "Output" &&
+                  actual.selections.value("pin_2").settings.value("direction") == "Input" &&
+                  actual.selections.value("pin_3").settings.value("direction") == "Output",
+              "PERSIST-SIO-004 missing SIO default or same-function directions collided after reload");
+        actual.selections["pin_1"].settings["direction"] = "Input";
+        actual.selections["pin_2"].settings["direction"] = "Output";
+        actual.selections["pin_3"].settings["direction"] = "Input";
+        check(ProjectStore::save(actual, &error), "PERSIST-SIO-005 reverse same-function save failed");
+        ApplicationState reversed;
+        check(ProjectStore::load(directory.path(), &reversed, &error), "PERSIST-SIO-006 reverse reload failed");
+        check(reversed.selections.value("pin_1").settings.value("direction") == "Input" &&
+                  reversed.selections.value("pin_2").settings.value("direction") == "Output" &&
+                  reversed.selections.value("pin_3").settings.value("direction") == "Input",
+              "PERSIST-SIO-007 reverse same-function directions collided after reload");
+    }
+    {
         ProjectDirtyState dirty;
         dirty.markDirty();
         check(dirty.isDirty(), "PERSIST-002 persistent mutation did not mark dirty");
@@ -204,6 +239,66 @@ int main(int argc, char** argv)
                   expected.runtimeDiagnostics == actual.runtimeDiagnostics &&
                   expected.verboseBuildEvidence == actual.verboseBuildEvidence,
               "PERSIST-010 project-level options were not restored");
+    }
+    {
+        QTemporaryDir directory;
+        auto expected = populatedState(directory.path(), "LEGACY_INPUT");
+        expected.selections["pin_1"].functionId = "gpio.input";
+        expected.selections["pin_1"].functionName = "GPIO Input";
+        expected.selections["pin_1"].settings = {{"pull", "Pull-down"}, {"debounce_ms", "25"}};
+        QString error;
+        check(ProjectStore::save(expected, &error), "SIO-MIG-001 legacy input fixture save failed");
+        const QString database = directory.filePath("LEGACY_INPUT.sqlite");
+        check(
+            execute(
+                database,
+                "UPDATE selections SET function_id='gpio.input',function_name='GPIO Input' WHERE component_id='pin_1'"),
+            "SIO-MIG-001 legacy input mutation failed");
+        ApplicationState actual;
+        check(ProjectStore::load(directory.path(), &actual, &error), "SIO-MIG-001 legacy input load failed");
+        check(actual.selections["pin_1"].functionId == "sio" &&
+                  actual.selections["pin_1"].settings.value("direction") == "Input" &&
+                  actual.selections["pin_1"].settings.value("pull") == "Pull-down" &&
+                  actual.selections["pin_1"].settings.value("debounce_ms") == "25",
+              "SIO-MIG-001/003 input was not canonicalized with settings preserved");
+        check(ProjectStore::save(actual, &error), "SIO-MIG-005 canonical input save failed");
+        ApplicationState reloaded;
+        check(ProjectStore::load(directory.path(), &reloaded, &error), "SIO-MIG-007 canonical input reload failed");
+        check(reloaded.selections["pin_1"].functionId == "sio" &&
+                  reloaded.selections["pin_1"].settings.value("direction") == "Input",
+              "SIO-MIG-005/007 canonical input did not survive save/reload");
+    }
+    {
+        QTemporaryDir directory;
+        auto expected = populatedState(directory.path(), "LEGACY_OUTPUT");
+        expected.selections["pin_1"].functionId = "gpio.output";
+        expected.selections["pin_1"].functionName = "GPIO Output";
+        expected.selections["pin_1"].settings = {{"initial_state", "High"},
+                                                 {"blink_enabled", "true"},
+                                                 {"blink_interval_ms", "750"},
+                                                 {"drive_strength", "8"},
+                                                 {"slew_rate", "Slow"}};
+        QString error;
+        check(ProjectStore::save(expected, &error), "SIO-MIG-002 legacy output fixture save failed");
+        const QString database = directory.filePath("LEGACY_OUTPUT.sqlite");
+        check(execute(database, "UPDATE selections SET function_id='gpio.output',function_name='GPIO Output' WHERE "
+                                "component_id='pin_1'"),
+              "SIO-MIG-002 legacy output mutation failed");
+        ApplicationState actual;
+        check(ProjectStore::load(directory.path(), &actual, &error), "SIO-MIG-002 legacy output load failed");
+        const auto& migrated = actual.selections["pin_1"];
+        check(migrated.functionId == "sio" && migrated.settings.value("direction") == "Output" &&
+                  migrated.settings.value("initial_state") == "High" &&
+                  migrated.settings.value("blink_enabled") == "true" &&
+                  migrated.settings.value("blink_interval_ms") == "750" &&
+                  migrated.settings.value("drive_strength") == "8" && migrated.settings.value("slew_rate") == "Slow",
+              "SIO-MIG-002/004 output was not canonicalized with settings preserved");
+        check(ProjectStore::save(actual, &error), "SIO-MIG-006 canonical output save failed");
+        ApplicationState reloaded;
+        check(ProjectStore::load(directory.path(), &reloaded, &error), "SIO-MIG-007 canonical output reload failed");
+        check(reloaded.selections["pin_1"].functionId == "sio" &&
+                  reloaded.selections["pin_1"].settings.value("direction") == "Output",
+              "SIO-MIG-006/007 canonical output did not survive save/reload");
     }
     if (failures == 0)
         std::cout << "All persistence contract tests passed.\n";

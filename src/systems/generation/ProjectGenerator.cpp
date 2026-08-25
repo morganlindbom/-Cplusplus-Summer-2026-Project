@@ -113,7 +113,7 @@ void emitRuntimeBody(QTextStream& o, const pvd::FunctionSelection& sel, bool cor
               << "        last_toggle_us = now_us;\n"
               << "    }\n";
     }
-    else if (sel.functionId == "gpio.output")
+    else if (sel.functionId == "sio" && setting("direction", "Input") == "Output")
     {
         const bool high = setting("initial_state", "Low") == "High";
         const bool blink = setting("blink_enabled", "false") == "true";
@@ -533,6 +533,10 @@ QString ProjectGenerator::generateMain(const ApplicationState& state)
       << "#include \"hardware/watchdog.h\"\n";
     if (core1RuntimeNeeded)
         o << "#include \"pico/multicore.h\"\n";
+    if (core1RuntimeNeeded)
+        o << "\n// Dedicated multicore-debug evidence counters; each core updates only its own counter.\n"
+          << "volatile uint32_t core0_debug_counter = 0;\n"
+          << "volatile uint32_t core1_debug_counter = 0;\n";
     o << "\n";
     const bool boardSanitationNeeded = BoardStartupSanitation::needsRoboPicoNeoPixelClear(state);
     for (const auto& sel : state.selections)
@@ -587,6 +591,7 @@ QString ProjectGenerator::generateMain(const ApplicationState& state)
               << "    constexpr uint handler_count = sizeof(handlers) / sizeof(handlers[0]);\n"
               << "    while (true) {\n"
               << "        for (uint i = 0; i < handler_count; ++i) handlers[i]();\n"
+              << "        ++core1_debug_counter;\n"
               << "        tight_loop_contents();\n"
               << "    }\n";
         }
@@ -767,35 +772,28 @@ QString ProjectGenerator::generateMain(const ApplicationState& state)
                   << "\", CYW43_AUTH_WPA2_AES_PSK, 30000);\n";
             }
         }
-        else if (sel.functionId == "gpio.input")
-        {
-            const auto pull = setting(sel, "pull", "None");
-            o << "    // Configure the pin as an input.\n"
-              << "    gpio_init(" << sel.gpio << ");\n"
-              << "    gpio_set_dir(" << sel.gpio << ", GPIO_IN);\n"
-              << "    gpio_set_pulls(" << sel.gpio << ", " << (pull == "Pull-up" ? "true" : "false") << ", "
-              << (pull == "Pull-down" ? "true" : "false") << ");\n";
-        }
-        else if (sel.functionId == "gpio.output")
-        {
-            const auto level = setting(sel, "initial_state", "Low");
-            o << "    // Configure the pin as an output and set its initial level.\n"
-              << "    gpio_init(" << sel.gpio << ");\n"
-              << "    gpio_set_dir(" << sel.gpio << ", GPIO_OUT);\n"
-              << "    gpio_put(" << sel.gpio << ", " << (level == "High" ? "true" : "false") << ");\n"
-              << "    gpio_set_drive_strength(" << sel.gpio << ", GPIO_DRIVE_STRENGTH_"
-              << setting(sel, "drive_strength", "4") << "MA);\n"
-              << "    gpio_set_slew_rate(" << sel.gpio << ", GPIO_SLEW_RATE_"
-              << setting(sel, "slew_rate", "Fast").toUpper() << ");\n";
-        }
         else if (sel.functionId == "sio")
         {
             const auto direction = setting(sel, "direction", "Input");
             const auto pull = setting(sel, "pull", "None");
-            o << "    // Configure a general-purpose digital input or output.\n"
-              << "    gpio_init(" << sel.gpio << ");\n"
-              << "    gpio_set_dir(" << sel.gpio << ", " << (direction == "Output" ? "GPIO_OUT" : "GPIO_IN") << ");\n"
-              << "    gpio_set_pulls(" << sel.gpio << ", " << (pull == "Pull-up" ? "true" : "false") << ", "
+            o << "    // Configure the canonical SIO GPIO path.\n"
+              << "    gpio_init(" << sel.gpio << ");\n";
+            if (direction == "Output")
+            {
+                const auto level = setting(sel, "initial_state", "Low");
+                o << "    // Preload the output latch before enabling the output driver.\n"
+                  << "    gpio_put(" << sel.gpio << ", " << (level == "High" ? "true" : "false") << ");\n"
+                  << "    gpio_set_drive_strength(" << sel.gpio << ", GPIO_DRIVE_STRENGTH_"
+                  << setting(sel, "drive_strength", "4") << "MA);\n"
+                  << "    gpio_set_slew_rate(" << sel.gpio << ", GPIO_SLEW_RATE_"
+                  << setting(sel, "slew_rate", "Fast").toUpper() << ");\n"
+                  << "    gpio_set_dir(" << sel.gpio << ", GPIO_OUT);\n";
+            }
+            else
+            {
+                o << "    gpio_set_dir(" << sel.gpio << ", GPIO_IN);\n";
+            }
+            o << "    gpio_set_pulls(" << sel.gpio << ", " << (pull == "Pull-up" ? "true" : "false") << ", "
               << (pull == "Pull-down" ? "true" : "false") << ");\n";
         }
         else if (sel.functionId.startsWith("pwm"))
@@ -941,6 +939,8 @@ QString ProjectGenerator::generateMain(const ApplicationState& state)
     o << "\n    // Main loop: keep the program running on the Pico.\n"
       << "    // Runtime functions selected in Settings are called cooperatively here.\n"
       << "    while (true) {\n";
+    if (core1RuntimeNeeded)
+        o << "        ++core0_debug_counter;\n";
     for (int i = 0; i < core0HandlerCount; ++i)
         o << "        pvd_core0_runtime_handler_" << i << "();\n";
     if (core1Cyw43Runtime)

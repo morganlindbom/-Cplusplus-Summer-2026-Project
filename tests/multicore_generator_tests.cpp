@@ -6,6 +6,7 @@
 #include <QFile>
 #include <QTemporaryDir>
 #include <iostream>
+#include <utility>
 
 using namespace pvd;
 
@@ -26,6 +27,13 @@ FunctionSelection selection(QString component,QString function,int gpio=-1)
     value.functionName=function;
     value.gpio=gpio;
     value.physicalPin=gpio+1;
+    return value;
+}
+FunctionSelection sioOutput(QString component, int gpio)
+{
+    auto value = selection(std::move(component), "sio", gpio);
+    value.functionName = "SIO";
+    value.settings.insert("direction", "Output");
     return value;
 }
 ApplicationState baseState(const QString& path,bool core1)
@@ -57,7 +65,7 @@ int main(int argc,char** argv)
     {
         QTemporaryDir dir;
         auto state=baseState(dir.path(),false);
-        auto gpio=selection("pin1","gpio.output",0);
+        auto gpio=sioOutput("pin1",0);
         gpio.settings={{"execution_core","Core 1"},{"blink_enabled","true"}};
         state.selections.insert(gpio.componentId,gpio);
         const QString main=generate(state),cmake=read(dir.path()+"/generated/CMakeLists.txt");
@@ -79,7 +87,7 @@ int main(int argc,char** argv)
         QTemporaryDir dir;
         auto state=baseState(dir.path(),true);
         for(int gpioNumber=0;gpioNumber<2;++gpioNumber){
-            auto gpio=selection("pin"+QString::number(gpioNumber),"gpio.output",gpioNumber);
+            auto gpio=sioOutput("pin"+QString::number(gpioNumber),gpioNumber);
             gpio.settings={{"execution_core","Core 1"},{"blink_enabled","true"}};
             state.selections.insert(gpio.componentId,gpio);
         }
@@ -120,7 +128,7 @@ int main(int argc,char** argv)
         auto pixels=selection("pixels","robo.neopixel",18);
         pixels.settings={{"enabled","false"},{"execution_core","Core 1"},{"pixel_count","2"}};
         state.selections.insert(pixels.componentId,pixels);
-        auto gpio=selection("pin2","gpio.output",1);
+        auto gpio=sioOutput("pin2",1);
         gpio.settings={{"enabled","true"},{"execution_core","Core 1"},{"blink_enabled","true"}};
         state.selections.insert(gpio.componentId,gpio);
         QString report;
@@ -136,7 +144,7 @@ int main(int argc,char** argv)
     {
         QTemporaryDir dir;
         auto state=baseState(dir.path(),true);
-        auto first=selection("first","gpio.output",4),second=selection("second","gpio.output",4);
+        auto first=sioOutput("first",4),second=sioOutput("second",4);
         state.selections.insert(first.componentId,first);state.selections.insert(second.componentId,second);
         QString report;
         check(!ProjectGenerator::validate(state,&report)&&report.contains("GPIO4")&&report.contains("first")&&report.contains("second"),"GPIO conflict report lacks owners/resource");
@@ -165,8 +173,8 @@ int main(int argc,char** argv)
         check(main.indexOf("pio_sm_init")<main.indexOf("multicore_launch_core1"),"PIO initialization must precede Core 1 launch");
     }
     {
-        auto gpio=selection("gpio","gpio.output",0);
-        check(FunctionExecutionModel::supportsCoreSelection("gpio.output"),"GPIO should support execution-core selection");
+        auto gpio=sioOutput("gpio",0);
+        check(FunctionExecutionModel::supportsCoreSelection("sio"),"SIO should support execution-core selection");
         check(!FunctionExecutionModel::supportsCoreSelection("adc0"),"ADC must not claim unsupported Core 1 execution");
         gpio.settings={{"execution_core","Core 1"}};
         check(FunctionExecutionModel::effectiveCore(gpio,false)=="Core 0","disabled Core 1 must force every function to Core 0");

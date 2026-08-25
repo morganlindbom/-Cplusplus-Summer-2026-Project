@@ -6,12 +6,15 @@
 #include "systems/mainwindow/PanelUtil.hpp"
 #include <QCheckBox>
 #include <QComboBox>
+#include <QDir>
 #include <QFormLayout>
 #include <QLabel>
+#include <QMetaObject>
 #include <QLineEdit>
 #include <QPushButton>
 #include <QScrollArea>
 #include <QStyle>
+#include <QSignalBlocker>
 namespace pvd
 {
 namespace
@@ -200,6 +203,7 @@ SettingsColumn3::SettingsColumn3(const QString& db, FunctionCatalog* catalog, QW
 void SettingsColumn3::clearForm()
 {
     /**Removes all editor rows before displaying a new function selection.*/
+    directionEditor_ = nullptr;
     while (form_->rowCount() > 0)
     {
         form_->removeRow(0);
@@ -300,29 +304,47 @@ void SettingsColumn3::addSetting(const QString& key, const QString& label, const
     else if (type == "combo")
     {
         auto* c = new QComboBox();
-        c->addItems(values);
-        const int i = c->findText(value);
-        if (i >= 0)
+        const QPointer<QComboBox> liveEditor(c);
+        const quint64 generation = editorGeneration_;
+        const QString boundComponentId = componentId_;
+        if (key == "direction")
+            directionEditor_ = c;
         {
-            c->setCurrentIndex(i);
+            const QSignalBlocker blocker(c);
+            c->addItems(values);
+            const int i = c->findText(value);
+            if (i >= 0)
+                c->setCurrentIndex(i);
         }
-        connect(c, &QComboBox::currentTextChanged, this,
-                [this, key, details](const QString& v)
-                {
-                    current_[key] = v;
-                    emit settingChanged(componentId_, key, v);
-                    info_->setText(details);
-                    if (key == "operation_mode")
+        const auto commit = [this, liveEditor, generation, boundComponentId, key, details](const QString& v)
+        {
+            if (liveEditor.isNull() || generation != editorGeneration_ || componentId_ != boundComponentId)
+                return;
+            current_[key] = v;
+            emit settingChanged(boundComponentId, key, v);
+            info_->setText(details);
+            if (key == "direction" || key == "operation_mode")
+            {
+                FunctionSelection updated;
+                updated.componentId = boundComponentId;
+                updated.functionId = functionId_;
+                updated.functionName = functionName_;
+                updated.gpio = gpio_;
+                updated.settings = current_;
+                QMetaObject::invokeMethod(
+                    this,
+                    [this, updated, generation]()
                     {
-                        FunctionSelection updated;
-                        updated.componentId = componentId_;
-                        updated.functionId = functionId_;
-                        updated.functionName = functionName_;
-                        updated.gpio = gpio_;
-                        updated.settings = current_;
-                        showSelection(updated);
-                    }
-                });
+                        if (generation == editorGeneration_ && componentId_ == updated.componentId &&
+                            functionId_ == updated.functionId && gpio_ == updated.gpio)
+                            showSelection(updated);
+                    },
+                    Qt::QueuedConnection);
+            }
+        };
+        // currentTextChanged is safe here because all programmatic population is
+        // signal-blocked and every callback is bound to this live editor generation.
+        connect(c, &QComboBox::currentTextChanged, this, [commit](const QString& v) { commit(v); });
         editor = c;
     }
     else
@@ -369,6 +391,8 @@ void SettingsColumn3::addSetting(const QString& key, const QString& label, const
                 });
         editor = c;
     }
+    editor->setObjectName("setting_" + key);
+    editor->setAccessibleName(label);
     editor->setToolTip(details);
     labelButton->setToolTip(details);
     form_->addRow(labelButton, editor);
@@ -376,11 +400,17 @@ void SettingsColumn3::addSetting(const QString& key, const QString& label, const
 void SettingsColumn3::showSelection(const FunctionSelection& selection)
 {
     /**Displays settings for the selected function without changing its ownership or source data.*/
+    ++editorGeneration_;
     componentId_ = selection.componentId;
     functionId_ = selection.functionId;
     functionName_ = selection.functionName;
     gpio_ = selection.gpio;
     current_ = selection.settings;
+    if (selection.functionId == "sio")
+    {
+        current_.insert("direction", current_.value("direction", "Input"));
+        current_.insert("pull", current_.value("pull", "None"));
+    }
     clearForm();
     if (core1Enabled_ && FunctionExecutionModel::supportsCoreSelection(functionId_))
     {
@@ -398,10 +428,23 @@ void SettingsColumn3::showSelection(const FunctionSelection& selection)
     if (!db.isEmpty())
     {
         info_->setText(selection.functionName + "\n\n" + SqliteUtil::metadata(db, "description"));
+        const bool hasCategories = SqliteUtil::hasColumn(db, "settings", "category");
+        const bool hasApplicability = SqliteUtil::hasColumn(db, "settings", "applicable_when");
+        const QString categoryColumn = hasCategories ? QStringLiteral(",category") : QString{};
+        const QString applicabilityColumn = hasApplicability ? QStringLiteral(",applicable_when") : QString{};
         for (const auto& row :
-             SqliteUtil::rows(db, "SELECT setting_key,label,editor_type,default_value,help_text,enum_values FROM "
-                                  "settings ORDER BY sort_order"))
+             SqliteUtil::rows(db, "SELECT setting_key,label,editor_type,default_value,help_text,enum_values" +
+                                      categoryColumn + applicabilityColumn +
+                                      " FROM "
+                                      "settings ORDER BY sort_order"))
         {
+            const QString applicableWhen = row.value("applicable_when").toString();
+            if (!applicableWhen.isEmpty())
+            {
+                const auto condition = applicableWhen.split('=', Qt::SkipEmptyParts);
+                if (condition.size() == 2 && current_.value(condition[0]) != condition[1])
+                    continue;
+            }
             addSetting(row.value("setting_key").toString(), row.value("label").toString(),
                        row.value("editor_type").toString(), row.value("default_value").toString(),
                        row.value("help_text").toString(),
@@ -462,24 +505,6 @@ void SettingsColumn3::showSelection(const FunctionSelection& selection)
         addSetting("stdio_uart", "UART stdio", "bool", "false", "Enable UART stdio in the generated project.");
         addSetting("uart_baud", "UART baud rate", "int", "115200", "UART stdio baud rate.");
         addSetting("startup_delay_ms", "Startup delay (ms)", "int", "0", "Optional delay after SDK initialization.");
-    }
-    else if (selection.functionId == "gpio.input")
-    {
-        info_->setText("GPIO Input\n\nSIO input configuration.");
-        addSetting("pull", "Pull resistor", "combo", "None", "Internal GPIO pull resistor.",
-                   {"None", "Pull-up", "Pull-down"});
-        addSetting("debounce_ms", "Debounce (ms)", "int", "0", "Optional software debounce interval.");
-    }
-    else if (selection.functionId == "gpio.output")
-    {
-        info_->setText("GPIO Output\n\nSIO output configuration.");
-        addSetting("initial_state", "Initial state", "combo", "Low", "Initial output level.", {"Low", "High"});
-        addSetting("blink_enabled", "Blink output", "bool", "false",
-                   "Toggle this GPIO periodically on the selected execution core.");
-        addSetting("blink_interval_ms", "Blink interval (ms)", "int", "500", "Time between GPIO output state changes.");
-        addSetting("drive_strength", "Drive strength (mA)", "combo", "4", "GPIO output drive strength.",
-                   {"2", "4", "8", "12"});
-        addSetting("slew_rate", "Slew rate", "combo", "Fast", "GPIO output slew rate.", {"Slow", "Fast"});
     }
     else if (selection.functionId == "bootsel.use_button")
     {
@@ -543,5 +568,9 @@ void SettingsColumn3::setCore1Enabled(bool enabled)
 {
     /**Controls whether per-function execution-core selection is available.*/
     core1Enabled_ = enabled;
+}
+QString SettingsColumn3::currentComponentId() const
+{
+    return componentId_;
 }
 } // namespace pvd

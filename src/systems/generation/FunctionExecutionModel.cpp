@@ -4,7 +4,7 @@ namespace pvd {
 
 bool FunctionExecutionModel::supportsCoreSelection(const QString& functionId)
 {
-    return functionId == "gpio.output"
+    return functionId == "sio"
         || functionId == "onboard_led.output"
         || functionId == "robo.buzzer"
         || functionId == "robo.neopixel";
@@ -20,7 +20,7 @@ QString FunctionExecutionModel::effectiveCore(const FunctionSelection& selection
 
 QString FunctionExecutionModel::runtimeModel(const QString& functionId)
 {
-    if (functionId == "gpio.output" || functionId == "onboard_led.output")
+    if (functionId == "sio" || functionId == "onboard_led.output")
         return QStringLiteral("cooperative periodic state update");
     if (functionId == "robo.buzzer")
         return QStringLiteral("cooperative one-shot tone completion");

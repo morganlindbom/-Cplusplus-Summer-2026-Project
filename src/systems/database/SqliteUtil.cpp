@@ -36,6 +36,26 @@ QString SqliteUtil::metadata(const QString& path, const QString& key, const QStr
     return result;
 }
 
+bool SqliteUtil::hasColumn(const QString& path, const QString& table, const QString& column)
+{
+    /**Checks whether an optional metadata column exists without changing the database.*/
+    const QString connection = "columns_" + QUuid::createUuid().toString(QUuid::WithoutBraces);
+    bool result = false;
+    {
+        QSqlDatabase db = open(path, connection);
+        QSqlQuery query(db);
+        query.prepare("PRAGMA table_info(" + table + ")");
+        if (query.exec())
+        {
+            while (query.next())
+                result = result || query.value(1).toString() == column;
+        }
+        db.close();
+    }
+    QSqlDatabase::removeDatabase(connection);
+    return result;
+}
+
 QVector<QVariantMap> SqliteUtil::rows(const QString& path, const QString& sql, const QVariantList& bindings)
 {
     /**Executes a read query and returns rows as key/value maps.*/

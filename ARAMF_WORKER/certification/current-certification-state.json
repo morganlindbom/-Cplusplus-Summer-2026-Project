@@ -1,0 +1,54 @@
+{
+    "_file": "current-certification-state.json",
+    "subjects": {
+        "Physical Pin 1 / GPIO0 / SIO Output": {
+            "certificateId": "cert-6d2a8f1c-4b97-53e0-a725-9c6f1d804b32",
+            "certificateType": "PHYSICAL_SIO_OUTPUT",
+            "result": "PASS",
+            "verificationLevel": "PHYSICAL",
+            "scope": "Cytron ROBO-PICO Physical Pin 1/GPIO0 SIO Output with GPIO1 held as non-driving SIO Input and Admin-observed LED OFF -> ON -> OFF.",
+            "limitations": ["GPIO1 physical input readback was not performed."],
+            "lastEventSequence": 77
+        },
+        "Physical Pin 2 / GPIO1 / SIO Input": {
+            "certificateId": "cert-8e3a1c6f-5b27-94d0-a7e2-3f9c6b1058d4",
+            "certificateType": "PHYSICAL_SIO_INPUT",
+            "result": "PASS",
+            "verificationLevel": "PHYSICAL",
+            "scope": "Cytron ROBO-PICO Physical Pin 2/GPIO1 SIO Input with firmware gpio_get(1) readback 0 -> 1 -> 0 under GPIO0 loopback stimulus.",
+            "limitations": ["Scope is limited to GPIO1 SIO Input under the current GPIO0 loopback stimulus."],
+            "lastEventSequence": 88
+        },
+        "Physical Pin 4 / GPIO2 / SIO Output": {
+            "certificateId": "cert-9f3b1c7e-5a28-64d0-b9e2-3f6c1a7048d5",
+            "certificateType": "PHYSICAL_SIO_OUTPUT",
+            "result": "PASS",
+            "verificationLevel": "PHYSICAL",
+            "scope": "Cytron ROBO-PICO Physical Pin 4/GPIO2 SIO Output with GPIO3 firmware readback 0 -> 1 -> 0 under GPIO2 loopback stimulus.",
+            "limitations": ["Scope is limited to GPIO2 SIO Output under the current GPIO2<->GPIO3 loopback stimulus."],
+            "lastEventSequence": 99
+        },
+        "Physical Pin 5 / GPIO3 / SIO Input": {
+            "certificateId": "cert-a4e2c7f1-6b39-85d0-b2f3-9c1e7048d6a5",
+            "certificateType": "PHYSICAL_SIO_INPUT",
+            "result": "PASS",
+            "verificationLevel": "PHYSICAL",
+            "scope": "Cytron ROBO-PICO Physical Pin 5/GPIO3 SIO Input with firmware gpio_get(3) readback 0 -> 1 -> 0 under GPIO2 loopback stimulus.",
+            "limitations": ["Scope is limited to GPIO3 SIO Input under the current GPIO2 loopback stimulus."],
+            "lastEventSequence": 99
+        },
+        "Physical Pin 6 / GPIO4 / SIO Output": {"certificateId":"cert-b5c7d9e1-2f43-6a85-b7c9-d1e3f5a704b6","certificateType":"PHYSICAL_SIO_OUTPUT","result":"PASS","verificationLevel":"PHYSICAL","scope":"Cytron ROBO-PICO Physical Pin 6/GPIO4 SIO Output with GPIO5 firmware readback 0 -> 1 -> 0 under GPIO4 loopback stimulus.","limitations":["Scope is limited to GPIO4 SIO Output under the current GPIO4<->GPIO5 loopback stimulus."],"lastEventSequence":106},
+        "Physical Pin 7 / GPIO5 / SIO Input": {"certificateId":"cert-c6d8e0f2-3a54-7b96-c8d0-e2f4a6b815c7","certificateType":"PHYSICAL_SIO_INPUT","result":"PASS","verificationLevel":"PHYSICAL","scope":"Cytron ROBO-PICO Physical Pin 7/GPIO5 SIO Input with firmware gpio_get(5) readback 0 -> 1 -> 0 under GPIO4 loopback stimulus.","limitations":["Scope is limited to GPIO5 SIO Input under the current GPIO4 loopback stimulus."],"lastEventSequence":107},
+        "Physical Pin 9 / GPIO6 / SIO Output": {"certificateId":"cert-d7e9f1a3-4b65-8c0d-e2f4a6b819c7","certificateType":"PHYSICAL_SIO_OUTPUT","result":"PASS","verificationLevel":"PHYSICAL","scope":"Cytron ROBO-PICO Physical Pin 9/GPIO6 SIO Output with GPIO7 firmware readback 0 -> 1 -> 0 under GPIO6 loopback stimulus.","limitations":["Scope is limited to GPIO6 SIO Output under the current GPIO6<->GPIO7 loopback stimulus."],"lastEventSequence":115},
+        "Physical Pin 10 / GPIO7 / SIO Input": {"certificateId":"cert-e8f0a2b4-5c76-9d1e-f3a5b7c920d8","certificateType":"PHYSICAL_SIO_INPUT","result":"PASS","verificationLevel":"PHYSICAL","scope":"Cytron ROBO-PICO Physical Pin 10/GPIO7 SIO Input with firmware gpio_get(7) readback 0 -> 1 -> 0 under GPIO6 loopback stimulus.","limitations":["Scope is limited to GPIO7 SIO Input under the current GPIO6 loopback stimulus."],"lastEventSequence":116},
+        "Physical Pin 2 / GPIO1 / SIO Output (Reverse)": {"certificateId":"cert-f9a1b3c5-6d78-0e2f-4a6c-8b0d2e4f719a","certificateType":"PHYSICAL_SIO_OUTPUT","result":"PASS","verificationLevel":"PHYSICAL","scope":"Cytron ROBO-PICO Physical Pin 2/GPIO1 SIO Output with GPIO0 firmware readback 0 -> 1 -> 0 under reverse GPIO1 loopback stimulus.","limitations":["Scope is limited to GPIO1 SIO Output in the reverse GPIO1<->GPIO0 baseline."],"lastEventSequence":124},
+        "Physical Pin 1 / GPIO0 / SIO Input (Reverse)": {"certificateId":"cert-a0b2c4d6-8e91-3f5a-7c9e-1b3d5f7082a4","certificateType":"PHYSICAL_SIO_INPUT","result":"PASS","verificationLevel":"PHYSICAL","scope":"Cytron ROBO-PICO Physical Pin 1/GPIO0 SIO Input with firmware gpio_get(0) readback 0 -> 1 -> 0 under reverse GPIO1 loopback stimulus.","limitations":["Scope is limited to GPIO0 SIO Input in the reverse GPIO1<->GPIO0 baseline."],"lastEventSequence":125},
+        "Physical Pin 5 / GPIO3 / SIO Output (Reverse)": {"certificateId":"cert-b1c3d5f7-9a02-4e6c-8b0d-2f4a6c819e7d","certificateType":"PHYSICAL_SIO_OUTPUT","result":"PASS","verificationLevel":"PHYSICAL","scope":"GPIO3 reverse output with GPIO2 firmware readback 0 -> 1 -> 0; artifact hashes verified.","lastEventSequence":139},
+        "Physical Pin 4 / GPIO2 / SIO Input (Reverse)": {"certificateId":"cert-c2d4f6a8-0b13-5f7d-9c1e-3a5b7d920f8e","certificateType":"PHYSICAL_SIO_INPUT","result":"PASS","verificationLevel":"PHYSICAL","scope":"GPIO2 reverse input with firmware gpio_get(2) readback 0 -> 1 -> 0; artifact hashes verified.","lastEventSequence":140},
+        "Physical Pin 7 / GPIO5 / SIO Output (Reverse)": {"certificateId":"cert-d3e5f7a9-1b24-6c8e-0d2f-4a6c8e103f9b","certificateType":"PHYSICAL_SIO_OUTPUT","result":"PASS","verificationLevel":"PHYSICAL","scope":"GPIO5 reverse output with GPIO4 firmware readback 0 -> 1 -> 0; artifact hashes verified.","lastEventSequence":142},
+        "Physical Pin 6 / GPIO4 / SIO Input (Reverse)": {"certificateId":"cert-e4f6a8b0-2c35-7d9f-1e3a-5b7d9f214a0c","certificateType":"PHYSICAL_SIO_INPUT","result":"PASS","verificationLevel":"PHYSICAL","scope":"GPIO4 reverse input with firmware gpio_get(4) readback 0 -> 1 -> 0; artifact hashes verified.","lastEventSequence":143},
+        "Physical Pin 10 / GPIO7 / SIO Output (Reverse)": {"certificateId":"cert-f5a7c9b1-3d46-8e0a-2f4b-6c8e0a325b1d","certificateType":"PHYSICAL_SIO_OUTPUT","result":"PASS","verificationLevel":"PHYSICAL","scope":"GPIO7 reverse output with GPIO6 firmware readback 0 -> 1 -> 0; artifact hashes verified.","lastEventSequence":148},
+        "Physical Pin 9 / GPIO6 / SIO Input (Reverse)": {"certificateId":"cert-a6b8d0c2-4e57-9f1b-3a5c-7e9f1b436c2e","certificateType":"PHYSICAL_SIO_INPUT","result":"PASS","verificationLevel":"PHYSICAL","scope":"GPIO6 reverse input with firmware gpio_get(6) readback 0 -> 1 -> 0; artifact hashes verified.","lastEventSequence":149}
+    },
+    "version": 1
+}

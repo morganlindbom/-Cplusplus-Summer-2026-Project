@@ -1,0 +1,36 @@
+{
+  "_file": "event-id-integrity-exceptions.json",
+  "schemaVersion": 1,
+  "purpose": "Narrow, fingerprint-protected reconciliation of immutable historical duplicate event IDs.",
+  "rawHistoricalUniqueness": "FAIL",
+  "futureUniquenessEnforced": true,
+  "exceptions": [
+    {
+      "eventId": "event-b8c9d0e1-f2a3-4567-89ab-cdef01234567",
+      "occurrences": [
+        { "sequenceNumber": 129, "eventType": "BUILD_RESULT", "rawLineSha256": "1f1f48b39f574d774809adf19ffa0f20fcdf8aee9c0d4d128e284872520fbd2a" },
+        { "sequenceNumber": 159, "eventType": "TASK_STARTED", "rawLineSha256": "94bedb4cec431a85febc89c806644c1fb79542c991fc1e640d663632a63aaaff" }
+      ],
+      "reason": "Immutable legacy duplicate; occurrence 159 reused the ID from occurrence 129.",
+      "discoveryReconciliationSequence": 168
+    },
+    {
+      "eventId": "event-c9d0e1f2-a3b4-5678-9abc-def012345678",
+      "occurrences": [
+        { "sequenceNumber": 130, "eventType": "TEST_RESULT", "rawLineSha256": "99ff6b2db8b81e955f9520471eb8bed04419c646b6fbc1dc43819c8c64c0bc5b" },
+        { "sequenceNumber": 160, "eventType": "TEST_RESULT", "rawLineSha256": "cde6a5bc571f8c7bcda2d6a27a28d974f868ae39b9f2f55f11776e9c8bafe754" }
+      ],
+      "reason": "Immutable legacy duplicate; occurrence 160 reused the ID from occurrence 130.",
+      "discoveryReconciliationSequence": 168
+    },
+    {
+      "eventId": "event-d0e1f2a3-b4c5-6789-abcd-ef0123456789",
+      "occurrences": [
+        { "sequenceNumber": 131, "eventType": "TASK_STARTED", "rawLineSha256": "2721e73faf3a6f5574d633c83391a2385f611d0178c2743c18ea20e0dc4b3a91" },
+        { "sequenceNumber": 161, "eventType": "TEST_RESULT", "rawLineSha256": "31c3d1d36305a5d74de04682f91f456b6cd699c7f6798939a33bbbb980360d36" }
+      ],
+      "reason": "Immutable legacy duplicate; occurrence 161 reused the ID from occurrence 131.",
+      "discoveryReconciliationSequence": 168
+    }
+  ]
+}

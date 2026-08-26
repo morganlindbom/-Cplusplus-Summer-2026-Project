@@ -1,9 +1,15 @@
 {
     "_file": "memory-consistency-validation.json",
-    "checkedAt": "2026-08-23T13:48:53Z",
+    "checkedAt": "2026-08-26T14:39:17Z",
     "checks": [
         {
-            "name": "event-identifiers-unique",
+            "message": "Raw historical uniqueness is FAIL only for the three exact fingerprinted legacy groups; all non-exempt IDs are unique.",
+            "name": "event-identifiers-legacy-reconciled",
+            "status": "PASS"
+        },
+        {
+            "message": "The raw duplicate anomaly is explicitly reconciled by exact immutable fingerprints.",
+            "name": "event-id-integrity-reconciliation",
             "status": "PASS"
         },
         {
@@ -31,15 +37,45 @@
             "status": "PASS"
         },
         {
+            "name": "conflicting-decisions",
+            "status": "PASS"
+        },
+        {
+            "name": "stale-current-state",
+            "status": "PASS"
+        },
+        {
+            "name": "project-status-consistency",
+            "status": "PASS"
+        },
+        {
+            "name": "referenced-resources",
+            "status": "PASS"
+        },
+        {
             "name": "configured-validation-coverage",
+            "status": "PASS"
+        },
+        {
+            "name": "cold-start-fresh",
+            "status": "PASS"
+        },
+        {
+            "message": "Structural memory consistency checks executed.",
+            "name": "memory-consistency",
+            "status": "PASS"
+        },
+        {
+            "message": "Sequence continuity check executed.",
+            "name": "sequence-continuity",
             "status": "PASS"
         }
     ],
-    "durableSequence": 2,
+    "durableSequence": 204,
     "errors": [
     ],
-    "productionSequence": 2,
-    "status": "PASS",
+    "productionSequence": 5,
+    "status": "PASS WITH ACKNOWLEDGED LEGACY EXCEPTIONS",
     "unsupportedValidations": [
     ],
     "warnings": [

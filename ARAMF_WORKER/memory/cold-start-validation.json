@@ -1,6 +1,6 @@
 {
     "_file": "cold-start-validation.json",
-    "checkedAt": "2026-08-23T13:48:48Z",
+    "checkedAt": "2026-08-26T14:39:17Z",
     "checks": [
         {
             "name": "ARAMF_WORKER/memory/decisions.md",
@@ -33,13 +33,48 @@
         {
             "name": "ARAMF_WORKER/PROJECT_STATUS.md",
             "status": "PASS"
+        },
+        {
+            "message": "Event log parsed through ProjectMemory read API.",
+            "name": "event-log-semantic-recovery",
+            "status": "PASS"
+        },
+        {
+            "message": "Recovered three exact fingerprint-protected legacy duplicate groups; raw anomaly is explicit and future uniqueness enforcement is active.",
+            "name": "event-id-legacy-reconciliation",
+            "status": "PASS"
+        },
+        {
+            "message": "Durable decisions parsed through ProjectMemory read API.",
+            "name": "decisions-semantic-recovery",
+            "status": "PASS"
+        },
+        {
+            "message": "Checkpoints parsed through ProjectMemory read API.",
+            "name": "checkpoints-semantic-recovery",
+            "status": "PASS"
+        },
+        {
+            "message": "Manifest sequence 204 and next sequence 205 agree with recovered event history; legacy duplicate status is explicit.",
+            "name": "manifest-event-recovery",
+            "status": "PASS"
+        },
+        {
+            "message": "Current decision state could not be reconstructed.",
+            "name": "current-decisions-recovery",
+            "status": "PASS"
+        },
+        {
+            "message": "Latest checkpoint could not be recovered.",
+            "name": "latest-checkpoint-recovery",
+            "status": "PASS"
         }
     ],
     "contractConfigConsistent": true,
     "errors": [
     ],
-    "fingerprint": "f3eabae3c5c7c9db2018b60ad069a6e21f7331028bc5ab4014905902737f37f6",
-    "recordingEnabled": false,
+    "fingerprint": "8df88e26174fd6df305b6e1b4833a71ff3b0efb59a7e2c7d571e0f7bcde07a0b",
+    "recordingEnabled": true,
     "status": "PASS",
     "warnings": [
     ]

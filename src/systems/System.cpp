@@ -267,17 +267,16 @@ void System::connectComponents()
             [this]()
             {
                 latestBuildSuccessful_ = false;
+                generate3_->setWorkflowState(GenerateWorkflowState::Running);
                 QString error;
                 if (ProjectGenerator::generate(&state_, pio3_->programs(), &error))
                 {
                     pio3_->reloadGeneratedFiles(state_.generatedFiles);
-                    generate3_->setStatus(
-                        QString("Ready for Build — Generation completed: %1 files").arg(state_.generatedFiles.size()),
-                        true);
+                    generate3_->setWorkflowState(GenerateWorkflowState::Completed);
                     refreshProjectViews();
                 }
                 else
-                    generate3_->setStatus(error, false);
+                    generate3_->setWorkflowState(GenerateWorkflowState::Failed);
             });
     connect(code2_, &CodeColumn2::fileSelected, code3_, &CodeColumn3::loadFile);
     connect(code3_, &CodeColumn3::buildRequested, this,

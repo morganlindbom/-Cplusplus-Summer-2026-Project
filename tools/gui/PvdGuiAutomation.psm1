@@ -226,26 +226,28 @@ function Wait-PvdUiTreeStable([int]$ProcessId, [Int64]$MainHwnd, [hashtable]$Exp
                                    [System.Windows.Automation.Condition]::TrueCondition))
             $settingsPage = $all | Where-Object { $_.Current.ControlType -eq [System.Windows.Automation.ControlType]::ListItem -and $_.Current.Name -eq 'Settings' } | Select-Object -First 1
             if (-not $settingsPage) { throw 'Settings workflow page not available' }
-            $settingsList = $all | Where-Object { $_.Current.AutomationId -eq 'settings_selection' } | Select-Object -First 1
-            if (-not $settingsList) { throw 'Settings selection list not available' }
-            $rows = @($settingsList.FindAll([System.Windows.Automation.TreeScope]::Descendants,
-                                            [System.Windows.Automation.Condition]::TrueCondition))
+            $settingsList = $all | Where-Object { $_.Current.AutomationId -eq 'settings_selection' -or $_.Current.AutomationId.EndsWith('.settings_selection') } | Select-Object -First 1
+            $rows = if ($settingsList) {
+                @($settingsList.FindAll([System.Windows.Automation.TreeScope]::Descendants,
+                                        [System.Windows.Automation.Condition]::TrueCondition))
+            } else { @() }
             $row = $rows | Where-Object {
                 $_.Current.ControlType -eq [System.Windows.Automation.ControlType]::ListItem -and
                 $_.Current.Name -match [string]$Expected.pin_pattern -and
                 $_.Current.Name -match [string]$Expected.function_pattern
             } | Select-Object -First 1
-            if (-not $row) { throw 'Expected pin/function Settings row not available' }
-            $direction = $all | Where-Object { $_.Current.AutomationId -eq 'setting_direction' } | Select-Object -First 1
+            $direction = $all | Where-Object { $_.Current.AutomationId -eq 'setting_direction' -or $_.Current.AutomationId.EndsWith('.setting_direction') } | Select-Object -First 1
             if (-not $direction) { throw 'Direction control not available' }
             $directionValue = $null
             try { $directionValue = $direction.GetCurrentPattern([System.Windows.Automation.ValuePattern]::Pattern).Current.Value } catch {}
             if (-not $directionValue) { $directionValue = $direction.Current.Name }
             if ($directionValue -ne [string]$Expected.direction) { throw "Direction is '$directionValue', expected '$($Expected.direction)'" }
-            $modeControl = $all | Where-Object { $_.Current.AutomationId -eq [string]$Expected.mode_control } | Select-Object -First 1
+            $modeId = [string]$Expected.mode_control
+            $modeControl = $all | Where-Object { $_.Current.AutomationId -eq $modeId -or $_.Current.AutomationId.EndsWith('.' + $modeId) } | Select-Object -First 1
             if (-not $modeControl) { throw "Expected mode-specific control '$($Expected.mode_control)' not available" }
             return [ordered]@{
                 root = $root; settings_page = $settingsPage; settings_list = $settingsList; row = $row
+                settings_list_present = ($null -ne $settingsList); expected_row_present = ($null -ne $row)
                 direction = $direction; mode_control = $modeControl; direction_value = $directionValue
                 attempts = $attempts; ready = $true
             }

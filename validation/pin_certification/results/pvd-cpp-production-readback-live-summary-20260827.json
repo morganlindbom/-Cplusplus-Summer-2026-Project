@@ -1,0 +1,22 @@
+{
+  "status": "READBACK_COMPLETED",
+  "run_id": "readback-20260827T083203756Z",
+  "trigger_ack": "validation/pin_certification/results/readback-20260827T083203756Z.trigger-ack.json",
+  "result_json": "validation/pin_certification/results/pvd-cpp-production-readback-smoke-20260827-handshake2.json",
+  "raw_log": "validation/pin_certification/results/pvd-cpp-production-readback-smoke-20260827-handshake2.log",
+  "openocd_ready": true,
+  "gdb_connected": true,
+  "target_halted": true,
+  "evidence_read_started": true,
+  "evidence_read_completed": true,
+  "evidence_commands": 76,
+  "reset_command_count": 0,
+  "program_command_count": 0,
+  "continue_command_count": 0,
+  "memory_write_count": 0,
+  "cleanup_completed": true,
+  "port_3333_free": true,
+  "powershell_evidence_commands": 0,
+  "timer_or_pwm_classification": "NOT PERFORMED",
+  "runner_observation": "result was published; runner's UI label polling returned a false timeout"
+}

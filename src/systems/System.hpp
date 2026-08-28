@@ -37,6 +37,7 @@ class System final : public QObject
   public:
     explicit System(bool certificationDialogs = false, QObject* parent = nullptr);
     ~System() override;
+    bool loadProjectFromPath(const QString& path, QString* error = nullptr);
     void run();
 
   private:

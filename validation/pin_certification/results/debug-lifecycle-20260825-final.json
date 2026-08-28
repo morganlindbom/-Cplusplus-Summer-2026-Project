@@ -1,0 +1,10 @@
+﻿{
+    "result":  "FAIL",
+    "stages":  {
+                   "Launch":  "PASS",
+                   "ProjectLoad":  "PASS",
+                   "Navigation":  "PASS",
+                   "NoImplicitStart":  "PASS"
+               },
+    "failure_boundary":  "OpenOCD started while returning to Debug."
+}

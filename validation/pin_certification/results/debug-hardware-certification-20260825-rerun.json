@@ -1,0 +1,7 @@
+﻿{
+    "result":  "FAIL",
+    "stages":  {
+                   "Launch":  "PASS"
+               },
+    "failure_boundary":  "Debug certification file dialog was not discovered."
+}

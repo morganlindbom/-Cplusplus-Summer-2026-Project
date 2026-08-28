@@ -1,0 +1,12 @@
+﻿{
+    "result":  "FAIL",
+    "stages":  {
+                   "StartConnect":  "PASS",
+                   "SelectorEnabled":  "FAIL",
+                   "Core0Selector":  "PASS",
+                   "Core0Application":  "PASS",
+                   "Core0Registers":  "PASS",
+                   "Core0Breakpoint":  "PASS"
+               },
+    "failure":  "Combo selection did not commit: expected \u0027Core 1\u0027, observed \u0027Core 0\u0027"
+}

@@ -1,0 +1,320 @@
+﻿{
+    "result":  "PASS",
+    "project_path":  "D:\\ON DESCTOP\\HKR KURSER\\C++\\C++Summer 2026 Project7\\-Cplusplus-Summer-2026-Project\\validation\\rp2350_multicore_debug_project",
+    "controls":  [
+                     {
+                         "id":  "QApplication.pvd::MainWindow.QWidget",
+                         "name":  "",
+                         "type":  "ControlType.Group",
+                         "enabled":  true
+                     },
+                     {
+                         "id":  "QApplication.pvd::MainWindow.QWidget.QSplitter",
+                         "name":  "",
+                         "type":  "ControlType.Custom",
+                         "enabled":  true
+                     },
+                     {
+                         "id":  "QApplication.pvd::MainWindow.QWidget.QSplitter.pvd::Viewer",
+                         "name":  "",
+                         "type":  "ControlType.Group",
+                         "enabled":  true
+                     },
+                     {
+                         "id":  "QApplication.pvd::MainWindow.QWidget.QSplitter.pvd::Viewer.QLabel",
+                         "name":  "Viewer",
+                         "type":  "ControlType.Text",
+                         "enabled":  true
+                     },
+                     {
+                         "id":  "QApplication.pvd::MainWindow.QWidget.QSplitter.pvd::Viewer.QPushButton",
+                         "name":  "Home",
+                         "type":  "ControlType.Button",
+                         "enabled":  true
+                     },
+                     {
+                         "id":  "QApplication.pvd::MainWindow.QWidget.QSplitter.pvd::Viewer.QPushButton",
+                         "name":  "Top",
+                         "type":  "ControlType.Button",
+                         "enabled":  true
+                     },
+                     {
+                         "id":  "QApplication.pvd::MainWindow.QWidget.QSplitter.pvd::Viewer.QPushButton",
+                         "name":  "Clear",
+                         "type":  "ControlType.Button",
+                         "enabled":  true
+                     },
+                     {
+                         "id":  "QApplication.pvd::MainWindow.QWidget.QSplitter.pvd::Viewer.QOpenGLWidget",
+                         "name":  "",
+                         "type":  "ControlType.Group",
+                         "enabled":  true
+                     },
+                     {
+                         "id":  "QApplication.pvd::MainWindow.QWidget.QSplitter.pvd::Viewer.QLabel",
+                         "name":  "Simulation — ready",
+                         "type":  "ControlType.Text",
+                         "enabled":  true
+                     },
+                     {
+                         "id":  "QApplication.pvd::MainWindow.QWidget.QSplitter.pvd::Workflow",
+                         "name":  "",
+                         "type":  "ControlType.Group",
+                         "enabled":  true
+                     },
+                     {
+                         "id":  "QApplication.pvd::MainWindow.QWidget.QSplitter.pvd::Workflow.QLabel",
+                         "name":  "Workflow",
+                         "type":  "ControlType.Text",
+                         "enabled":  true
+                     },
+                     {
+                         "id":  "QApplication.pvd::MainWindow.QWidget.QSplitter.pvd::Workflow.workflow_navigation",
+                         "name":  "",
+                         "type":  "ControlType.List",
+                         "enabled":  true
+                     },
+                     {
+                         "id":  "QApplication.pvd::MainWindow.QWidget.QSplitter.pvd::Workflow.workflow_navigation",
+                         "name":  "Project",
+                         "type":  "ControlType.ListItem",
+                         "enabled":  true
+                     },
+                     {
+                         "id":  "QApplication.pvd::MainWindow.QWidget.QSplitter.pvd::Workflow.workflow_navigation",
+                         "name":  "Function Selection",
+                         "type":  "ControlType.ListItem",
+                         "enabled":  true
+                     },
+                     {
+                         "id":  "QApplication.pvd::MainWindow.QWidget.QSplitter.pvd::Workflow.workflow_navigation",
+                         "name":  "Settings",
+                         "type":  "ControlType.ListItem",
+                         "enabled":  true
+                     },
+                     {
+                         "id":  "QApplication.pvd::MainWindow.QWidget.QSplitter.pvd::Workflow.workflow_navigation",
+                         "name":  "Generate",
+                         "type":  "ControlType.ListItem",
+                         "enabled":  true
+                     },
+                     {
+                         "id":  "QApplication.pvd::MainWindow.QWidget.QSplitter.pvd::Workflow.workflow_navigation",
+                         "name":  "C++ / C Code",
+                         "type":  "ControlType.ListItem",
+                         "enabled":  true
+                     },
+                     {
+                         "id":  "QApplication.pvd::MainWindow.QWidget.QSplitter.pvd::Workflow.workflow_navigation",
+                         "name":  "ASM PIO Code",
+                         "type":  "ControlType.ListItem",
+                         "enabled":  true
+                     },
+                     {
+                         "id":  "QApplication.pvd::MainWindow.QWidget.QSplitter.pvd::Workflow.workflow_navigation",
+                         "name":  "Build",
+                         "type":  "ControlType.ListItem",
+                         "enabled":  true
+                     },
+                     {
+                         "id":  "QApplication.pvd::MainWindow.QWidget.QSplitter.pvd::Workflow.workflow_navigation",
+                         "name":  "Transfer",
+                         "type":  "ControlType.ListItem",
+                         "enabled":  true
+                     },
+                     {
+                         "id":  "QApplication.pvd::MainWindow.QWidget.QSplitter.pvd::Workflow.workflow_navigation",
+                         "name":  "Debug",
+                         "type":  "ControlType.ListItem",
+                         "enabled":  true
+                     },
+                     {
+                         "id":  "QApplication.pvd::MainWindow.QWidget.QSplitter.workflow_column3_stack",
+                         "name":  "",
+                         "type":  "ControlType.Pane",
+                         "enabled":  true
+                     },
+                     {
+                         "id":  "QApplication.pvd::MainWindow.QWidget.QSplitter.workflow_column3_stack.pvd::FunctionSelectionColumn3",
+                         "name":  "",
+                         "type":  "ControlType.Group",
+                         "enabled":  true
+                     },
+                     {
+                         "id":  "QApplication.pvd::MainWindow.QWidget.QSplitter.workflow_column3_stack.pvd::FunctionSelectionColumn3.QLabel",
+                         "name":  "Functions",
+                         "type":  "ControlType.Text",
+                         "enabled":  true
+                     },
+                     {
+                         "id":  "QApplication.pvd::MainWindow.QWidget.QSplitter.workflow_column3_stack.pvd::FunctionSelectionColumn3.function_selector",
+                         "name":  "",
+                         "type":  "ControlType.ComboBox",
+                         "enabled":  true
+                     },
+                     {
+                         "id":  "QApplication.pvd::MainWindow.QWidget.QSplitter.workflow_column3_stack.pvd::FunctionSelectionColumn3.QLabel",
+                         "name":  "Select a component to inspect valid functions.",
+                         "type":  "ControlType.Text",
+                         "enabled":  true
+                     },
+                     {
+                         "id":  "QApplication.pvd::MainWindow.QWidget.QSplitter.workflow_column2_stack",
+                         "name":  "",
+                         "type":  "ControlType.Pane",
+                         "enabled":  true
+                     },
+                     {
+                         "id":  "QApplication.pvd::MainWindow.QWidget.QSplitter.workflow_column2_stack.pvd::FunctionSelectionColumn2",
+                         "name":  "",
+                         "type":  "ControlType.Group",
+                         "enabled":  true
+                     },
+                     {
+                         "id":  "QApplication.pvd::MainWindow.QWidget.QSplitter.workflow_column2_stack.pvd::FunctionSelectionColumn2.QLabel",
+                         "name":  "Components",
+                         "type":  "ControlType.Text",
+                         "enabled":  true
+                     },
+                     {
+                         "id":  "QApplication.pvd::MainWindow.QWidget.QSplitter.workflow_column2_stack.pvd::FunctionSelectionColumn2.component_selection",
+                         "name":  "",
+                         "type":  "ControlType.List",
+                         "enabled":  true
+                     },
+                     {
+                         "id":  "QApplication.pvd::MainWindow.QWidget.QSplitter.workflow_column2_stack.pvd::FunctionSelectionColumn2.component_selection",
+                         "name":  "RP2350A",
+                         "type":  "ControlType.ListItem",
+                         "enabled":  true
+                     },
+                     {
+                         "id":  "QApplication.pvd::MainWindow.QWidget.QSplitter.workflow_column2_stack.pvd::FunctionSelectionColumn2.component_selection",
+                         "name":  "Wireless",
+                         "type":  "ControlType.ListItem",
+                         "enabled":  true
+                     },
+                     {
+                         "id":  "QApplication.pvd::MainWindow.QWidget.QSplitter.workflow_column2_stack.pvd::FunctionSelectionColumn2.component_selection",
+                         "name":  "USB Connector",
+                         "type":  "ControlType.ListItem",
+                         "enabled":  true
+                     },
+                     {
+                         "id":  "QApplication.pvd::MainWindow.QWidget.QSplitter.workflow_column2_stack.pvd::FunctionSelectionColumn2.component_selection",
+                         "name":  "BOOTSEL",
+                         "type":  "ControlType.ListItem",
+                         "enabled":  true
+                     },
+                     {
+                         "id":  "QApplication.pvd::MainWindow.QWidget.QSplitter.workflow_column2_stack.pvd::FunctionSelectionColumn2.component_selection",
+                         "name":  "Onboard LED",
+                         "type":  "ControlType.ListItem",
+                         "enabled":  true
+                     },
+                     {
+                         "id":  "QApplication.pvd::MainWindow.QWidget.QSplitter.workflow_column2_stack.pvd::FunctionSelectionColumn2.component_selection",
+                         "name":  "Debug Probe",
+                         "type":  "ControlType.ListItem",
+                         "enabled":  true
+                     },
+                     {
+                         "id":  "QApplication.pvd::MainWindow.QWidget.QSplitter.workflow_column2_stack.pvd::FunctionSelectionColumn2.component_selection",
+                         "name":  "Pin 1",
+                         "type":  "ControlType.ListItem",
+                         "enabled":  true
+                     },
+                     {
+                         "id":  "QApplication.pvd::MainWindow.QWidget.QSplitter.workflow_column2_stack.pvd::FunctionSelectionColumn2.component_selection",
+                         "name":  "Pin 2",
+                         "type":  "ControlType.ListItem",
+                         "enabled":  true
+                     },
+                     {
+                         "id":  "QApplication.pvd::MainWindow.QWidget.QSplitter.workflow_column2_stack.pvd::FunctionSelectionColumn2.component_selection",
+                         "name":  "Pin 3",
+                         "type":  "ControlType.ListItem",
+                         "enabled":  true
+                     },
+                     {
+                         "id":  "QApplication.pvd::MainWindow.QWidget.QSplitter.workflow_column2_stack.pvd::FunctionSelectionColumn2.component_selection",
+                         "name":  "Pin 4",
+                         "type":  "ControlType.ListItem",
+                         "enabled":  true
+                     },
+                     {
+                         "id":  "QApplication.pvd::MainWindow.QWidget.QSplitter.workflow_column2_stack.pvd::FunctionSelectionColumn2.component_selection",
+                         "name":  "Pin 5",
+                         "type":  "ControlType.ListItem",
+                         "enabled":  true
+                     },
+                     {
+                         "id":  "QApplication.pvd::MainWindow.QWidget.QSplitter.workflow_column2_stack.pvd::FunctionSelectionColumn2.component_selection",
+                         "name":  "Pin 6",
+                         "type":  "ControlType.ListItem",
+                         "enabled":  true
+                     },
+                     {
+                         "id":  "QApplication.pvd::MainWindow.QWidget.QSplitter.workflow_column2_stack.pvd::FunctionSelectionColumn2.component_selection",
+                         "name":  "Pin 7",
+                         "type":  "ControlType.ListItem",
+                         "enabled":  true
+                     },
+                     {
+                         "id":  "QApplication.pvd::MainWindow.QWidget.QSplitter.workflow_column2_stack.pvd::FunctionSelectionColumn2.component_selection",
+                         "name":  "Pin 8",
+                         "type":  "ControlType.ListItem",
+                         "enabled":  true
+                     },
+                     {
+                         "id":  "QApplication.pvd::MainWindow.QWidget.QSplitter.workflow_column2_stack.pvd::FunctionSelectionColumn2.component_selection",
+                         "name":  "Pin 9",
+                         "type":  "ControlType.ListItem",
+                         "enabled":  true
+                     },
+                     {
+                         "id":  "QApplication.pvd::MainWindow.QWidget.QSplitter.workflow_column2_stack.pvd::FunctionSelectionColumn2.component_selection",
+                         "name":  "Pin 10",
+                         "type":  "ControlType.ListItem",
+                         "enabled":  true
+                     },
+                     {
+                         "id":  "QApplication.pvd::MainWindow.QWidget.QSplitter.workflow_column2_stack.pvd::FunctionSelectionColumn2.component_selection",
+                         "name":  "Pin 11",
+                         "type":  "ControlType.ListItem",
+                         "enabled":  true
+                     },
+                     {
+                         "id":  "QApplication.pvd::MainWindow.QWidget.QSplitter.workflow_column2_stack.pvd::FunctionSelectionColumn2.component_selection",
+                         "name":  "Pin 12",
+                         "type":  "ControlType.ListItem",
+                         "enabled":  true
+                     },
+                     {
+                         "id":  "QApplication.pvd::MainWindow.QWidget.QSplitter.workflow_column2_stack.pvd::FunctionSelectionColumn2.component_selection",
+                         "name":  "Pin 13",
+                         "type":  "ControlType.ListItem",
+                         "enabled":  true
+                     },
+                     {
+                         "id":  "QApplication.pvd::MainWindow.QWidget.QSplitter.qt_splithandle_",
+                         "name":  "",
+                         "type":  "ControlType.Thumb",
+                         "enabled":  true
+                     },
+                     {
+                         "id":  "QApplication.pvd::MainWindow.QWidget.QSplitter.qt_splithandle_",
+                         "name":  "",
+                         "type":  "ControlType.Thumb",
+                         "enabled":  true
+                     },
+                     {
+                         "id":  "QApplication.pvd::MainWindow.QWidget.QSplitter.qt_splithandle_",
+                         "name":  "",
+                         "type":  "ControlType.Thumb",
+                         "enabled":  true
+                     }
+                 ],
+    "project_name":  "PVD_RP2350_MULTICORE_DEBUG",
+    "state":  "Development"
+}

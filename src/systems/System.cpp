@@ -227,20 +227,13 @@ void System::connectComponents()
     connect(project3_, &ProjectColumn3::openRequested, this,
             [this](const QString& path)
             {
-                if (!confirmDiscardUnsavedChanges("Open Project"))
-                    return;
-                latestBuildSuccessful_ = false;
-                lastBuiltProjectPath_.clear();
                 QString error;
-                if (!ProjectStore::load(path, &state_, &error))
+                if (!loadProjectFromPath(path, &error))
                 {
                     QMessageBox::warning(window_, "Open Project", error);
                     project3_->setStatus("Open failed: " + error, false);
                     return;
                 }
-                projectDirty_.markLoaded();
-                project3_->setDirty(false);
-                refreshProjectViews();
             });
     connect(project3_, &ProjectColumn3::saveRequested, this,
             [this](const QString& name, const QString& path)
@@ -271,12 +264,16 @@ void System::connectComponents()
                 QString error;
                 if (ProjectGenerator::generate(&state_, pio3_->programs(), &error))
                 {
+                    generate3_->setDiagnostic({});
                     pio3_->reloadGeneratedFiles(state_.generatedFiles);
                     generate3_->setWorkflowState(GenerateWorkflowState::Completed);
                     refreshProjectViews();
                 }
                 else
+                {
+                    generate3_->setDiagnostic(error);
                     generate3_->setWorkflowState(GenerateWorkflowState::Failed);
+                }
             });
     connect(code2_, &CodeColumn2::fileSelected, code3_, &CodeColumn3::loadFile);
     connect(code3_, &CodeColumn3::buildRequested, this,
@@ -344,13 +341,46 @@ void System::connectComponents()
                 }
             });
 }
+bool System::loadProjectFromPath(const QString& path, QString* error)
+{
+    /**Loads and applies a project through the same path used by the file-dialog action.
+
+    This is deliberately host-only: ProjectStore reads SQLite state and refreshes the
+    existing models; no debugger, OpenOCD, GDB, or target operation is started here.
+    */
+    if (!confirmDiscardUnsavedChanges("Open Project"))
+    {
+        if (error)
+            *error = QStringLiteral("Open Project cancelled.");
+        return false;
+    }
+    ApplicationState loaded;
+    if (!ProjectStore::load(path, &loaded, error))
+        return false;
+    latestBuildSuccessful_ = false;
+    lastBuiltProjectPath_.clear();
+    state_ = std::move(loaded);
+    projectDirty_.markLoaded();
+    if (project3_)
+        project3_->setDirty(false);
+    refreshProjectViews();
+    return true;
+}
+
 void System::handleFunctionChange(const QString& componentId, const FunctionOption& option, int gpio, int physicalPin)
 {
     /**Converts a UI function choice into project state and coordinates dependent components.*/
     latestBuildSuccessful_ = false;
     if (option.id == "disabled")
     {
+        FunctionSelection disabled = state_.selections.value(componentId);
+        disabled.componentId = componentId;
+        disabled.physicalPin = physicalPin;
+        disabled.gpio = gpio;
+        disabled.functionId = "disabled";
+        disabled.functionName = "Disabled";
         state_.selections.remove(componentId);
+        settings3_->showSelection(disabled);
     }
     else
     {
@@ -367,6 +397,7 @@ void System::handleFunctionChange(const QString& componentId, const FunctionOpti
             s.settings.insert("pull", s.settings.value("pull", "None"));
         }
         state_.selections[componentId] = s;
+        settings3_->showSelection(s);
     }
     markProjectDirty();
     settings2_->refresh(state_);

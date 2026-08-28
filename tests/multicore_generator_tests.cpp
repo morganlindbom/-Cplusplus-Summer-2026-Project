@@ -191,6 +191,107 @@ int main(int argc,char** argv)
     }
     {
         QTemporaryDir dir;
+        auto state=baseState(dir.path(),false);
+        auto a=selection("pwm-a","pwm0a",0), b=selection("pwm-b","pwm0b",1);
+        a.settings={{"enabled","true"},{"frequency_hz","1000"},{"wrap","999"},{"duty_percent","25"}};
+        b.settings={{"enabled","true"},{"frequency_hz","1000"},{"wrap","999"},{"duty_percent","75"}};
+        state.selections.insert(a.componentId,a); state.selections.insert(b.componentId,b);
+        QString report;
+        check(ProjectGenerator::validate(state,&report),"compatible same-slice PWM channels were rejected");
+        const QString main=generate(state);
+        check(main.count("pwm_init(") == 1,"same-slice PWM configuration was initialized more than once");
+        check(main.count("pwm_set_chan_level(") == 2,"same-slice PWM channels did not retain independent duty levels");
+        check(main.count("pwm_set_enabled(") == 1,"same-slice PWM slice was enabled more than once");
+        check(main.count("pwm_init(") == 1 && main.contains(", false);"),"PWM slice was not initialized stopped");
+        check(main.indexOf("pwm_set_chan_level(") < main.indexOf("pwm_set_enabled("),
+              "PWM slice was enabled before channel levels were initialized");
+        check(main.indexOf("pwm_set_counter(") < main.indexOf("pwm_set_enabled("),
+              "PWM counter was initialized after slice enable");
+        check(main.indexOf("pwm_set_chan_level(") < main.indexOf("gpio_set_function(0, GPIO_FUNC_PWM)"),
+              "PWM GPIO routing was enabled before the initial channel state");
+        check(!main.contains("pwm_init(slice_0, &cfg_0, true)"),"normal PWM startup still enables during init");
+        check(main.contains("pwm_set_chan_level(slice_0, chan_0") &&
+                  main.contains("pwm_set_chan_level(slice_0, chan_1") &&
+                  main.contains("pwm_set_enabled(slice_0, true)"),
+              "same-slice channels were not bound to one shared slice resource");
+    }
+    {
+        QTemporaryDir dir;
+        auto state=baseState(dir.path(),false);
+        auto a=selection("pwm-a","pwm0a",0), b=selection("pwm-b","pwm0b",1);
+        a.settings={{"enabled","true"},{"frequency_hz","1000"},{"wrap","999"}};
+        b.settings={{"enabled","true"},{"frequency_hz","2000"},{"wrap","999"}};
+        state.selections.insert(a.componentId,a); state.selections.insert(b.componentId,b);
+        QString report;
+        check(!ProjectGenerator::validate(state,&report) && report.contains("PWM slice 0 conflict") &&
+                  report.contains("GPIO0 / PWM0A") && report.contains("GPIO1 / PWM0B") &&
+                  report.contains("Frequency"),
+              "conflicting same-slice PWM frequency was not rejected with owners");
+    }
+    {
+        for (const auto polarity : {std::pair<const char*, const char*>("false", "false"),
+                                    {"true", "false"}, {"false", "true"}, {"true", "true"}})
+        {
+            QTemporaryDir dir;
+            auto state=baseState(dir.path(),false);
+            auto a=selection("pwm-a","pwm0a",0), b=selection("pwm-b","pwm0b",1);
+            a.settings={{"enabled","true"},{"frequency_hz","1000"},{"wrap","999"},{"invert_a",polarity.first}};
+            b.settings={{"enabled","true"},{"frequency_hz","1000"},{"wrap","999"},{"invert_b",polarity.second}};
+            state.selections.insert(a.componentId,a); state.selections.insert(b.componentId,b);
+            QString report;
+            check(ProjectGenerator::validate(state,&report),"different A/B polarity was treated as a slice conflict");
+            const QString main=generate(state);
+            check(main.contains(QString("pwm_config_set_output_polarity(&cfg_0, %1, %2)")
+                                     .arg(polarity.first, polarity.second)),
+                  "A/B polarity was not deterministically aggregated into the slice config");
+        }
+    }
+    {
+        QTemporaryDir dir;
+        auto state=baseState(dir.path(),false);
+        auto first=selection("pwm-a","pwm0a",0), mirrored=selection("pwm-a-mirrored","pwm0a",16);
+        first.settings={{"enabled","true"},{"frequency_hz","1000"},{"duty_percent","25"}};
+        mirrored.settings={{"enabled","true"},{"frequency_hz","1000"},{"duty_percent","25"}};
+        state.selections.insert(first.componentId,first); state.selections.insert(mirrored.componentId,mirrored);
+        QString report;
+        check(!ProjectGenerator::validate(state,&report) && report.contains("PWM slice 0 channel A") &&
+                  report.contains("pwm-a") && report.contains("pwm-a-mirrored"),
+              "duplicate GPIO routes to one PWM channel were not rejected explicitly");
+    }
+    {
+        QTemporaryDir dir;
+        auto state=baseState(dir.path(),false);
+        auto a=selection("pwm-a","pwm0a",0), b=selection("pwm-b","pwm0b",1);
+        a.settings={{"enabled","true"},{"frequency_hz","1000"},{"clock_divider","1.0"}};
+        b.settings={{"enabled","true"},{"frequency_hz","1000"},{"clock_divider","2.0"}};
+        state.selections.insert(a.componentId,a); state.selections.insert(b.componentId,b);
+        QString report;
+        check(!ProjectGenerator::validate(state,&report) && report.contains("PWM slice 0 conflict") &&
+                  report.contains("Clock divider"),
+              "conflicting PWM divider was not rejected");
+    }
+    {
+        QTemporaryDir dir;
+        auto state=baseState(dir.path(),false);
+        auto disabled=selection("pwm-disabled","pwm0a",0);
+        disabled.settings={{"enabled","false"},{"frequency_hz","1000"}};
+        state.selections.insert(disabled.componentId,disabled);
+        const QString main=generate(state);
+        check(main.count("pwm_init(") == 0 && main.count("pwm_set_enabled(") == 0,
+              "disabled PWM channel unexpectedly started a slice");
+    }
+    {
+        QTemporaryDir dir;
+        auto state=baseState(dir.path(),false);
+        auto a=selection("pwm-a","pwm0a",0), b=selection("pwm-b","pwm1a",2);
+        a.settings={{"enabled","true"},{"frequency_hz","1000"}};
+        b.settings={{"enabled","true"},{"frequency_hz","2000"}};
+        state.selections.insert(a.componentId,a); state.selections.insert(b.componentId,b);
+        QString report;
+        check(ProjectGenerator::validate(state,&report),"independent PWM slices were rejected");
+    }
+    {
+        QTemporaryDir dir;
         auto state=baseState(dir.path(),true);
         auto a=selection("pio-a","pio0",4),b=selection("pio-b","pio0",12);
         a.settings={{"instruction_words","20"},{"state_machine","0"}};

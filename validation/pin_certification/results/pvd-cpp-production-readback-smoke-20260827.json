@@ -1,0 +1,31 @@
+﻿{
+    "status":  "OUTER_WATCHDOG_FAILURE",
+    "failure_stage":  "SMOKE_WRAPPER",
+    "failure_reason":  "You cannot call a method on a null-valued expression.",
+    "stage_reached":  "UNKNOWN",
+    "last_command":  "",
+    "last_response":  "",
+    "openocd_ready":  false,
+    "gdb_connected":  false,
+    "target_halted":  false,
+    "evidence_read_started":  false,
+    "evidence_read_completed":  false,
+    "reset_command_count":  0,
+    "program_command_count":  0,
+    "continue_command_count":  0,
+    "outer_watchdog_triggered":  true,
+    "elapsed_ms":  7036,
+    "raw_log_path":  "validation/pin_certification/results/pvd-cpp-production-readback-smoke-20260827.log",
+    "deadline_budget":  {
+                            "OpenOcdReadyMs":  10000,
+                            "GdbConnectMs":  45000,
+                            "TargetHaltMs":  10000,
+                            "EvidenceMs":  60000,
+                            "CleanupMs":  15000,
+                            "SerializationMarginMs":  5000,
+                            "InnerWorstCaseMs":  145000,
+                            "OuterWatchdogMs":  160000
+                        },
+    "smoke_only":  true,
+    "cleanup_completed":  true
+}

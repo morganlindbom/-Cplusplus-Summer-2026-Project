@@ -1,0 +1,8 @@
+﻿{
+    "result":  "FAIL",
+    "stages":  {
+                   "Launch":  "PASS",
+                   "ProjectLoad":  "PASS"
+               },
+    "failure_boundary":  "PVD workflow page not reached: \u0027Debug\u0027"
+}

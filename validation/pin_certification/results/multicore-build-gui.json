@@ -1,0 +1,11 @@
+﻿{
+    "result":  "PASS",
+    "generate":  "PASS",
+    "configure":  "PASS",
+    "build":  "PASS",
+    "elf":  "D:\\ON DESCTOP\\HKR KURSER\\C++\\C++Summer 2026 Project7\\-Cplusplus-Summer-2026-Project\\validation\\rp2350_multicore_debug_project\\build\\PVD_RP2350_MULTICORE_DEBUG.elf",
+    "elf_timestamp_utc":  "2026-08-25T03:08:08.5427354Z",
+    "elf_size":  458604,
+    "uf2":  "D:\\ON DESCTOP\\HKR KURSER\\C++\\C++Summer 2026 Project7\\-Cplusplus-Summer-2026-Project\\validation\\rp2350_multicore_debug_project\\build\\PVD_RP2350_MULTICORE_DEBUG.uf2",
+    "cache":  "D:\\ON DESCTOP\\HKR KURSER\\C++\\C++Summer 2026 Project7\\-Cplusplus-Summer-2026-Project\\validation\\rp2350_multicore_debug_project\\build\\CMakeCache.txt"
+}

@@ -1,0 +1,4 @@
+READBACK_START run_id=post-program-readback-20260827T103642fffZ
+COMMAND 1: -data-evaluate-expression \"(int)observer_pwm0a_100hz_50_clean_gpio1_complete\"
+RESPONSE:
+105^error,msg="Invalid character '\\' in expression."

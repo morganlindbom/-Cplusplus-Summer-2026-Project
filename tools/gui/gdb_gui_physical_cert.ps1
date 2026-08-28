@@ -1,0 +1,33 @@
+# gdb_gui_physical_cert.ps1
+param([string]$Executable = "build-current/pico_visual_designer.exe", [string]$Database = "PICO2W.sqlite", [string]$ResultPath = "validation/pin_certification/results/gdb-gui-physical.json")
+$ErrorActionPreference = "Stop"
+Import-Module (Join-Path $PSScriptRoot "PvdGuiAutomation.psm1") -Force
+function C($r,[string]$id){$r.FindAll([System.Windows.Automation.TreeScope]::Descendants,[System.Windows.Automation.Condition]::TrueCondition)|Where-Object{$_.Current.AutomationId -eq $id -or $_.Current.AutomationId.EndsWith("."+$id)}|Select-Object -First 1}
+function I($x){[void]$x.GetCurrentPattern([System.Windows.Automation.InvokePattern]::Pattern).Invoke()}
+function T($x){try{$x.GetCurrentPattern([System.Windows.Automation.ValuePattern]::Pattern).Current.Value}catch{$x.Current.Name}}
+function P{[bool](Get-NetTCPConnection -LocalPort 3333 -State Listen -ErrorAction SilentlyContinue)}
+function Wait-Log($control,[string]$pattern,[int]$seconds=10){$deadline=(Get-Date).AddSeconds($seconds);while((Get-Date)-lt $deadline){if((T $control)-match $pattern){return $true};Start-Sleep -Milliseconds 250};return $false}
+$p=$null;$r=[ordered]@{stages=[ordered]@{};result="FAIL"}
+try{
+ Get-Process pico_visual_designer,openocd,arm-none-eabi-gdb -ErrorAction SilentlyContinue|Stop-Process -Force -ErrorAction SilentlyContinue
+ $p=Start-Process -FilePath (Resolve-Path $Executable).Path -ArgumentList "--certification-dialogs" -PassThru;Start-Sleep -Seconds 2
+ $w=Get-PvdWindow $p.Id;I(C $w "project_open");$d=Wait-PvdElement (Get-PvdWindow $p.Id) "pvd_automation_file_dialog" "";$f=C $d "fileNameEdit";$f.GetCurrentPattern([System.Windows.Automation.ValuePattern]::Pattern).SetValue((Resolve-Path $Database).Path);$b=@($d.FindAll([System.Windows.Automation.TreeScope]::Descendants,[System.Windows.Automation.Condition]::TrueCondition)|Where-Object{$_.Current.ControlType -eq [System.Windows.Automation.ControlType]::Button -and $_.Current.Name -eq "Open"})|Select-Object -First 1;I $b
+ Start-Sleep -Seconds 2;Navigate-PvdPage $p.Id "Debug"|Out-Null;Start-Sleep -Seconds 2;$w=Get-PvdWindow $p.Id
+ $ids=@("debug_status","debug_start","debug_stop","debug_halt","debug_continue","debug_step","debug_next","debug_backtrace","debug_registers","debug_command","debug_send_command","debug_log");$c=@{};foreach($id in $ids){$c[$id]=C $w $id;if(-not $c[$id]){throw "Missing $id"}}
+ I $c.debug_start;$ready=Wait-Log $c.debug_log "Remote debugging using localhost:3333|Debug session ready" 20;$r.stages.GdbStartConnect=if($ready){"PASS"}else{"FAIL"};$r.connected_status=T $c.debug_status
+ I $c.debug_halt;Start-Sleep -Seconds 2;$r.stages.Halt=if((T $c.debug_log)-match "OpenOCD halt command sent|halted"){"PASS"}else{"FAIL"}
+ I $c.debug_registers;$r.stages.Registers=if(Wait-Log $c.debug_log "r0\s+0x" 8){"PASS"}else{"FAIL"}
+ I $c.debug_backtrace;$r.stages.Backtrace=if(Wait-Log $c.debug_log "#0|Backtrace" 8){"PASS"}else{"FAIL"}
+ $cmd=$c.debug_command;$cmd.GetCurrentPattern([System.Windows.Automation.ValuePattern]::Pattern).SetValue("info address main");I $c.debug_send_command;Start-Sleep -Seconds 1;$cmd.GetCurrentPattern([System.Windows.Automation.ValuePattern]::Pattern).SetValue("break main");I $c.debug_send_command;Start-Sleep -Seconds 2;$r.stages.MainBreakpoint=if((T $c.debug_log)-match 'Symbol "main"|Breakpoint [0-9]+ at .*main|breakpoint .*main'){"PASS"}else{"FAIL"}
+ $cmd.GetCurrentPattern([System.Windows.Automation.ValuePattern]::Pattern).SetValue("monitor reset halt");I $c.debug_send_command;Start-Sleep -Seconds 1;$cmd.GetCurrentPattern([System.Windows.Automation.ValuePattern]::Pattern).SetValue("continue");I $c.debug_send_command;Start-Sleep -Seconds 3;$r.stages.BreakpointHit=if((T $c.debug_log)-match 'Breakpoint [0-9]+, main|Breakpoint [0-9]+ at .*main'){"PASS"}else{"FAIL"}
+ I $c.debug_step;Start-Sleep -Seconds 2;$stepLog=T $c.debug_log;$r.stages.Step=if($stepLog -match 'gdb> step\r?\n[\s\S]*?\(gdb\)'){"PASS"}else{"FAIL"}
+ I $c.debug_next;Start-Sleep -Seconds 2;$nextLog=T $c.debug_log;$r.stages.Next=if($nextLog -match 'gdb> next\r?\n[\s\S]*?\(gdb\)'){"PASS"}else{"FAIL"}
+ I $c.debug_continue;Start-Sleep -Seconds 1;I $c.debug_halt;Start-Sleep -Seconds 2;$r.stages.ContinueHalt=if((T $c.debug_log)-match "Continuing|Target halt requested|halted"){"PASS"}else{"FAIL"}
+ $cmd=$c.debug_command;$cmd.GetCurrentPattern([System.Windows.Automation.ValuePattern]::Pattern).SetValue("info registers");I $c.debug_send_command;Start-Sleep -Seconds 2;$r.stages.CustomCommand=if((T $c.debug_log)-match "r0\s+0x"){"PASS"}else{"FAIL"}
+ $cmd.GetCurrentPattern([System.Windows.Automation.ValuePattern]::Pattern).SetValue("info threads");I $c.debug_send_command;Start-Sleep -Seconds 2;$r.stages.Core1Detected=if((T $c.debug_log)-match "rp2350.cm1|Thread 2"){"PASS"}else{"FAIL"}
+ $cmd.GetCurrentPattern([System.Windows.Automation.ValuePattern]::Pattern).SetValue("thread 2");I $c.debug_send_command;Start-Sleep -Seconds 1;$cmd.GetCurrentPattern([System.Windows.Automation.ValuePattern]::Pattern).SetValue("info registers");I $c.debug_send_command;Start-Sleep -Seconds 2;$r.stages.Core1Registers=if((T $c.debug_log)-match "r0\s+0x"){"PASS"}else{"FAIL"}
+ $r.log_tail=(T $c.debug_log).Substring([Math]::Max(0,(T $c.debug_log).Length-6000));$r.stages.PvdGdbControls=if(($r.stages.Values|Where-Object{$_ -eq "FAIL"}).Count -eq 0){"PASS"}else{"FAIL"}
+ I $c.debug_stop;Start-Sleep -Seconds 3;$r.stages.Cleanup=if(-not(Get-Process arm-none-eabi-gdb,openocd -ErrorAction SilentlyContinue)-and -not(P)){"PASS"}else{"FAIL"}
+ I $c.debug_start;$second=Wait-Log $c.debug_log "Remote debugging using localhost:3333" 20;$r.stages.SecondGdbReconnect=if($second){"PASS"}else{"FAIL"};I $c.debug_halt;Start-Sleep -Seconds 1;I $c.debug_registers;Start-Sleep -Seconds 1;$r.stages.SecondPhysicalCommand=if((T $c.debug_log)-match "r0\s+0x"){"PASS"}else{"FAIL"};I $c.debug_stop;Start-Sleep -Seconds 3;$r.stages.SecondCleanup=if(-not(Get-Process arm-none-eabi-gdb,openocd -ErrorAction SilentlyContinue)-and -not(P)){"PASS"}else{"FAIL"};$r.result=if(($r.stages.Values|Where-Object{$_ -eq "FAIL"}).Count -eq 0){"PASS"}else{"FAIL"}
+}catch{$r.failure_boundary=$_.Exception.Message}finally{if($p-and-not$p.HasExited){$p.CloseMainWindow();Start-Sleep -Seconds 2;if(-not$p.HasExited){$p.Kill()}};Get-Process openocd,arm-none-eabi-gdb -ErrorAction SilentlyContinue|Stop-Process -Force -ErrorAction SilentlyContinue}
+$parent=Split-Path -Parent $ResultPath;if($parent){New-Item -ItemType Directory -Force -Path $parent|Out-Null};$r|ConvertTo-Json -Depth 8|Set-Content -Encoding UTF8 $ResultPath;$r|ConvertTo-Json -Depth 8

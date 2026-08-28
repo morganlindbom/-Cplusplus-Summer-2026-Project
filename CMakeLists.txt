@@ -117,7 +117,8 @@ if(BUILD_TESTING)
         ${BUILD_TRANSFER_CONTRACT_MOCS})
     target_include_directories(build_transfer_contract_tests PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/src")
     target_compile_definitions(build_transfer_contract_tests PRIVATE
-        PVD_RUNTIME_ROOT="${CMAKE_BINARY_DIR}/runtime")
+        PVD_RUNTIME_ROOT="${CMAKE_BINARY_DIR}/runtime"
+        PVD_SOURCE_ROOT="${CMAKE_CURRENT_SOURCE_DIR}")
     target_link_libraries(build_transfer_contract_tests PRIVATE Qt6::Widgets Qt6::Sql)
     add_test(NAME build_transfer_contract COMMAND build_transfer_contract_tests)
     set_tests_properties(build_transfer_contract PROPERTIES ENVIRONMENT "QT_QPA_PLATFORM=offscreen")
@@ -126,6 +127,7 @@ if(BUILD_TESTING)
         "${CMAKE_CURRENT_SOURCE_DIR}/src/systems/mainwindow/debug/debug_column3/DebugColumn3.hpp")
     add_executable(debug_contract_tests
         tests/debug_contract_tests.cpp
+        src/systems/debug/MiProtocol.cpp
         src/systems/database/SqliteUtil.cpp
         src/systems/mainwindow/debug/debug_column2/DebugColumn2.cpp
         src/systems/mainwindow/debug/debug_column3/DebugColumn3.cpp
@@ -136,4 +138,18 @@ if(BUILD_TESTING)
     target_link_libraries(debug_contract_tests PRIVATE Qt6::Widgets Qt6::Sql Qt6::Network)
     add_test(NAME debug_contract COMMAND debug_contract_tests)
     set_tests_properties(debug_contract PROPERTIES ENVIRONMENT "QT_QPA_PLATFORM=offscreen")
+    qt_wrap_cpp(POST_PROGRAM_DIAGNOSTIC_MOCS
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/systems/mainwindow/debug/debug_column3/DebugColumn3.hpp"
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/systems/mainwindow/transfer/transfer_column3/TransferColumn3.hpp")
+    add_executable(post_program_hardware_diagnostic
+        tests/post_program_hardware_diagnostic.cpp
+        src/systems/debug/MiProtocol.cpp
+        src/systems/database/SqliteUtil.cpp
+        src/systems/mainwindow/debug/debug_column3/DebugColumn3.cpp
+        src/systems/mainwindow/transfer/transfer_column3/TransferColumn3.cpp
+        ${POST_PROGRAM_DIAGNOSTIC_MOCS})
+    target_include_directories(post_program_hardware_diagnostic PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/src")
+    target_compile_definitions(post_program_hardware_diagnostic PRIVATE
+        PVD_RUNTIME_ROOT="${CMAKE_BINARY_DIR}/runtime")
+    target_link_libraries(post_program_hardware_diagnostic PRIVATE Qt6::Widgets Qt6::Network Qt6::Sql)
 endif()

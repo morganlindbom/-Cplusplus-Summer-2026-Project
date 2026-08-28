@@ -1,0 +1,48 @@
+﻿{
+    "result":  "PASS",
+    "certificate":  "CMSIS_DAP_ABSENT_FAILURE_PATH",
+    "admin_physical_disconnect":  true,
+    "stages":  {
+                   "launch":  "PASS",
+                   "debug_page_passive":  "PASS",
+                   "start_control_found":  "PASS",
+                   "start_ocd_invoked":  "PASS",
+                   "cmsis_dap_absence_detected":  "PASS",
+                   "bounded_failure":  "PASS",
+                   "no_gdb":  "PASS",
+                   "no_target_action":  "PASS",
+                   "openocd_terminated":  "PASS",
+                   "pvd_responsive":  "PASS",
+                   "ui_recoverable":  "PASS",
+                   "cleanup":  "PASS"
+               },
+    "gdb_started":  0,
+    "target_reset_program_halt":  0,
+    "unexpected_retry_count":  0,
+    "unrelated_processes":  "UNTOUCHED",
+    "requested_executable":  "D:\\ON DESCTOP\\HKR KURSER\\C++\\C++Summer 2026 Project7\\-Cplusplus-Summer-2026-Project\\build-current\\pico_visual_designer.exe",
+    "database":  "C:\\Users\\morga\\AppData\\Local\\Temp\\pvd-pwm-first-100hz-50-clean-20260827T005101711Z\\PWM_FIRST_100HZ_50_RETRY2.sqlite",
+    "initial":  {
+                    "pvd":  0,
+                    "openocd":  0,
+                    "gdb":  0,
+                    "port3333":  false
+                },
+    "pvd_pid":  15412,
+    "start_invoked_utc":  "2026-08-28T20:11:57.9305485Z",
+    "invocation_method":  "InvokePattern",
+    "status":  "OpenOCD stopped unexpectedly",
+    "openocd_log":  "Configured ELF: C:/Users/morga/AppData/Local/Temp/pvd-pwm-first-100hz-50-clean-20260827T005101711Z/build/PWM_FIRST_100HZ_50_RETRY2.elf\nOpenOCD QProcess program: C:/Users/morga/.pico-sdk/openocd/0.12.0+dev/openocd.exe\nOpenOCD QProcess arguments: -f | C:/Users/morga/.pico-sdk/openocd/0.12.0+dev/scripts/interface/cmsis-dap.cfg | -f | C:/Users/morga/.pico-sdk/openocd/0.12.0+dev/scripts/target/rp2350.cfg | -c | adapter speed 5000\nOpenOCD working directory: D:/ON DESCTOP/HKR KURSER/C++/C++Summer 2026 Project7/-Cplusplus-Summer-2026-Project\n$ C:/Users/morga/.pico-sdk/openocd/0.12.0+dev/openocd.exe -f C:/Users/morga/.pico-sdk/openocd/0.12.0+dev/scripts/interface/cmsis-dap.cfg -f C:/Users/morga/.pico-sdk/openocd/0.12.0+dev/scripts/target/rp2350.cfg -c adapter speed 5000\nOpen On-Chip Debugger 0.12.0+dev (2026-07-03-16:10)\nLicensed under GNU GPL v2\nFor bug reports, read\n\thttp://openocd.org/doc/doxygen/bugs.html\nInfo : [rp2350.cm0] Hardware thread awareness created\nInfo : [rp2350.cm1] Hardware thread awareness created\nocd_process_reset_inner\nadapter speed: 5000 kHz\nInfo : Listening on port 6666 for tcl connections\nInfo : Listening on port 4444 for telnet connections\nError: unable to find a matching CMSIS-DAP device\nOpenOCD exited (code 1, status 0).\nOpenOCD finished signal received: pid=0 exitCode=1 exitStatus=0 state=0",
+    "cmsis_dap_absence_detected":  true,
+    "failure_classification":  "CMSIS_DAP_UNAVAILABLE",
+    "openocd_exit_observed":  true,
+    "ui_state_after_failure":  "OpenOCD stopped unexpectedly",
+    "ui_recoverable":  true,
+    "port3333":  "FREE",
+    "final":  {
+                  "pvd":  0,
+                  "openocd":  0,
+                  "gdb":  0,
+                  "port3333":  false
+              }
+}

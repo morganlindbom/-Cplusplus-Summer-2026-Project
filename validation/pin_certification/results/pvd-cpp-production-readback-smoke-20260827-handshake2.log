@@ -1,0 +1,312 @@
+READBACK_START run_id=readback-20260827T083203756Z
+COMMAND 1: print (int)observer_pwm0a_100hz_50_clean_gpio1_complete
+RESPONSE:
+Remote debugging using localhost:3333
+0x2001041e in ?? ()
+(gdb) 
+COMMAND 2: print (int)observer_pwm0a_100hz_50_clean_gpio1_pass
+RESPONSE:
+$1 = 1
+(gdb)   Id   Target Id                                                   Frame 
+* 1    Thread 1 "rp2350.cm0" (Name: rp2350.cm0, state: breakpoint) 0x2001041e in ?? ()
+
+COMMAND 3: print (int)observer_pwm0a_100hz_50_clean_gpio1_sample_count
+RESPONSE:
+  2    Thread 2 "rp2350.cm1" (Name: rp2350.cm1, state: undefined)  0x000000da in ?? ()
+(gdb) $2 = 1
+(gdb) [Switching to thread 1 (Thread 1)]
+#0  0x2001041e in ?? ()
+(gdb) $3 = 16
+(gdb) 
+COMMAND 4: print (int)observer_pwm0a_100hz_50_clean_gpio1_transition_count
+RESPONSE:
+$4 = 12
+(gdb) 
+COMMAND 5: print (int)observer_pwm0a_100hz_50_clean_gpio1_transition_state[0]
+RESPONSE:
+$5 = 0
+(gdb) 
+COMMAND 6: print (unsigned long long)observer_pwm0a_100hz_50_clean_gpio1_transition_us[0]
+RESPONSE:
+$6 = 1353
+(gdb) 
+COMMAND 7: print (int)observer_pwm0a_100hz_50_clean_gpio1_transition_state[1]
+RESPONSE:
+$7 = 1
+(gdb) 
+COMMAND 8: print (unsigned long long)observer_pwm0a_100hz_50_clean_gpio1_transition_us[1]
+RESPONSE:
+$8 = 2083
+(gdb) 
+COMMAND 9: print (int)observer_pwm0a_100hz_50_clean_gpio1_transition_state[2]
+RESPONSE:
+$9 = 0
+(gdb) 
+COMMAND 10: print (unsigned long long)observer_pwm0a_100hz_50_clean_gpio1_transition_us[2]
+RESPONSE:
+$10 = 2811
+(gdb) 
+COMMAND 11: print (int)observer_pwm0a_100hz_50_clean_gpio1_transition_state[3]
+RESPONSE:
+$11 = 1
+(gdb) 
+COMMAND 12: print (unsigned long long)observer_pwm0a_100hz_50_clean_gpio1_transition_us[3]
+RESPONSE:
+$12 = 3541
+(gdb) 
+COMMAND 13: print (int)observer_pwm0a_100hz_50_clean_gpio1_transition_state[4]
+RESPONSE:
+$13 = 0
+(gdb) 
+COMMAND 14: print (unsigned long long)observer_pwm0a_100hz_50_clean_gpio1_transition_us[4]
+RESPONSE:
+$14 = 4269
+(gdb) 
+COMMAND 15: print (int)observer_pwm0a_100hz_50_clean_gpio1_transition_state[5]
+RESPONSE:
+$15 = 1
+(gdb) 
+COMMAND 16: print (unsigned long long)observer_pwm0a_100hz_50_clean_gpio1_transition_us[5]
+RESPONSE:
+$16 = 4999
+(gdb) 
+COMMAND 17: print (int)observer_pwm0a_100hz_50_clean_gpio1_transition_state[6]
+RESPONSE:
+$17 = 0
+(gdb) 
+COMMAND 18: print (unsigned long long)observer_pwm0a_100hz_50_clean_gpio1_transition_us[6]
+RESPONSE:
+$18 = 5728
+(gdb) 
+COMMAND 19: print (int)observer_pwm0a_100hz_50_clean_gpio1_transition_state[7]
+RESPONSE:
+$19 = 1
+(gdb) 
+COMMAND 20: print (unsigned long long)observer_pwm0a_100hz_50_clean_gpio1_transition_us[7]
+RESPONSE:
+$20 = 6458
+(gdb) 
+COMMAND 21: print (int)observer_pwm0a_100hz_50_clean_gpio1_transition_state[8]
+RESPONSE:
+$21 = 0
+(gdb) 
+COMMAND 22: print (unsigned long long)observer_pwm0a_100hz_50_clean_gpio1_transition_us[8]
+RESPONSE:
+$22 = 7186
+(gdb) 
+COMMAND 23: print (int)observer_pwm0a_100hz_50_clean_gpio1_transition_state[9]
+RESPONSE:
+$23 = 1
+(gdb) 
+COMMAND 24: print (unsigned long long)observer_pwm0a_100hz_50_clean_gpio1_transition_us[9]
+RESPONSE:
+$24 = 7915
+(gdb) 
+COMMAND 25: print (int)observer_pwm0a_100hz_50_clean_gpio1_transition_state[10]
+RESPONSE:
+$25 = 0
+(gdb) 
+COMMAND 26: print (unsigned long long)observer_pwm0a_100hz_50_clean_gpio1_transition_us[10]
+RESPONSE:
+$26 = 8643
+(gdb) 
+COMMAND 27: print (int)observer_pwm0a_100hz_50_clean_gpio1_transition_state[11]
+RESPONSE:
+$27 = 1
+(gdb) 
+COMMAND 28: print (unsigned long long)observer_pwm0a_100hz_50_clean_gpio1_transition_us[11]
+RESPONSE:
+$28 = 9374
+(gdb) 
+COMMAND 29: print (int)observer_pwm0a_100hz_50_clean_gpio1_overflow
+RESPONSE:
+$29 = 0
+(gdb) 
+COMMAND 30: print (unsigned int)observer_pwm0a_100hz_50_clean_gpio1_startup_dbgpause
+RESPONSE:
+$30 = 7
+(gdb) 
+COMMAND 31: print (unsigned int)observer_pwm0a_100hz_50_clean_gpio1_startup_timer_high
+RESPONSE:
+$31 = 0
+(gdb) 
+COMMAND 32: print (unsigned int)observer_pwm0a_100hz_50_clean_gpio1_startup_timer_low
+RESPONSE:
+$32 = 513
+(gdb) 
+COMMAND 33: print (unsigned long long)observer_pwm0a_100hz_50_clean_gpio1_startup_raw_timer_64
+RESPONSE:
+$33 = 513
+(gdb) 
+COMMAND 34: print (unsigned long long)observer_pwm0a_100hz_50_clean_gpio1_startup_time_us_64
+RESPONSE:
+$34 = 523
+(gdb) 
+COMMAND 35: print (unsigned int)observer_pwm0a_100hz_50_clean_gpio1_end_dbgpause
+RESPONSE:
+$35 = 7
+(gdb) 
+COMMAND 36: print (unsigned int)observer_pwm0a_100hz_50_clean_gpio1_end_timer_high
+RESPONSE:
+$36 = 0
+(gdb) 
+COMMAND 37: print (unsigned int)observer_pwm0a_100hz_50_clean_gpio1_end_timer_low
+RESPONSE:
+$37 = 9377
+(gdb) 
+COMMAND 38: print (unsigned long long)observer_pwm0a_100hz_50_clean_gpio1_end_raw_timer_64
+RESPONSE:
+$38 = 9377
+(gdb) 
+COMMAND 39: print (unsigned long long)observer_pwm0a_100hz_50_clean_gpio1_end_time_us_64
+RESPONSE:
+$39 = 9382
+(gdb) 
+COMMAND 40: print (int)observer_pwm0a_100hz_50_clean_gpio1_timer_progress_valid
+RESPONSE:
+$40 = 1
+(gdb) 
+COMMAND 41: print (unsigned int)observer_pwm0a_100hz_50_clean_gpio1_transition_timer_high[0]
+RESPONSE:
+$41 = 0
+(gdb) 
+COMMAND 42: print (unsigned int)observer_pwm0a_100hz_50_clean_gpio1_transition_timer_low[0]
+RESPONSE:
+$42 = 1355
+(gdb) 
+COMMAND 43: print (unsigned long long)observer_pwm0a_100hz_50_clean_gpio1_transition_raw_timer_64[0]
+RESPONSE:
+$43 = 1355
+(gdb) 
+COMMAND 44: print (unsigned int)observer_pwm0a_100hz_50_clean_gpio1_transition_timer_high[1]
+RESPONSE:
+$44 = 0
+(gdb) 
+COMMAND 45: print (unsigned int)observer_pwm0a_100hz_50_clean_gpio1_transition_timer_low[1]
+RESPONSE:
+$45 = 2084
+(gdb) 
+COMMAND 46: print (unsigned long long)observer_pwm0a_100hz_50_clean_gpio1_transition_raw_timer_64[1]
+RESPONSE:
+$46 = 2084
+(gdb) 
+COMMAND 47: print (unsigned int)observer_pwm0a_100hz_50_clean_gpio1_transition_timer_high[2]
+RESPONSE:
+$47 = 0
+(gdb) 
+COMMAND 48: print (unsigned int)observer_pwm0a_100hz_50_clean_gpio1_transition_timer_low[2]
+RESPONSE:
+$48 = 2812
+(gdb) 
+COMMAND 49: print (unsigned long long)observer_pwm0a_100hz_50_clean_gpio1_transition_raw_timer_64[2]
+RESPONSE:
+$49 = 2812
+(gdb) 
+COMMAND 50: print (unsigned int)observer_pwm0a_100hz_50_clean_gpio1_transition_timer_high[3]
+RESPONSE:
+$50 = 0
+(gdb) 
+COMMAND 51: print (unsigned int)observer_pwm0a_100hz_50_clean_gpio1_transition_timer_low[3]
+RESPONSE:
+$51 = 3542
+(gdb) 
+COMMAND 52: print (unsigned long long)observer_pwm0a_100hz_50_clean_gpio1_transition_raw_timer_64[3]
+RESPONSE:
+$52 = 3542
+(gdb) 
+COMMAND 53: print (unsigned int)observer_pwm0a_100hz_50_clean_gpio1_transition_timer_high[4]
+RESPONSE:
+$53 = 0
+(gdb) 
+COMMAND 54: print (unsigned int)observer_pwm0a_100hz_50_clean_gpio1_transition_timer_low[4]
+RESPONSE:
+$54 = 4270
+(gdb) 
+COMMAND 55: print (unsigned long long)observer_pwm0a_100hz_50_clean_gpio1_transition_raw_timer_64[4]
+RESPONSE:
+$55 = 4270
+(gdb) 
+COMMAND 56: print (unsigned int)observer_pwm0a_100hz_50_clean_gpio1_transition_timer_high[5]
+RESPONSE:
+$56 = 0
+(gdb) 
+COMMAND 57: print (unsigned int)observer_pwm0a_100hz_50_clean_gpio1_transition_timer_low[5]
+RESPONSE:
+$57 = 5000
+(gdb) 
+COMMAND 58: print (unsigned long long)observer_pwm0a_100hz_50_clean_gpio1_transition_raw_timer_64[5]
+RESPONSE:
+$58 = 5000
+(gdb) 
+COMMAND 59: print (unsigned int)observer_pwm0a_100hz_50_clean_gpio1_transition_timer_high[6]
+RESPONSE:
+$59 = 0
+(gdb) 
+COMMAND 60: print (unsigned int)observer_pwm0a_100hz_50_clean_gpio1_transition_timer_low[6]
+RESPONSE:
+$60 = 5729
+(gdb) 
+COMMAND 61: print (unsigned long long)observer_pwm0a_100hz_50_clean_gpio1_transition_raw_timer_64[6]
+RESPONSE:
+$61 = 5729
+(gdb) 
+COMMAND 62: print (unsigned int)observer_pwm0a_100hz_50_clean_gpio1_transition_timer_high[7]
+RESPONSE:
+$62 = 0
+(gdb) 
+COMMAND 63: print (unsigned int)observer_pwm0a_100hz_50_clean_gpio1_transition_timer_low[7]
+RESPONSE:
+$63 = 6459
+(gdb) 
+COMMAND 64: print (unsigned long long)observer_pwm0a_100hz_50_clean_gpio1_transition_raw_timer_64[7]
+RESPONSE:
+$64 = 6459
+(gdb) 
+COMMAND 65: print (unsigned int)observer_pwm0a_100hz_50_clean_gpio1_transition_timer_high[8]
+RESPONSE:
+$65 = 0
+(gdb) 
+COMMAND 66: print (unsigned int)observer_pwm0a_100hz_50_clean_gpio1_transition_timer_low[8]
+RESPONSE:
+$66 = 7187
+(gdb) 
+COMMAND 67: print (unsigned long long)observer_pwm0a_100hz_50_clean_gpio1_transition_raw_timer_64[8]
+RESPONSE:
+$67 = 7187
+(gdb) 
+COMMAND 68: print (unsigned int)observer_pwm0a_100hz_50_clean_gpio1_transition_timer_high[9]
+RESPONSE:
+$68 = 0
+(gdb) 
+COMMAND 69: print (unsigned int)observer_pwm0a_100hz_50_clean_gpio1_transition_timer_low[9]
+RESPONSE:
+$69 = 7916
+(gdb) 
+COMMAND 70: print (unsigned long long)observer_pwm0a_100hz_50_clean_gpio1_transition_raw_timer_64[9]
+RESPONSE:
+$70 = 7916
+(gdb) 
+COMMAND 71: print (unsigned int)observer_pwm0a_100hz_50_clean_gpio1_transition_timer_high[10]
+RESPONSE:
+$71 = 0
+(gdb) 
+COMMAND 72: print (unsigned int)observer_pwm0a_100hz_50_clean_gpio1_transition_timer_low[10]
+RESPONSE:
+$72 = 8645
+(gdb) 
+COMMAND 73: print (unsigned long long)observer_pwm0a_100hz_50_clean_gpio1_transition_raw_timer_64[10]
+RESPONSE:
+$73 = 8645
+(gdb) 
+COMMAND 74: print (unsigned int)observer_pwm0a_100hz_50_clean_gpio1_transition_timer_high[11]
+RESPONSE:
+$74 = 0
+(gdb) 
+COMMAND 75: print (unsigned int)observer_pwm0a_100hz_50_clean_gpio1_transition_timer_low[11]
+RESPONSE:
+$75 = 9375
+(gdb) 
+COMMAND 76: print (unsigned long long)observer_pwm0a_100hz_50_clean_gpio1_transition_raw_timer_64[11]
+RESPONSE:
+$76 = 9375
+(gdb) 

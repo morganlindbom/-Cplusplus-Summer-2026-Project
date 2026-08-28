@@ -1,0 +1,274 @@
+READBACK_START run_id=readback-20260827T120754500Z
+COMMAND 1: -data-evaluate-expression "(int)observer_pwm0a_100hz_50_clean_gpio1_complete"
+RESPONSE:
+105^done,value="1"
+COMMAND 2: -data-evaluate-expression "(int)observer_pwm0a_100hz_50_clean_gpio1_pass"
+RESPONSE:
+106^done,value="1"
+COMMAND 3: -data-evaluate-expression "(int)observer_pwm0a_100hz_50_clean_gpio1_sample_count"
+RESPONSE:
+107^done,value="16"
+COMMAND 4: -data-evaluate-expression "(int)observer_pwm0a_100hz_50_clean_gpio1_transition_count"
+RESPONSE:
+108^done,value="12"
+COMMAND 5: -data-evaluate-expression "(int)observer_pwm0a_100hz_50_clean_gpio1_transition_state[0]"
+RESPONSE:
+109^done,value="0"
+COMMAND 6: -data-evaluate-expression "(unsigned long long)observer_pwm0a_100hz_50_clean_gpio1_transition_us[0]"
+RESPONSE:
+110^done,value="1356"
+COMMAND 7: -data-evaluate-expression "(int)observer_pwm0a_100hz_50_clean_gpio1_transition_state[1]"
+RESPONSE:
+111^done,value="1"
+COMMAND 8: -data-evaluate-expression "(unsigned long long)observer_pwm0a_100hz_50_clean_gpio1_transition_us[1]"
+RESPONSE:
+112^done,value="2087"
+COMMAND 9: -data-evaluate-expression "(int)observer_pwm0a_100hz_50_clean_gpio1_transition_state[2]"
+RESPONSE:
+113^done,value="0"
+COMMAND 10: -data-evaluate-expression "(unsigned long long)observer_pwm0a_100hz_50_clean_gpio1_transition_us[2]"
+RESPONSE:
+114^done,value="2816"
+COMMAND 11: -data-evaluate-expression "(int)observer_pwm0a_100hz_50_clean_gpio1_transition_state[3]"
+RESPONSE:
+115^done,value="1"
+COMMAND 12: -data-evaluate-expression "(unsigned long long)observer_pwm0a_100hz_50_clean_gpio1_transition_us[3]"
+RESPONSE:
+116^done,value="3544"
+COMMAND 13: -data-evaluate-expression "(int)observer_pwm0a_100hz_50_clean_gpio1_transition_state[4]"
+RESPONSE:
+117^done,value="0"
+COMMAND 14: -data-evaluate-expression "(unsigned long long)observer_pwm0a_100hz_50_clean_gpio1_transition_us[4]"
+RESPONSE:
+118^done,value="4273"
+COMMAND 15: -data-evaluate-expression "(int)observer_pwm0a_100hz_50_clean_gpio1_transition_state[5]"
+RESPONSE:
+119^done,value="1"
+COMMAND 16: -data-evaluate-expression "(unsigned long long)observer_pwm0a_100hz_50_clean_gpio1_transition_us[5]"
+RESPONSE:
+120^done,value="5004"
+COMMAND 17: -data-evaluate-expression "(int)observer_pwm0a_100hz_50_clean_gpio1_transition_state[6]"
+RESPONSE:
+121^done,value="0"
+COMMAND 18: -data-evaluate-expression "(unsigned long long)observer_pwm0a_100hz_50_clean_gpio1_transition_us[6]"
+RESPONSE:
+122^done,value="5731"
+COMMAND 19: -data-evaluate-expression "(int)observer_pwm0a_100hz_50_clean_gpio1_transition_state[7]"
+RESPONSE:
+123^done,value="1"
+COMMAND 20: -data-evaluate-expression "(unsigned long long)observer_pwm0a_100hz_50_clean_gpio1_transition_us[7]"
+RESPONSE:
+124^done,value="6462"
+COMMAND 21: -data-evaluate-expression "(int)observer_pwm0a_100hz_50_clean_gpio1_transition_state[8]"
+RESPONSE:
+125^done,value="0"
+COMMAND 22: -data-evaluate-expression "(unsigned long long)observer_pwm0a_100hz_50_clean_gpio1_transition_us[8]"
+RESPONSE:
+126^done,value="7189"
+COMMAND 23: -data-evaluate-expression "(int)observer_pwm0a_100hz_50_clean_gpio1_transition_state[9]"
+RESPONSE:
+127^done,value="1"
+COMMAND 24: -data-evaluate-expression "(unsigned long long)observer_pwm0a_100hz_50_clean_gpio1_transition_us[9]"
+RESPONSE:
+128^done,value="7920"
+COMMAND 25: -data-evaluate-expression "(int)observer_pwm0a_100hz_50_clean_gpio1_transition_state[10]"
+RESPONSE:
+129^done,value="0"
+COMMAND 26: -data-evaluate-expression "(unsigned long long)observer_pwm0a_100hz_50_clean_gpio1_transition_us[10]"
+RESPONSE:
+130^done,value="8649"
+COMMAND 27: -data-evaluate-expression "(int)observer_pwm0a_100hz_50_clean_gpio1_transition_state[11]"
+RESPONSE:
+131^done,value="1"
+COMMAND 28: -data-evaluate-expression "(unsigned long long)observer_pwm0a_100hz_50_clean_gpio1_transition_us[11]"
+RESPONSE:
+132^done,value="9378"
+COMMAND 29: -data-evaluate-expression "(int)observer_pwm0a_100hz_50_clean_gpio1_overflow"
+RESPONSE:
+133^done,value="0"
+COMMAND 30: -data-evaluate-expression "(unsigned int)observer_pwm0a_100hz_50_clean_gpio1_startup_dbgpause"
+RESPONSE:
+134^done,value="7"
+COMMAND 31: -data-evaluate-expression "(unsigned int)observer_pwm0a_100hz_50_clean_gpio1_startup_timer_high"
+RESPONSE:
+135^done,value="0"
+COMMAND 32: -data-evaluate-expression "(unsigned int)observer_pwm0a_100hz_50_clean_gpio1_startup_timer_low"
+RESPONSE:
+136^done,value="510"
+COMMAND 33: -data-evaluate-expression "(unsigned long long)observer_pwm0a_100hz_50_clean_gpio1_startup_raw_timer_64"
+RESPONSE:
+137^done,value="510"
+COMMAND 34: -data-evaluate-expression "(unsigned long long)observer_pwm0a_100hz_50_clean_gpio1_startup_time_us_64"
+RESPONSE:
+138^done,value="521"
+COMMAND 35: -data-evaluate-expression "(unsigned int)observer_pwm0a_100hz_50_clean_gpio1_end_dbgpause"
+RESPONSE:
+139^done,value="7"
+COMMAND 36: -data-evaluate-expression "(unsigned int)observer_pwm0a_100hz_50_clean_gpio1_end_timer_high"
+RESPONSE:
+140^done,value="0"
+COMMAND 37: -data-evaluate-expression "(unsigned int)observer_pwm0a_100hz_50_clean_gpio1_end_timer_low"
+RESPONSE:
+141^done,value="9381"
+COMMAND 38: -data-evaluate-expression "(unsigned long long)observer_pwm0a_100hz_50_clean_gpio1_end_raw_timer_64"
+RESPONSE:
+142^done,value="9381"
+COMMAND 39: -data-evaluate-expression "(unsigned long long)observer_pwm0a_100hz_50_clean_gpio1_end_time_us_64"
+RESPONSE:
+143^done,value="9385"
+COMMAND 40: -data-evaluate-expression "(int)observer_pwm0a_100hz_50_clean_gpio1_timer_progress_valid"
+RESPONSE:
+144^done,value="1"
+COMMAND 41: -data-evaluate-expression "(unsigned int)observer_pwm0a_100hz_50_clean_gpio1_startup_resets_reset"
+RESPONSE:
+145^done,value="0"
+COMMAND 42: -data-evaluate-expression "(unsigned int)observer_pwm0a_100hz_50_clean_gpio1_startup_resets_reset_done"
+RESPONSE:
+146^done,value="536870911"
+COMMAND 43: -data-evaluate-expression "(unsigned int)observer_pwm0a_100hz_50_clean_gpio1_startup_timer0_dbgpause"
+RESPONSE:
+147^done,value="7"
+COMMAND 44: -data-evaluate-expression "(unsigned int)observer_pwm0a_100hz_50_clean_gpio1_startup_timer0_pause"
+RESPONSE:
+148^done,value="0"
+COMMAND 45: -data-evaluate-expression "(unsigned int)observer_pwm0a_100hz_50_clean_gpio1_startup_timer0_source"
+RESPONSE:
+149^done,value="0"
+COMMAND 46: -data-evaluate-expression "(unsigned int)observer_pwm0a_100hz_50_clean_gpio1_startup_timer0_timerawh"
+RESPONSE:
+150^done,value="0"
+COMMAND 47: -data-evaluate-expression "(unsigned int)observer_pwm0a_100hz_50_clean_gpio1_startup_timer0_timerawl"
+RESPONSE:
+151^done,value="534"
+COMMAND 48: -data-evaluate-expression "(unsigned int)observer_pwm0a_100hz_50_clean_gpio1_end_resets_reset"
+RESPONSE:
+152^done,value="0"
+COMMAND 49: -data-evaluate-expression "(unsigned int)observer_pwm0a_100hz_50_clean_gpio1_end_resets_reset_done"
+RESPONSE:
+153^done,value="536870911"
+COMMAND 50: -data-evaluate-expression "(unsigned int)observer_pwm0a_100hz_50_clean_gpio1_end_timer0_dbgpause"
+RESPONSE:
+154^done,value="7"
+COMMAND 51: -data-evaluate-expression "(unsigned int)observer_pwm0a_100hz_50_clean_gpio1_end_timer0_pause"
+RESPONSE:
+155^done,value="0"
+COMMAND 52: -data-evaluate-expression "(unsigned int)observer_pwm0a_100hz_50_clean_gpio1_end_timer0_source"
+RESPONSE:
+156^done,value="0"
+COMMAND 53: -data-evaluate-expression "(unsigned int)observer_pwm0a_100hz_50_clean_gpio1_end_timer0_timerawh"
+RESPONSE:
+157^done,value="0"
+COMMAND 54: -data-evaluate-expression "(unsigned int)observer_pwm0a_100hz_50_clean_gpio1_end_timer0_timerawl"
+RESPONSE:
+158^done,value="500529"
+COMMAND 55: -data-evaluate-expression "(int)observer_pwm0a_100hz_50_clean_gpio1_end_register_snapshot_captured"
+RESPONSE:
+159^done,value="1"
+COMMAND 56: -data-evaluate-expression "(unsigned int)observer_pwm0a_100hz_50_clean_gpio1_transition_timer_high[0]"
+RESPONSE:
+160^done,value="0"
+COMMAND 57: -data-evaluate-expression "(unsigned int)observer_pwm0a_100hz_50_clean_gpio1_transition_timer_low[0]"
+RESPONSE:
+161^done,value="1359"
+COMMAND 58: -data-evaluate-expression "(unsigned long long)observer_pwm0a_100hz_50_clean_gpio1_transition_raw_timer_64[0]"
+RESPONSE:
+162^done,value="1359"
+COMMAND 59: -data-evaluate-expression "(unsigned int)observer_pwm0a_100hz_50_clean_gpio1_transition_timer_high[1]"
+RESPONSE:
+163^done,value="0"
+COMMAND 60: -data-evaluate-expression "(unsigned int)observer_pwm0a_100hz_50_clean_gpio1_transition_timer_low[1]"
+RESPONSE:
+164^done,value="2088"
+COMMAND 61: -data-evaluate-expression "(unsigned long long)observer_pwm0a_100hz_50_clean_gpio1_transition_raw_timer_64[1]"
+RESPONSE:
+165^done,value="2088"
+COMMAND 62: -data-evaluate-expression "(unsigned int)observer_pwm0a_100hz_50_clean_gpio1_transition_timer_high[2]"
+RESPONSE:
+166^done,value="0"
+COMMAND 63: -data-evaluate-expression "(unsigned int)observer_pwm0a_100hz_50_clean_gpio1_transition_timer_low[2]"
+RESPONSE:
+167^done,value="2817"
+COMMAND 64: -data-evaluate-expression "(unsigned long long)observer_pwm0a_100hz_50_clean_gpio1_transition_raw_timer_64[2]"
+RESPONSE:
+168^done,value="2817"
+COMMAND 65: -data-evaluate-expression "(unsigned int)observer_pwm0a_100hz_50_clean_gpio1_transition_timer_high[3]"
+RESPONSE:
+169^done,value="0"
+COMMAND 66: -data-evaluate-expression "(unsigned int)observer_pwm0a_100hz_50_clean_gpio1_transition_timer_low[3]"
+RESPONSE:
+170^done,value="3545"
+COMMAND 67: -data-evaluate-expression "(unsigned long long)observer_pwm0a_100hz_50_clean_gpio1_transition_raw_timer_64[3]"
+RESPONSE:
+171^done,value="3545"
+COMMAND 68: -data-evaluate-expression "(unsigned int)observer_pwm0a_100hz_50_clean_gpio1_transition_timer_high[4]"
+RESPONSE:
+172^done,value="0"
+COMMAND 69: -data-evaluate-expression "(unsigned int)observer_pwm0a_100hz_50_clean_gpio1_transition_timer_low[4]"
+RESPONSE:
+173^done,value="4274"
+COMMAND 70: -data-evaluate-expression "(unsigned long long)observer_pwm0a_100hz_50_clean_gpio1_transition_raw_timer_64[4]"
+RESPONSE:
+174^done,value="4274"
+COMMAND 71: -data-evaluate-expression "(unsigned int)observer_pwm0a_100hz_50_clean_gpio1_transition_timer_high[5]"
+RESPONSE:
+175^done,value="0"
+COMMAND 72: -data-evaluate-expression "(unsigned int)observer_pwm0a_100hz_50_clean_gpio1_transition_timer_low[5]"
+RESPONSE:
+176^done,value="5005"
+COMMAND 73: -data-evaluate-expression "(unsigned long long)observer_pwm0a_100hz_50_clean_gpio1_transition_raw_timer_64[5]"
+RESPONSE:
+177^done,value="5005"
+COMMAND 74: -data-evaluate-expression "(unsigned int)observer_pwm0a_100hz_50_clean_gpio1_transition_timer_high[6]"
+RESPONSE:
+178^done,value="0"
+COMMAND 75: -data-evaluate-expression "(unsigned int)observer_pwm0a_100hz_50_clean_gpio1_transition_timer_low[6]"
+RESPONSE:
+179^done,value="5732"
+COMMAND 76: -data-evaluate-expression "(unsigned long long)observer_pwm0a_100hz_50_clean_gpio1_transition_raw_timer_64[6]"
+RESPONSE:
+180^done,value="5732"
+COMMAND 77: -data-evaluate-expression "(unsigned int)observer_pwm0a_100hz_50_clean_gpio1_transition_timer_high[7]"
+RESPONSE:
+181^done,value="0"
+COMMAND 78: -data-evaluate-expression "(unsigned int)observer_pwm0a_100hz_50_clean_gpio1_transition_timer_low[7]"
+RESPONSE:
+182^done,value="6463"
+COMMAND 79: -data-evaluate-expression "(unsigned long long)observer_pwm0a_100hz_50_clean_gpio1_transition_raw_timer_64[7]"
+RESPONSE:
+183^done,value="6463"
+COMMAND 80: -data-evaluate-expression "(unsigned int)observer_pwm0a_100hz_50_clean_gpio1_transition_timer_high[8]"
+RESPONSE:
+184^done,value="0"
+COMMAND 81: -data-evaluate-expression "(unsigned int)observer_pwm0a_100hz_50_clean_gpio1_transition_timer_low[8]"
+RESPONSE:
+185^done,value="7190"
+COMMAND 82: -data-evaluate-expression "(unsigned long long)observer_pwm0a_100hz_50_clean_gpio1_transition_raw_timer_64[8]"
+RESPONSE:
+186^done,value="7190"
+COMMAND 83: -data-evaluate-expression "(unsigned int)observer_pwm0a_100hz_50_clean_gpio1_transition_timer_high[9]"
+RESPONSE:
+187^done,value="0"
+COMMAND 84: -data-evaluate-expression "(unsigned int)observer_pwm0a_100hz_50_clean_gpio1_transition_timer_low[9]"
+RESPONSE:
+188^done,value="7921"
+COMMAND 85: -data-evaluate-expression "(unsigned long long)observer_pwm0a_100hz_50_clean_gpio1_transition_raw_timer_64[9]"
+RESPONSE:
+189^done,value="7921"
+COMMAND 86: -data-evaluate-expression "(unsigned int)observer_pwm0a_100hz_50_clean_gpio1_transition_timer_high[10]"
+RESPONSE:
+190^done,value="0"
+COMMAND 87: -data-evaluate-expression "(unsigned int)observer_pwm0a_100hz_50_clean_gpio1_transition_timer_low[10]"
+RESPONSE:
+191^done,value="8650"
+COMMAND 88: -data-evaluate-expression "(unsigned long long)observer_pwm0a_100hz_50_clean_gpio1_transition_raw_timer_64[10]"
+RESPONSE:
+192^done,value="8650"
+COMMAND 89: -data-evaluate-expression "(unsigned int)observer_pwm0a_100hz_50_clean_gpio1_transition_timer_high[11]"
+RESPONSE:
+193^done,value="0"
+COMMAND 90: -data-evaluate-expression "(unsigned int)observer_pwm0a_100hz_50_clean_gpio1_transition_timer_low[11]"
+RESPONSE:
+194^done,value="9379"
+COMMAND 91: -data-evaluate-expression "(unsigned long long)observer_pwm0a_100hz_50_clean_gpio1_transition_raw_timer_64[11]"
+RESPONSE:
+195^done,value="9379"
